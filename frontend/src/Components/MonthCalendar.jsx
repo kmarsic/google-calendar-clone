@@ -2,7 +2,7 @@
 import './../styles/monthCalendar.scss';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { TaskWindow } from './Tasks/TaskWindow';
+import { NewTaskForm } from './Tasks/NewTaskForm';
 
 export function MonthCalendar({selectedDate, handleDateClick}) {
   
@@ -62,7 +62,7 @@ export function MonthCalendar({selectedDate, handleDateClick}) {
               handleItemClick(parsedDate);
               }
               }>
-              {clickedItem === parsedDate ? <TaskWindow/> : null}
+              {clickedItem === parsedDate ? <NewTaskForm/> : null}
               {j === 1 ? date.toLocaleString("default", {month:"short"}) + " " + j : j}
           </div>
       )

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import './../../styles/taskSidebar.scss'
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,13 +14,10 @@ export const TaskSidebar = ({burgerOpen}) => {
     dispatch(getData());
     setServerData(fetchedData)
     }, [burgerOpen])
-
-    console.log(serverData.data)
     return (
         <div className={burgerOpen ? 'open sidebar' : 'closed sidebar'}>
             <ul className='taskList'>
                 {serverData.data.map(user => {
-                    console.log(user)
                     return(
                         <li key={user.id}>{user.title}</li>
                     )

@@ -9,7 +9,6 @@ export function NewTaskForm () {
 
     const onInputChange = e => setInputValue(e.target.value);
 
-
     const updateData = async (updatedData) => {
         try {
             const response = await fetch(`http://localhost:9000/tasks`, {
@@ -28,19 +27,16 @@ export function NewTaskForm () {
             console.log('Updated data:', updated);
             return updated;
         } catch (error) {
-            // Handle the error here
             console.error('Error updating data:', error);
-            throw error;
         }
     }
-
 
     function handleSubmit(e) {
         if (e.type === "submit") {
                 e.preventDefault();
             }
         if (inputValue === "") return;
-        const updatedData = {
+        const updatedData = { 
             id: nanoid(),
             title: inputValue,
             completed: false
@@ -52,25 +48,22 @@ export function NewTaskForm () {
     
 
     return(
-    <form onSubmit={handleSubmit} className="form">
-        <label className="form-control">
-            <input
-            className="check"
-            type="checkbox" 
-            value={inputValue} 
-            defaultChecked={false} 
-            
-            />
-        </label >
-        <div className="input">
-            <input type="text"
-            id="new-input"
-            placeholder="Create a new task..." 
-            value={inputValue} 
-            onChange={onInputChange}
-            />
-        </div>
+    <div className="event-add">
+        <form onSubmit={handleSubmit} className="form">
+            <div>
+                <input type="text"
+                id="new-input"
+                placeholder="Create a new task..."
+                value={inputValue}
+                onChange={onInputChange}
+                />
+            </div>
+            <div className="event-type">
+                <div><span>Event</span></div>
+                <div>Task</div>
+            </div>
         
-    </form>
+        </form>
+    </div>
     )
 }
