@@ -1,0 +1,22 @@
+.closed {
+    margin-left: -200px;
+    transition: margin 300ms linear;
+}
+
+.open {
+    margin-left: 0;
+    transition: margin 300ms linear;
+}
+
+.sidebar {
+    width: 200px;
+    padding: 1rem;
+}
+
+.taskList {
+    list-style-type: none;
+    padding: 0.625rem;
+    li {
+        margin: 0.5rem 0;
+    }
+}

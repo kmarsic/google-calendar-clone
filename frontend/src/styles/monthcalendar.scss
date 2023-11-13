@@ -1,0 +1,47 @@
+.calendar-body {
+  display: grid;
+  height: 100%;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 25px auto;
+  flex-grow: 1;
+  gap: 5px;
+  padding: 1rem;
+}
+.box {   
+  background-color: var(--box-primary);
+  cursor: pointer;
+  border-radius: 0.5rem;
+  position:relative;
+  padding: 0.625rem;
+  font-size: 1.325rem;
+}
+
+.box.empty {
+  background-color: var(--box-secondary);
+  cursor: pointer;
+}
+
+.today::before {
+  content: "";
+  position:absolute;
+  top:0;
+  left:0;
+  border-radius: 0.5rem 0.5rem 0 0;
+  width: 100%;
+  z-index: -1;
+  height: 2.5rem;
+  background-color: var(--highlightToday);
+
+}
+
+.weekDay {
+  padding: 0 0.5rem;
+  font-size: 1.5rem;
+}
+
+.dayContainer {
+  grid-column: 1/-1;
+  display:grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}

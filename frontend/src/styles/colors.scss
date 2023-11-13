@@ -1,0 +1,21 @@
+body {
+    --background-primary: #FFFFFF;
+    --box-primary: #56565630;
+    --box-secondary: #56565610;
+    --text: #222222;
+    --border: #222222;
+    --highlightToday: #8EFFFF;
+    --highlightEvent : #7784F8;
+    --highlightTask: #FF7C7C;
+    --highlightAppointment: #46BD76;
+    --highlightTime: #FF7C7C;
+
+    @include whenDark {
+    --background-primary: #222222;
+    --box-primary: #565656;
+    --box-secondary: #56565630;
+    --text: #FFFFFF;
+    --border: #FFFFFF;
+    }
+}
+
