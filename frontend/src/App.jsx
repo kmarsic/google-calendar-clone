@@ -9,21 +9,21 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const selectedDate = new Date(useSelector(currentDate));
+  const [render, setRender] = useState(true);
   const [burger, setBurgerOpen] = useState(false);
   const dispatch = useDispatch();
+
+  const handleRender = () => setRender(!render)
   
   useEffect(() => {
     dispatch(getData());
-    }, [])
-
-
-
+    }, [render])  
   return (
     <div>
       <Navigation date={selectedDate} burger={burger} setBurger={setBurgerOpen}></Navigation>
       <div className='calendar-main'>
         <TaskSidebar burgerOpen={burger}/>
-        <MonthCalendar handleDateClick={setNewDate} selectedDate={selectedDate}></MonthCalendar>
+        <MonthCalendar handleDateClick={setNewDate} selectedDate={selectedDate} getRender={handleRender}></MonthCalendar>
       </div>
     </div>
   )
