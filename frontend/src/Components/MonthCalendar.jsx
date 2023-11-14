@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { NewTaskForm } from './Tasks/NewTaskForm';
 
-export function MonthCalendar({selectedDate, handleDateClick}) {
+export function MonthCalendar({selectedDate, handleDateClick, getRender}) {
   
   const dispatch = useDispatch();
   const [clickedItem, setClickedItem] = useState(null);
@@ -62,7 +62,7 @@ export function MonthCalendar({selectedDate, handleDateClick}) {
               handleItemClick(parsedDate);
               }
               }>
-              {clickedItem === parsedDate ? <NewTaskForm/> : null}
+              {clickedItem === parsedDate ? <NewTaskForm render={getRender}/> : null}
               {j === 1 ? date.toLocaleString("default", {month:"short"}) + " " + j : j}
           </div>
       )
