@@ -19,13 +19,13 @@ function App() {
     dispatch(getData());
     }, [render])  
   return (
-    <div>
+    <>
       <Navigation date={selectedDate} burger={burger} setBurger={setBurgerOpen}></Navigation>
       <div className='calendar-main'>
         <TaskSidebar burgerOpen={burger}/>
         <MonthCalendar handleDateClick={setNewDate} selectedDate={selectedDate} getRender={handleRender}></MonthCalendar>
       </div>
-    </div>
+    </>
   )
 }
 
