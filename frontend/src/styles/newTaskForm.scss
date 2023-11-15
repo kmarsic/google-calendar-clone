@@ -9,3 +9,30 @@
     padding: 0.5rem;
     gap: 0.5rem;
   }
+
+.event-add {
+position:absolute;
+z-index: 2;
+border-radius: 0.5rem;
+width: 200px;
+font-size: 1rem;
+display:flex;
+flex-direction: column;
+ul {
+    list-style-type: none;
+    padding:0.625rem;
+}
+background-color: white;
+}
+
+.event-type {
+    display: flex;
+    gap: 0.5rem;
+    div {
+        border-radius: 0.25rem;
+        padding: 0.625rem;
+        &:hover {
+            background-color: var(--button-hover-blue);
+        }
+    }
+}

@@ -1,19 +1,23 @@
 #nav-icon {
-  width: 50px; /* Reduced from 60px */
-  height: 32px; /* Reduced from 45px */
+  width: 48px;
+  height: 48px;
   position: relative;
   cursor: pointer;
+  &:hover {
+    background-color: var(--hover-main);
+    border-radius: 50%;
+  }
+
 }
 
 #nav-icon span {
   display: block;
   position: absolute;
-  height: 7px;
-  width: 100%; 
-  background: var(--text);
-  border-radius: 9px;
+  height: 2px;
+  width: 50%; 
+  background: var(--text-main);
+  left: 25%;
   opacity: 1;
-  left: 0;
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
   -o-transform: rotate(0deg);
@@ -26,15 +30,15 @@
 }
 
 #nav-icon span:nth-child(1) {
-  top: 0;
+  top: 18px;
 }
 
 #nav-icon span:nth-child(2) {
-  top: 13px; /* Reduced from 18px */
+  top: 24px;
 }
 
 #nav-icon span:nth-child(3) {
-  top: 25px; /* Reduced from 36px */
+  top: 30px;
 }
 
 #nav-icon.open {
@@ -42,7 +46,7 @@
 }
 
 #nav-icon.open span:nth-child(1) {
-  top: 12px;
+  top: 24px;
   -webkit-transform: rotate(135deg);
   -moz-transform: rotate(135deg);
   -o-transform: rotate(135deg);
@@ -55,7 +59,7 @@
 }
 
 #nav-icon.open span:nth-child(3) {
-  top: 12px;
+  top: 24px;
   -webkit-transform: rotate(-135deg);
   -moz-transform: rotate(-135deg);
   -o-transform: rotate(-135deg);
