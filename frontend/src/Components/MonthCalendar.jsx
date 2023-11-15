@@ -28,21 +28,24 @@ export function MonthCalendar({selectedDate, handleDateClick, getRender}) {
 
     const allDays  = [];
 
-    //show the days of the previous month before the first day of the current month
+    //last month
     for (let i = 0; i < firstDay; i++) {
-      allDays.push(i)
-    }
-    // iterate over the array and update the values
-    let iterations = 0;
-    for (let i = allDays.length - 1; i >= 0; i--) {
       const prevMonth = month - 1;
-      const prevMonthDays = findMonthDays(year, prevMonth)
-      let day = prevMonthDays - i;
-      const date = new Date(year, prevMonth, day);
-      const parsedDate = Date.parse(date)
-      allDays.splice(iterations, 1, <div key = {`emp-${iterations}`} onClick={() => {dispatch(handleDateClick(parsedDate))}} className='box empty'>{day}</div>)
-      iterations ++;
+      const prevMonthDays = findMonthDays(year, prevMonth);
+      const day = prevMonthDays - i;
+      const parsedDate = Date.parse(new Date(year, prevMonth, day));
+    
+      allDays.unshift(
+        <div key={`emp-${i}`} 
+             onClick={() => handleItemClick(parsedDate)}
+             className='box empty'
+        >
+          {clickedItem === parsedDate ? <NewTaskForm render={getRender}/> : null} 
+          <span className='dayIndex'>{day}</span>
+        </div>
+      );
     }
+    
 
 
     //show days of current month
@@ -55,7 +58,7 @@ export function MonthCalendar({selectedDate, handleDateClick, getRender}) {
         <div
           key = {`j-${j}`}
           id = {`j-${j}`}
-          className={`box ${isToday ? "today" : ""}`}
+          className='box'
           onClick = {
             () => {
               dispatch(handleDateClick(parsedDate)); 
@@ -63,7 +66,12 @@ export function MonthCalendar({selectedDate, handleDateClick, getRender}) {
               }
               }>
               {clickedItem === parsedDate ? <NewTaskForm render={getRender}/> : null}
-              {j === 1 ? date.toLocaleString("default", {month:"short"}) + " " + j : j}
+              {j === 1 ? (
+              <> 
+                {date.toLocaleString("default", {month:"short"}) + " "}
+                <span className={`dayIndex ${isToday ? "today" : ""}`}>{j}</span>
+              </>) : 
+              <span className={`dayIndex ${isToday ? "today" : ""}`}>{j}</span>}
           </div>
       )
     }
@@ -74,12 +82,13 @@ export function MonthCalendar({selectedDate, handleDateClick, getRender}) {
       const parsedDate = Date.parse(date)
       if (date.getDay() === 0) return allDays;
       allDays.push(
-        <div key = {`emn-${i}`} 
-          onClick={() => {
-            dispatch(handleDateClick(parsedDate))
-          }} 
-          className='box empty'>
-          {i === 1 ? date.toLocaleString("default", {month:"short"}) + " " + i : i}
+        <div key={`emn-${i}`} 
+             onClick={() => handleItemClick(parsedDate)}
+             className='box empty'
+        >
+          {clickedItem === parsedDate ? <NewTaskForm render={getRender}/> : null}
+          {i === 1 ? date.toLocaleString("default", {month:"short"}) + " " : ""}
+          <span className='dayIndex'>{i}</span>
         </div>
       )
     }
@@ -87,7 +96,7 @@ export function MonthCalendar({selectedDate, handleDateClick, getRender}) {
   }
 
   const showWeekDays = () => {
-    let weekDays = ["Sun", "Mon", "Tue","Wed", "Thu", "Fri", "Sat"];
+    let weekDays = ["SUN", "MON", "TUE","WED", "THU", "FRI", "SAT"];
     const list = [];
     for (let i = 0; i <=6; i++) {
       list.push(
@@ -101,8 +110,10 @@ export function MonthCalendar({selectedDate, handleDateClick, getRender}) {
   return (
       <div className="calendar-body">
 
-      <div className='dayContainer'>{showWeekDays()}</div>
-      {showCalendarMonth()}
+      <div className="calendar-grid">
+        {showWeekDays()}
+        {showCalendarMonth()}
+      </div>
       </div>
 
   )
