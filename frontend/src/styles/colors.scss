@@ -2,13 +2,18 @@ body {
     --background-primary: #FFFFFF;
     --box-primary: #56565630;
     --box-secondary: #56565610;
-    --text: #222222;
-    --border: #222222;
-    --highlightToday: #8EFFFF;
-    --highlightEvent : #7784F8;
-    --highlightTask: #FF7C7C;
-    --highlightAppointment: #46BD76;
-    --highlightTime: #FF7C7C;
+    --text-main: #3c4043;
+    --text-body: #8b8f93 ;
+    --border: #dadce0;
+    --highlightEvent : #039be5;
+    --highlightTask: #4285f4;
+    --highlightHoliday: #0b8043;
+    --highlightTime: #d50000;
+    --main-focus: #1a73e8;
+    --secondary-focus: #d2e3fc;
+    --hover-main: #00000010;
+    --hover-main-focus: #1a68ce;
+    
 
     @include whenDark {
     --background-primary: #222222;
