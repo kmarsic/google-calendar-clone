@@ -8,9 +8,10 @@ const getData = createAsyncThunk("taskManager/getData", async () => {
             throw new Error("Failed to fetch data");
         }
         const data = await response.json();
-        return data
+        return data;
     } catch(error) {
         console.log(error.message);
+        return [];
     }
 })
 
