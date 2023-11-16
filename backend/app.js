@@ -1,42 +1,48 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require("cors");
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var tasksRouter = require("./routes/tasks");
-var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+const createError = require('http-errors');
+const express = require('express');
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require("cors");
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use("/tasks", tasksRouter);
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+//db
+const Task = require('./db/tasks')
+mongoose.connect('mongodb://127.0.0.1:27017/calendardb')
+
+app.get("/", async function(req, res, next) {
+  try {
+    console.log(req)
+    const tasks = await Task.find()
+  res.json(tasks);
+} catch(e) {
+  console.error(e.message)
+}
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.post("/", async function (req, res, next) {
+  const item = req.body;
+  const newTask = await Task.create({
+    list: item.list,
+    ID: item.id,
+    type: item.type,
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    location : item.location,
+    description: item.description,
+    color: item.color,
+    title: item.title,
+    completed: item.completed
+  })
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  res.json({ message: "Item added", newTask });
 });
+
 
 module.exports = app;
