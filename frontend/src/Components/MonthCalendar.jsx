@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
 import './../styles/monthCalendar.scss';
-import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { NewTaskForm } from './Tasks/NewTaskForm';
+import { useDispatch } from 'react-redux';
+import { setToday } from '../redux/features/dateSlicer';
 
-export function MonthCalendar({selectedDate, handleDateClick, getRender}) {
-  
-  const dispatch = useDispatch();
+export function MonthCalendar({selectedDate, getRender}) {
+
   const [clickedItem, setClickedItem] = useState(null);
+  const dispatch = useDispatch();
 
   function handleItemClick(date) {
     setClickedItem(date);
@@ -50,9 +51,21 @@ export function MonthCalendar({selectedDate, handleDateClick, getRender}) {
 
     //show days of current month
     for (let j = 1; j <= monthDays; j++) {
+
       const date = new Date(year, month, j);
       const parsedDate = Date.parse(date)
-      const isToday = j === new Date().getDate() && month === new Date().getMonth() && year === new Date().getFullYear();
+      const isToday = 
+      j === new Date().getDate() && 
+      month === new Date().getMonth() && 
+      year === new Date().getFullYear();
+
+      if (isToday) {
+        const today = {
+          dayIndex: j,
+          todayString: date.toLocaleString("default", {weekday: 'long' ,month: "long", day: 'numeric', year: 'numeric' })
+        }
+        dispatch(setToday(today));
+      }
 
       allDays.push(
         <div
@@ -61,17 +74,17 @@ export function MonthCalendar({selectedDate, handleDateClick, getRender}) {
           className='box'
           onClick = {
             () => {
-              dispatch(handleDateClick(parsedDate)); 
               handleItemClick(parsedDate);
               }
-              }>
-              {clickedItem === parsedDate ? <NewTaskForm render={getRender}/> : null}
-              {j === 1 ? (
+          }>
+            {clickedItem === parsedDate ? <NewTaskForm render={getRender}/> : null}
+            {j === 1 ? (
               <> 
                 {date.toLocaleString("default", {month:"short"}) + " "}
                 <span className={`dayIndex ${isToday ? "today" : ""}`}>{j}</span>
               </>) : 
-              <span className={`dayIndex ${isToday ? "today" : ""}`}>{j}</span>}
+              <span className={`dayIndex ${isToday ? "today" : ""}`}>{j}</span>
+            }
           </div>
       )
     }

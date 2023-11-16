@@ -4,6 +4,10 @@ export const dateManager = createSlice({
     name:'dateManager',
     initialState: {
         selectedDate: Date.parse(new Date()),
+        today: {
+            dayIndex: "",
+            dayString: ""
+        },
     },
     reducers: {
         nextMonth(state) {
@@ -21,15 +25,15 @@ export const dateManager = createSlice({
             const newDate= new Date(prevYear, prevMonth);
             state.selectedDate = Date.parse(newDate)
        },
-
-        setNewDate(state, action) {
-            state.selectedDate = action.payload;
-        },
+       setToday(state, action) {
+        state.today = action.payload
+       }
     }
 })
 
-export const {nextMonth, previousMonth, setNewDate} = dateManager.actions;
+export const {nextMonth, previousMonth, setToday} = dateManager.actions;
 
 export const currentDate = (state) => state.dateList.selectedDate;
+export const currentDay = (state) => state.dateList.today;
 
 export default dateManager.reducer;
