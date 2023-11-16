@@ -8,13 +8,14 @@ import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faSearch,faAngleLeft, faAngleRight, faGear} from '@fortawesome/free-solid-svg-icons';
 import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
 
-export const Navigation = ({date, burger, setBurger, imgref}) => {
+export const Navigation = ({date, burger, setBurger, day}) => {
   const dispatch = useDispatch();
+  const imgref = () => `./src/images/title/calendar_${day}_2x.png`
     return (
         <div className="calendar-header">
           <div className='burger-title'>
             <Hamburger burger={burger} setBurger={setBurger}></Hamburger>
-            <img src={imgref} width={"32px"}/>
+            <img src={imgref()} width={"40px"}/>
             <p id='title'>Calendar</p>
           </div>
           <div className='header-menu'>

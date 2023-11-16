@@ -23,7 +23,7 @@ function App() {
     }, []) 
 
   const faviconHref = num => {
-    return `./src/images/date-${num}.png`}
+    return `./src/images/favi/calendar_${num}.ico`}
 
   return (
     <>
@@ -31,7 +31,7 @@ function App() {
       <title>Calendar - {today.todayString}</title>
       <link rel="icon" type="image/x-icon" href={faviconHref(today.dayIndex)}></link>
     </Helmet>
-      <Navigation date={selectedDate} burger={burger} setBurger={setBurgerOpen} imgref={faviconHref(today.dayIndex)}></Navigation>
+      <Navigation date={selectedDate} burger={burger} setBurger={setBurgerOpen} day={today.dayIndex}></Navigation>
       <div className='calendar-main'>
         <TaskSidebar burgerOpen={burger}/>
         <MonthCalendar selectedDate={selectedDate} getRender={handleRender}></MonthCalendar>
