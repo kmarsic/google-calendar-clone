@@ -9,7 +9,7 @@ export const TaskSidebar = ({burgerOpen}) => {
     return (
         <div className={burgerOpen ? 'open sidebar' : 'closed sidebar'}>
             <ul className='taskList'>
-                {fetchedData.data.map(user => {
+                {fetchedData.map(user => {
                     return(
                         <li key={user._id}>{user.title}</li>
                     )

@@ -1,13 +1,24 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import { nanoid } from "@reduxjs/toolkit";
+import { useEffect, useState } from "react";
 import './../../styles/newTaskForm.scss';
+import { useDispatch } from "react-redux";
+import postData from "../../redux/features/thunk/postData";
+import getData from "../../redux/features/thunk/getData";
 
-export function NewTaskForm ({render}) {
+export function NewTaskForm ({clickedItem}) {
+
+    const[transition, setTransition] = useState(false);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        setTimeout(() => {
+            setTransition(true);
+        }, 100)
+    },[])
 
     const [formData, setFormData] = useState({
         list: "My Tasks",
-        ID: nanoid(),
+        name: clickedItem.id,
         type: "task",
         updatedAt: "",
         location : "",
@@ -22,36 +33,15 @@ export function NewTaskForm ({render}) {
         setFormData({...formData, [e.target.id]: e.target.value})
     }
 
-    const updateData = async (updatedData) => {
-        try {
-            const response = await fetch(`http://localhost:9000/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updatedData)
-            });
-    
-            if (!response.ok) {
-                throw new Error('Failed to update data');
-            }
-    
-            const updated = await response.json();
-            console.log('Updated data:', updated);
-            return updated;
-        } catch (error) {
-            console.error('Error updating data:', error);
-        }
-    }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         if (!formData.title) return;
-        updateData(formData);
+        await dispatch(postData(formData));
         setFormData({
             list: "My Tasks",
-            ID: nanoid(),
             type: "task",
+            name: clickedItem.id,
             updatedAt: "",
             time: "",
             location: "",
@@ -59,74 +49,74 @@ export function NewTaskForm ({render}) {
             color: "#008000",
             title: ""
           });
-        render()
+        await dispatch(getData())
         
     }
     
 
     return(
-    <div className="event-add">
+    <div
+    className={transition ? "event-add animate" : "event-add" }
+    style={{
+        top: `${clickedItem.y}px`,
+        left: `${clickedItem.x}px`
+    }}>
         <form onSubmit={handleSubmit} className="form">
-            <div>
+            <div className="shell">
                 <input 
                 type="text"
                 id="title"
                 required
-                placeholder="Create a new task..."
+                placeholder="Add title and time"
                 value={formData.title}
                 onChange={(e) => handleInputChange(e)}
                 />
             </div>
-            <div className="event-type">
+            <div className="event-type shell">
                 <div><span>Event</span></div>
-                <div><span>Task</span></div>,
+                <div><span>Task</span></div>
                 <button style={{display: "none"}}></button>
             </div>
-            <div className="date-time">
-                <div>
-                    <input 
-                    type="text"
-                    id="time" 
-                    placeholder="Date and time"
-                    value={formData.time}
-                    onChange={(e) => handleInputChange(e)}>
-                    </input>
-                </div>
+            <div className="date-time shell">
+                <input 
+                type="text"
+                id="time" 
+                placeholder="Date and time"
+                value={formData.time}
+                onChange={(e) => handleInputChange(e)}>
+                </input>
             </div>
-            <div>
-                <div>
-                    <input 
-                    type="text"
-                    id="location"
-                    placeholder="Location"
-                    value={formData.location}
-                    onChange={(e) => handleInputChange(e)}>
-                    </input>
-                </div>
+            <hr className="line"/>
+            <div className="shell">
+                <input 
+                type="text"
+                id="location"
+                placeholder="Location"
+                value={formData.location}
+                onChange={(e) => handleInputChange(e)}>
+                </input>
             </div>
-            <div>
-                <div>
-                    <input 
-                    type="text"
-                    id="description"
-                    placeholder="Description"
-                    value={formData.description}
-                    onChange={(e) => handleInputChange(e)}
-                    >
-                    </input>
-                </div>
+            <hr className="line"/>
+            <div className="shell">
+                <input 
+                type="text"
+                id="description"
+                placeholder="Description"
+                value={formData.description}
+                onChange={(e) => handleInputChange(e)}
+                >
+                </input>
             </div>
-            <hr />
-            <div>
-                <div>
-                    <label htmlFor="color">Pick a color </label>
-                    <input
-                    id="color"
-                    type="color"
-                    value={formData.color}
-                    onChange={(e) => handleInputChange(e)}
-                     />
-                </div>
+            <hr className="line"/>
+            <div className="shell">
+                <label htmlFor="color">Pick a color </label>
+                <input
+                id="color"
+                type="color"
+                value={formData.color}
+                onChange={(e) => handleInputChange(e)}
+                />
+
             </div> 
         
         </form>
