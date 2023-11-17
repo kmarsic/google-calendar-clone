@@ -1,18 +1,17 @@
 body {
-    --background-primary: #FFFFFF;
-    --box-primary: #56565630;
-    --box-secondary: #56565610;
-    --text-main: #3c4043;
-    --text-body: #8b8f93 ;
-    --border: #dadce0;
-    --highlightEvent : #039be5;
-    --highlightTask: #4285f4;
-    --highlightHoliday: #0b8043;
-    --highlightTime: #d50000;
-    --main-focus: #1a73e8;
-    --secondary-focus: #d2e3fc;
-    --hover-main: #00000010;
-    --hover-main-focus: #1a68ce;
+    --background-primary: rgb(255, 255, 255);
+    --box-primary: rgb(86, 86, 86);
+    --text-main: rgb(60, 64, 67);
+    --text-body: rgb(139, 143, 147) ;
+    --border: rgb(218, 220, 224);
+    --highlightEvent : rgb(3, 155, 229);
+    --highlightTask: rgb(66, 133, 244);
+    --highlightHoliday: rgb(11, 128, 67);
+    --highlightTime: rgb(213, 0, 0);
+    --main-focus: rgb(26, 115, 232);
+    --secondary-focus: rgb(210, 227, 252);
+    --hover-main: rgba(0, 0, 0, 0.1);
+    --hover-main-focus: rgb(26, 104, 206);
     
 
     @include whenDark {
