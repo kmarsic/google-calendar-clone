@@ -72,6 +72,6 @@ export const taskManager = createSlice({
 
 export const {addTask, removeTask, clearCompletedTasks, toggleCompletedTasks, modifyTasks} = taskManager.actions;
 
-export const allTasks = (state) => state.taskList;
+export const allTasks = (state) => state.taskList.data;
 
 export default taskManager.reducer;
