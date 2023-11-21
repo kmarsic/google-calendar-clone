@@ -2,20 +2,21 @@
 import './../styles/_index.scss';
 import { DarkToggle } from './DarkToggle';
 import { Hamburger } from './Hamburger';
-import { useDispatch } from 'react-redux';
-import { previousMonth, nextMonth } from '../redux/features/dateSlicer';
+import { useDispatch, useSelector } from 'react-redux';
+import { previousMonth, nextMonth, currentDate } from '../redux/features/dateSlicer';
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faSearch,faAngleLeft, faAngleRight, faGear} from '@fortawesome/free-solid-svg-icons';
 import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
 
-export const Navigation = ({date, burger, setBurger, day}) => {
+export const Navigation = ({ burger, setBurger, day}) => {
+  const date = new Date(useSelector(currentDate));
   const dispatch = useDispatch();
   const imgref = () => `./src/images/title/calendar_${day}_2x.png`
     return (
         <div className="calendar-header">
           <div className='burger-title'>
             <Hamburger burger={burger} setBurger={setBurger}></Hamburger>
-            <img src={imgref()} width={"40px"}/>
+            <img src={imgref()} width={"40px"} loading='lazy'/>
             <p id='title'>Calendar</p>
           </div>
           <div className='header-menu'>
