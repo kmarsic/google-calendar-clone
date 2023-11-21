@@ -1,61 +1,15 @@
 /* eslint-disable react/prop-types */
-import './../styles/calendarView.scss';
-import { useEffect, useState } from 'react';
+import './../styles/_index.scss'
 import { useDispatch, useSelector } from 'react-redux';
 import { setToday } from '../redux/features/dateSlicer';
-import { PreviousMonthDay } from './Days/PreviousMonthDay';
-import { CurrentMonthDay } from './Days/CurrentMonthDay';
-import { NextMonthDay } from './Days/NextMonthDay';
-import { currentDate } from '../redux/features/dateSlicer';
+import { PreviousMonthDay } from './MonthView/PreviousMonthDay';
+import { CurrentMonthDay } from './MonthView/CurrentMonthDay';
+import { NextMonthDay } from './MonthView/NextMonthDay';
 import { allTasks } from '../redux/features/taskSlicer';
-import getData from '../redux/features/thunk/getData';
 
-export function CalendarView() {
-  const dispatch = useDispatch();
-  const selectedDate = new Date(useSelector(currentDate));
+export function CalendarView({handleItemClick, clickedItem, selectedDate}) {
   const assignments = useSelector(allTasks)
-
-  const [clickedItem, setClickedItem] = useState({
-    id: parseInt(null),
-    x: null,
-    y: null
-  });
-
-  const handleItemClick = (e) => {
-    if(!e.target.classList.contains("box")) return
-
-    const offsetX = () => {
-      if (e.clientX > 497) {
-        return (e.target.offsetLeft - 460)
-      } 
-      return (e.target.offsetLeft + 280)
-    }
-
-     const offsetY = () => {
-       if (e.clientY <= 257 ) {
-        return 114
-       } else if (e.clientY > 791 ) {
-        return 360
-       } else return 270
-      
-     }
-    setClickedItem({
-      id: e.target.id,
-      x: offsetX(),
-      y: offsetY()
-    });
-  }
-
-
-  const [render, setRender] = useState(false);
-
-  const handleRender = () => {
-    setRender(!render);
-  }
-
-  useEffect(() => {
-    dispatch(getData())
-  }, render)
+  const dispatch = useDispatch();
 
   const findMonthDays = (y, m) => {
     return new Date(y, m + 1, 0).getDate();
@@ -68,7 +22,7 @@ export function CalendarView() {
   const gridRule = () => {
     const month = selectedDate.getMonth();
     const year = selectedDate.getFullYear();
-     if (findFirstDay(year,month) >= 4 && findMonthDays(year,month) > 30 ) {
+     if (findFirstDay(year,month) > 4 && findMonthDays(year,month) >= 30 ) {
         return true
      }
      return false
@@ -97,8 +51,7 @@ export function CalendarView() {
         clickedItem={clickedItem}
         handleClick={handleItemClick}
         iterator={i}
-        day={day}
-        render={handleRender}/>
+        day={day}/>
       );
     }
     
@@ -129,8 +82,7 @@ export function CalendarView() {
         handleClick={handleItemClick}
         date={date}
         clickedItem={clickedItem}
-        isToday={isToday}
-        render={handleRender}/>
+        isToday={isToday}/>
       )
     }
 
@@ -146,7 +98,6 @@ export function CalendarView() {
         handleClick={handleItemClick}
         clickedItem={clickedItem}
         iterator={i}
-        render={handleRender}
         />
       )
     }
