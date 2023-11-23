@@ -11,11 +11,11 @@ export function PreviousMonthDay({date,clickedItem, handleClick,day, assignments
             className='box empty'
         >
           <span className='dayIndex'>{day}</span>
-          {clickedItem.id ==  parsedDate ? <Assignment key={1} name={parsedDate} title="???"/>: null} 
+          {clickedItem.id ==  parsedDate ? <Assignment key={1} id={parsedDate} title="???"/>: null} 
           {clickedItem.id == parsedDate ? <NewTaskForm clickedItem={clickedItem} render={render}/>: null} 
-          {assignments.map(user => {
-            if(user.name == parsedDate) {
-                return <Assignment key={user.title + user.id} title={user.title} id={user} color={user.color}/>
+          {assignments.map(task => {
+            if(task.name == parsedDate) {
+                return <Assignment key={task.title + task.id} title={task.title} id={task} color={task.color}/>
             }
           })}
         </div>

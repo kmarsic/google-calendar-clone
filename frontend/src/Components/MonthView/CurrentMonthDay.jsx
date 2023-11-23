@@ -3,7 +3,7 @@ import { Assignment } from "../Forms/Assignment"
 import { NewTaskForm } from "../Forms/NewTaskForm"
 
 export function CurrentMonthDay({iterator, handleClick, date, clickedItem, isToday, assignments,render}) {
-    const parsedDate = Date.parse(date)
+    const parsedDate = Date.parse(date);
     return (
         <div
             id={parsedDate}
@@ -18,11 +18,11 @@ export function CurrentMonthDay({iterator, handleClick, date, clickedItem, isTod
               <span className={`dayIndex ${isToday ? "today" : ""}`}>{iterator}</span>
 
             }
-          {clickedItem.id == parsedDate ? <Assignment key={1} name={parsedDate} title="???"/>: null} 
+          {clickedItem.id == parsedDate ? <Assignment key={1} title="???"/>: null} 
           {clickedItem.id == parsedDate ? <NewTaskForm clickedItem={clickedItem} render={render}/>: null}
-          {assignments.map(user => {
-            if(user.name == parsedDate) {
-                return <Assignment key={user.title + user.id} title={user.title} id={user} color={user.color}/>
+          {assignments.map(task => {
+            if(task.name == parsedDate) {
+                return <Assignment key={task.title + task.id} title={task.title} task={task} color={task.color}/>
             }
           })}
         </div>

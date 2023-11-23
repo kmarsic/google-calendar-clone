@@ -15,11 +15,11 @@ export function NextMonthDay({date, handleClick, clickedItem, iterator, assignme
           {iterator === 1 ? 
           date.toLocaleString("default", {month:"short"}) + " " : ""}
           <span className='dayIndex'>{iterator}</span>
-          {clickedItem.id == parsedDate ? <Assignment key={1} name={parsedDate} title="???"/>: null} 
+          {clickedItem.id == parsedDate ? <Assignment key={1} id={parsedDate} title="???"/>: null} 
           {clickedItem.id == parsedDate ? <NewTaskForm clickedItem={clickedItem} id={parsedDate} render={render}/>: null}
-          {assignments.map(user => {
-            if(user.name == parsedDate) {
-                return <Assignment key={user.title + user.id} title={user.title} id={user} color={user.color}/>
+          {assignments.map(task => {
+            if(task.name == parsedDate) {
+                return <Assignment key={task.title + task.id} title={task.title} id={task} color={task.color}/>
             }
           })}
           
