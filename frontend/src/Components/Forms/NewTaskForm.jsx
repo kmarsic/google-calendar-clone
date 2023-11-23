@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
-import './../../styles/Forms/newTaskForm.scss';
+import './../../styles/_index.scss';
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { faCalendarXmark, faGripLines, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import postData from "../../redux/features/thunk/postData";
-import getData from "../../redux/features/thunk/getData";
 import { EventForm } from "./EventForm";
 import { TaskForm } from "./TaskForm";
+import { addTask } from '../../redux/features/taskSlicer';
 
 export function NewTaskForm ({clickedItem}) {
     const [formType, setFormType] = useState(true)
@@ -22,10 +22,12 @@ export function NewTaskForm ({clickedItem}) {
     const [formData, setFormData] = useState({
         list: "My Tasks",
         name: clickedItem.id,
+        ID: crypto.randomUUID(),
         type: "task",
         updatedAt: "",
-        location : "",
+        createdAt: Date.parse(new Date()),
         time: clickedItem.date.toLocaleString("default", {weekday: 'long' ,month: "long", day: 'numeric'}),
+        location : "",
         description: "",
         color: "#008000",
         title: "",
@@ -40,18 +42,16 @@ export function NewTaskForm ({clickedItem}) {
         e.preventDefault();
         if (!formData.title) return;
         dispatch(postData(formData));
+        dispatch(addTask(formData));
         setFormData({
-            list: "My Tasks",
-            type: "task",
-            name: "",
+            ...formData,
+            ID: crypto.randomUUID(),
             updatedAt: "",
-            time: "",
-            location: "",
+            location : "",
             description: "",
             color: "#008000",
-            title: ""
+            title: "",
           });
-        dispatch(getData())
         
     }
     

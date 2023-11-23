@@ -3,20 +3,19 @@ import { faXmarkCircle } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import removeData from "../../redux/features/thunk/removeData";
 import { useDispatch } from "react-redux";
-import getData from "../../redux/features/thunk/getData";
+import { removeTask } from "../../redux/features/taskSlicer";
 
-export function Assignment({title,id, color}) {
+export function Assignment({title,task,color}) {
     const dispatch = useDispatch()
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (e.target.children[0].innerText == "???") return
-        await dispatch(removeData(id));
-        await dispatch(getData())
-
+        dispatch(removeData(task));
+        dispatch(removeTask(task.ID));
     }
     return (
-        <form onSubmit={handleSubmit} className='assignment' style={{backgroundColor: color}}>
+        <form onSubmit={(e) => handleSubmit(e)} className='assignment' style={{backgroundColor: color}}>
             <p>{title}</p>
             <button>
                 <FontAwesomeIcon icon={faXmarkCircle} size="xl" color="#ffffff"/>
