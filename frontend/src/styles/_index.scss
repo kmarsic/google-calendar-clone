@@ -1,10 +1,11 @@
 @import 'mixins';
 @import 'colors';
-@import 'calendarView';
+@import './MonthView/calendarView';
+@import './MonthView/monthBox';
 @import 'App';
-@import 'navigation';
-@import 'DarkToggle';
-@import 'hamburger';
+@import './Nav/navigation';
+@import './Nav/DarkToggle';
+@import './Nav/hamburger';
 @import 'taskSidebar';
 @import './icons/variables';
-@import './monthBox.scss';
+@import './Forms/newTaskForm.scss'
