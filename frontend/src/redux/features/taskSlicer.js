@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import getData from "./thunk/getData";
 
-
+console.log("x")
 export const taskManager = createSlice({
     name:'taskManager',
     initialState: {
@@ -12,15 +12,12 @@ export const taskManager = createSlice({
     },
     reducers: {
         addTask(state, action) { 
-            state.allTasks.push(action.payload)
-            state.activeTasks = state.allTasks.filter(task => task.completed === false)
-            state.completedTasks = state.allTasks.filter(task => task.completed === true)
+            state.data.push(action.payload)
         },
         
         removeTask(state,action) {
-            state.allTasks = state.allTasks.filter(task => task.id != action.payload)
-            state.activeTasks = state.allTasks.filter(task => task.completed === false)
-            state.completedTasks = state.allTasks.filter(task => task.completed === true)
+            console.log(action)
+            state.data = state.data.filter(task => task.ID != action.payload)
        },
 
         clearCompletedTasks(state) { 
@@ -69,9 +66,9 @@ export const taskManager = createSlice({
         }
     },
 })
-
 export const {addTask, removeTask, clearCompletedTasks, toggleCompletedTasks, modifyTasks} = taskManager.actions;
 
 export const allTasks = (state) => state.taskList.data;
+
 
 export default taskManager.reducer;
