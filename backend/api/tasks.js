@@ -16,10 +16,9 @@ router.get("/", async function(req, res, next) {
 
 router.delete("/", async function (req, res, next) {
   try {
-    await Task.deleteOne({
-        ...req.body
-})
-    res.json({message: "Task removed successfuly"})
+  const { ID } = req.body
+    await Task.deleteOne({ ID })
+    res.json({message: "Task removed successfuly", Task})
   } catch(e) {
     console.error(e.message)
   }
@@ -29,6 +28,7 @@ router.post("/", async function (req, res, next) {
   const item = req.body;
     const newTask = await Task.create({
       list: item.list,
+      ID: item.ID,
       name: item.name,
       type: item.type,
       createdAt: item.createdAt,
