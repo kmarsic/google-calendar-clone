@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import getData from "./thunk/getData";
 
-console.log("x")
 export const taskManager = createSlice({
     name:'taskManager',
     initialState: {
