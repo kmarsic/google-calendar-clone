@@ -1,15 +1,20 @@
 /* eslint-disable react/prop-types */
+import { useDispatch, useSelector } from "react-redux";
 import { Assignment } from "../Forms/Assignment"
 import { NewTaskForm } from "../Forms/NewTaskForm"
+import { allTasks } from "../../redux/features/taskSlicer";
+import { clicked, handleBoxClick } from "../../redux/features/clickedSlicer";
 
-export function Day({date, handleClick, clickedItem, iterator,isToday, assignments, previous}) {
+export function Day({date, iterator,isToday, previous, next}) {
     const parsedDate = Date.parse(date);
-    
+    const assignments = useSelector(allTasks);
+    const clickedItem = useSelector(clicked);
+    const dispatch = useDispatch();
     return (
         <div 
         id={parsedDate} 
-        onClick={(e) => handleClick(e)} 
-        className={previous ? "box empty" : "box"}
+        onClick={(e) => dispatch(handleBoxClick(e))} 
+        className={previous || next ? "box empty" : "box"}
         >
           {previous ? 
           (<span className='dayIndex'>{iterator}</span>) : 
