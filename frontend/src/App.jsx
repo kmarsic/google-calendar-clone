@@ -12,7 +12,8 @@ function App() {
   const [burger, setBurgerOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const date = useSelector(currentDate)
+  const date = new Date(useSelector(currentDate))
+  const today = new Date().getDate();
 
   useEffect(() => {
     dispatch(getData());
@@ -24,10 +25,10 @@ function App() {
   return (
   <>
     <Helmet>
-      <title>Google Calendar - {new Date(date).toLocaleString("default", {month: "long", year: 'numeric' })}</title>
-      <link rel="icon" type="image/x-icon" href={faviconHref()}></link>
+      <title>Google Calendar - {date.toLocaleString("default", {month: "long", year: 'numeric' })}</title>
+      <link rel="icon" type="image/x-icon" href={faviconHref(today)}></link>
     </Helmet>
-    <Navigation burger={burger} setBurger={setBurgerOpen}/>
+    <Navigation today={today} burger={burger} setBurger={setBurgerOpen}/>
     <div className='calendar-main'>
       <TaskSidebar burgerOpen={burger}/>
       <MonthView/>

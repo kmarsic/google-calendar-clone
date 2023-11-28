@@ -5,15 +5,15 @@ import { Hamburger } from './Hamburger';
 import { useDispatch, useSelector } from 'react-redux';
 import { previousMonth, nextMonth, currentDate } from '../../redux/features/dateSlicer';
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import { faSearch,faAngleLeft, faAngleRight, faGear} from '@fortawesome/free-solid-svg-icons';
-import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
+import { faSearch,faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-icons';
 
-export const Navigation = ({ burger, setBurger, day, handleItemClick}) => {
+
+export const Navigation = ({ burger, setBurger, today}) => {
   const date = new Date(useSelector(currentDate));
   const dispatch = useDispatch();
-  const imgref = () => `./src/images/title/calendar_${day}_2x.png`
+  const imgref = () => `./src/images/title/calendar_${today}_2x.png`
     return (
-        <div className="calendar-header" onClick={(e) => handleItemClick(e)}>
+        <div className="calendar-header">
           <div className='burger-title'>
             <Hamburger burger={burger} setBurger={setBurger}></Hamburger>
             <img src={imgref()} width={"40px"} loading='lazy'/>
@@ -47,14 +47,8 @@ export const Navigation = ({ burger, setBurger, day, handleItemClick}) => {
               <div className='menu-item'>
                 <FontAwesomeIcon icon={faSearch} size='xl'></FontAwesomeIcon>
               </div>
-              <div className='menu-item'>
-                <FontAwesomeIcon icon={faCircleQuestion} size='xl'></FontAwesomeIcon>
-              </div>
-              <div className='menu-item'>
-              <FontAwesomeIcon icon={faGear} size='xl'></FontAwesomeIcon>
-              </div>
               <div className='btn-header'>
-                VIEW DROPDOWN
+                MONTH
               </div>
             </div>
           </div>
