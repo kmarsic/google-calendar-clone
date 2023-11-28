@@ -1,0 +1,22 @@
+.mini-calendar-grid {
+    grid-template-columns: repeat(7,1fr);
+    display:grid;
+    text-align: center;
+}
+
+.mini-nav{
+    display:flex;
+    grid-column-start: 1;
+    grid-column-end: -1;
+}
+
+.mini-box {
+    font-size: 10px;
+    font-weight: 500;
+    position: relative;
+    padding: 4px;
+    p {
+        cursor: default;
+    }
+}
+
