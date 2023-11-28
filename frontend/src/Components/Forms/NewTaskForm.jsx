@@ -26,7 +26,7 @@ export function NewTaskForm ({clickedItem}) {
         type: "task",
         updatedAt: "",
         createdAt: Date.parse(new Date()),
-        time: clickedItem.date.toLocaleString("default", {weekday: 'long' ,month: "long", day: 'numeric'}),
+        time: new Date(clickedItem.date).toLocaleString("default", {weekday: 'long' ,month: "long", day: 'numeric'}),
         location : "",
         description: "",
         color: "#008000",
