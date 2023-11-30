@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useSelector, useDispatch } from 'react-redux';
-import { MiniMonthView } from './../MonthView/mini/MiniMonthView';
+import { MiniMonthView } from '../MonthView/mini/MiniMonthView';
 import { miniDate } from '../../redux/features/dateSlicer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { previousMonthMini, nextMonthMini } from '../../redux/features/dateSlicer';
 
-export const TaskSidebar = ({burgerOpen}) => {
+export const Sidebar = ({burgerOpen}) => {
     const date = new Date(useSelector(miniDate));
     const dispatch = useDispatch();
 
