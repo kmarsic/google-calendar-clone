@@ -1,7 +1,7 @@
 import './styles/_index.scss';
 import { MonthView } from './Components/MonthView/MonthView';
 import { Navigation } from './Components/Nav/Navigation';
-import { TaskSidebar } from './Components/Sidebar/TaskSidebar';
+import { Sidebar } from './Components/Sidebar/Sidebar';
 import { currentDate } from './redux/features/dateSlicer';
 import getData from './redux/features/thunk/getData';
 import { useDispatch, useSelector } from 'react-redux'
@@ -30,7 +30,7 @@ function App() {
     </Helmet>
     <Navigation today={today} burger={burger} setBurger={setBurgerOpen}/>
     <div className='calendar-main'>
-      <TaskSidebar burgerOpen={burger}/>
+      <Sidebar burgerOpen={burger}/>
       <MonthView/>
     </div>
   </>
