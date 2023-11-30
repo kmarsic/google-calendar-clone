@@ -1,22 +1,44 @@
 /* eslint-disable react/prop-types */
-import './../../styles/_index.scss';
 import { DarkToggle } from './DarkToggle';
 import { Hamburger } from './Hamburger';
 import { useDispatch, useSelector } from 'react-redux';
-import { previousMonth, nextMonth, currentDate } from '../../redux/features/dateSlicer';
+import { previousMonth, nextMonth, currentDate, miniDate } from '../../redux/features/dateSlicer';
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import { faSearch,faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-icons';
-
+import { faSearch,faAngleLeft, faAngleRight, faCaretDown} from '@fortawesome/free-solid-svg-icons';
+import { useState, useEffect, useRef } from 'react';
+import { MiniView } from '../MonthView/mini/MiniView';
 
 export const Navigation = ({ burger, setBurger, today}) => {
   const date = new Date(useSelector(currentDate));
+  const minDate = new Date(useSelector(miniDate));
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef(null);
+
   const dispatch = useDispatch();
   const imgref = () => `./src/images/title/calendar_${today}_2x.png`
+
+  const handleClickOutside = (e) => {
+    if (containerRef.current && !containerRef.current.contains(e.target)) {
+      setIsVisible(false);
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, []);
+
+  const handleButtonClick = () => {
+    setIsVisible(true);
+  }
     return (
         <div className="calendar-header">
           <div className='burger-title'>
             <Hamburger burger={burger} setBurger={setBurger}></Hamburger>
-            <img src={imgref()} width={"40px"} loading='lazy'/>
+            <img src={imgref()} width={"40px"} loading='lazy' alt={today}/>
             <p id='title'>Calendar</p>
           </div>
           <div className='header-menu'>
@@ -34,18 +56,21 @@ export const Navigation = ({ burger, setBurger, today}) => {
                   </div>
                 </div>
               </div>
-              <div className='current-date'>
+              <div className='current-date' ref={containerRef}  onClick={handleButtonClick}  >
                 <span>
                   {date.toLocaleString("default", {
                     month: "long",
                     year: "numeric",
                   })}
                 </span>
+                <FontAwesomeIcon icon={faCaretDown} size='2xs' style={{color: "rgba(0, 0, 0, 0.4)"}}/>
+                {isVisible ? 
+                  <MiniView embed={true} date={minDate}/> : null}
               </div>
             </div>
             <div className='menu-right'>
               <div className='menu-item'>
-                <FontAwesomeIcon icon={faSearch} size='xl'></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faSearch} size='xl'/>
               </div>
               <div className='btn-header'>
                 MONTH
