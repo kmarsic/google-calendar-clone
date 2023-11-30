@@ -1,0 +1,284 @@
+.mini-calendar-grid {
+    grid-template-columns: repeat(7,1fr);
+    display:grid;
+    text-align: center;
+    height: 196px;
+    flex-grow: 1;
+}
+
+
+.mini-box {
+    font-size: 10px;
+    font-weight: 500;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+        cursor: default;
+    }
+}
+
+.mini-today {
+    color: white;
+    background-color: var(--main-focus);
+    &:hover {
+      background-color: var(--hover-main-focus)!important;
+    }
+}
+
+.mini-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    height: 32px;
+}
+
+.mini-date {
+    display: flex;
+    align-items: center;
+}
+
+.nav-controls-mini {
+    display: flex;
+    gap: 12px;
+}
+
+.menu-item-mini {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    position: relative;
+    width: 20px;
+    &:hover::before {
+        position: absolute;
+        content: "";
+        width: 24px;
+        height: 24px;
+        background-color: var(--hover-main);
+        border-radius: 50%;
+
+    }
+    &:nth-child(2) {
+        margin-right: 5px;
+    }
+}
+
+.mini-date {
+    padding-left: 10px;
+    flex-grow: 1;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: .25px;
+    text-shadow: 0px 0px 1px var(--text-body);
+    cursor: default;
+    user-select: none;
+}
+
+.p1 {
+    color: var(--text-body);
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "Sunday";
+        width: 9ch;
+        height: 20px;
+        color: white;
+        font-weight: 500;
+        background-color: var(--hover-info);
+        border-radius: 2px;
+        font-size: 11px;
+        z-index: -1;
+        top: 20px;
+        left: -4ch;
+        opacity: 0;
+        transition: 0.3s ease-in-out;
+    }
+    &:hover::before {
+        opacity: 1;
+        top: 35px;
+    
+    }
+}
+.p2 {
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "Monday";
+        width: 9ch;
+        height: 20px;
+        color: white;
+        font-weight: 500;
+        background-color: var(--hover-info);
+        border-radius: 2px;
+        font-size: 11px;
+        z-index: -1;
+        top: 20px;
+        left: -4ch;
+        opacity: 0;
+        transition: 0.3s ease-in-out;
+    
+    }
+    &:hover::before {
+        opacity: 1;
+        top: 35px;
+    
+    }
+}
+.p3 {
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "Tuesday";
+        width: 9ch;
+        height: 20px;
+        color: white;
+        font-weight: 500;
+        background-color: var(--hover-info);
+        border-radius: 2px;
+        font-size: 11px;
+        z-index: -1;
+        top: 20px;
+        left: -4ch;
+        opacity: 0;
+        transition: 0.3s ease-in-out;
+
+    }
+    &:hover::before {
+        opacity: 1;
+        top: 35px;
+    }
+}
+.p4 {
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "Wednesday ";
+        width: 12ch;
+        height: 20px;
+        color: white;
+        font-weight: 500;
+        background-color: var(--hover-info);
+        border-radius: 2px;
+        font-size: 11px;
+        z-index: -1;
+        top: 20px;
+        left: -5.5ch;
+        opacity: 0;
+        transition: 0.3s ease-in-out;
+    }
+    &:hover::before {
+        opacity: 1;
+        top: 35px;
+    }
+}
+.p5 {
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "Thursday";
+        width: 10ch;
+        height: 20px;
+        color: white;
+        font-weight: 500;
+        background-color: var(--hover-info);
+        border-radius: 2px;
+        font-size: 11px;
+        z-index: -1;
+        top: 20px;
+        left: -4.5ch;
+        opacity: 0;
+        transition: 0.3s ease-in-out;
+
+    }
+    &:hover::before {
+        opacity: 1;
+        top: 35px;
+    }
+}
+.p6 {
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "Friday";
+        width: 8ch;
+        height: 20px;
+        color: white;
+        font-weight: 500;
+        background-color: var(--hover-info);
+        border-radius: 2px;
+        font-size: 11px;
+        top: 20px;
+        left: -3.5ch;
+        opacity: 0;
+        z-index: -1;
+        transition: 0.3s ease-in-out;
+    }
+    &:hover::before {
+        opacity: 1;
+        top:35px;
+    }
+}
+.p7 {
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "Saturday";
+        width: 10ch;
+        height: 20px;
+        color: white;
+        font-weight: 500;
+        background-color: var(--hover-info);
+        border-radius: 2px;
+        font-size: 11px;
+        z-index: -1;
+        top: 20px;
+        left: -4.5ch;
+        opacity: 0;
+        transition: 0.3s ease-in-out;
+    }
+    &:hover::before {
+        opacity: 1;
+        top: 35px;
+    }
+}
+
+.day-index-mini {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    &:hover {
+        background-color: var(--hover-main);
+    }
+    cursor: pointer;
+    user-select: none;
+}
+
+.embed {
+    position: absolute;
+    display: flex;
+    z-index: 1;
+    flex-direction: column;
+    background-color: white;
+    top: 14px;
+    left: 450px;
+    padding: 0.25rem 1rem 1rem 1rem;
+    border-radius: 8px;
+    width: 275px;
+    height: 245px;
+    box-shadow: 0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
+    font-size: 12px;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+.embed.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+  
