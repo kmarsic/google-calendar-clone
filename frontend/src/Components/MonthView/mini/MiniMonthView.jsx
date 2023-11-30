@@ -6,7 +6,6 @@ import { MiniDay } from './MiniDay';
 
 export function MiniMonthView() {
   const selectedDate = new Date(useSelector(miniDate));
-
   const findMonthDays = (y, m) => {
     return new Date(y, m + 1, 0).getDate();
   };
@@ -27,9 +26,9 @@ export function MiniMonthView() {
     //last month
     for (let i = 0; i < firstDay; i++) {
       const prevMonth = month - 1;
-      const date = new Date(year, prevMonth, i);
       const prevMonthDays = findMonthDays(year, prevMonth);
       const day = prevMonthDays - i
+      const date = new Date(year, prevMonth, day);
       count = count + 1;
     
       allDays.unshift(
@@ -63,7 +62,7 @@ export function MiniMonthView() {
     }
 
     //show days of next month
-    for (let i = 1; i < 14; i++) {
+    for (let i = 1; i <= 14; i++) {
       const date = new Date(year, month + 1, i);
       if (count >= 42) return allDays;
       count = count + 1;
@@ -86,7 +85,7 @@ export function MiniMonthView() {
     const list = [];
     for (let i = 0; i <=6; i++) {
       list.push(
-        <div key = {`day-${i}`} className='mini-box mwd'><p>{weekDays[i]}</p></div>
+        <div key = {`day-${i}`} className='mini-box mwd'><p className={"p" + (i + 1)}>{weekDays[i]}</p></div>
       )
     }
 
@@ -95,7 +94,6 @@ export function MiniMonthView() {
 
   return (
     <>
-      <div className="mini-nav"></div>
       <div className="mini-calendar-grid">
         {showWeekDays()}
         {showMiniCalendarMonth()}

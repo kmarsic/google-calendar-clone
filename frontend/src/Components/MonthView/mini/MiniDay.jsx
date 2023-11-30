@@ -1,12 +1,17 @@
 /* eslint-disable react/prop-types */
 
-export function MiniDay({date, iterator, previous, next}) {
+import { useDispatch } from "react-redux";
+import { setDate } from "../../../redux/features/dateSlicer";
+
+export function MiniDay({date, iterator, previous, next, isToday}) {
     const parsedDate = Date.parse(date);
+    const dispatch = useDispatch();
     return (
         <div 
-        id={parsedDate} 
+        id={parsedDate}
+        onClick={() => dispatch(setDate(parsedDate))}
         className={previous || next ? "mini-box empty" : "mini-box"}>
-            <span className='dayIndex'>{iterator}</span>
+            <div className={isToday ? "day-index-mini mini-today" : "day-index-mini"}><span>{iterator}</span></div>
         </div>
     )
 }
