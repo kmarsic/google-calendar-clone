@@ -12,6 +12,7 @@ body {
     --secondary-focus: rgb(210, 227, 252);
     --hover-main: rgba(0, 0, 0, 0.05);
     --hover-main-focus: rgb(26, 104, 206);
+    --hover-info: rgb(112,112,112);
     
 
     @include whenDark {
