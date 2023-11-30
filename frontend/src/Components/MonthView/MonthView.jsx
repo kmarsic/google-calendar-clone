@@ -34,10 +34,9 @@ export function MonthView() {
     //last month
     for (let i = 0; i < firstDay; i++) {
       const prevMonth = month - 1;
-      const date = new Date(year, prevMonth, i);
       const prevMonthDays = findMonthDays(year, prevMonth);
       const day = prevMonthDays - i;
-    
+      const date = new Date(year, prevMonth, day);
       allDays.unshift(
         <Day
         key={"pm"+i}
