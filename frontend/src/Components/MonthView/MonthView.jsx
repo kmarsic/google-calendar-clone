@@ -94,7 +94,7 @@ export function MonthView() {
   }
 
   return (
-      <div className="calendar-grid" style={{gridTemplateRows: `15px repeat(${gridRule() ? 6 : 5},1fr)`}}>
+      <div className="calendar-grid" style={{gridTemplateRows: `25px repeat(${gridRule() ? 6 : 5},1fr)`}}>
         {showWeekDays()}
         {showCalendarMonth()}
       </div>
