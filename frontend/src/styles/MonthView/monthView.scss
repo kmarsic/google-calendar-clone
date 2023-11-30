@@ -1,16 +1,15 @@
 .calendar-grid {
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: 15px repeat(5,1fr);
   display:grid;
   flex-grow: 1;
 }
 
 .weekDay {
   text-align: center;
-  color: var(--text-main);
+  padding-top: 10px;
+  color: var(--text-body);
   border-left: 1px solid var(--border);
   font-weight: 500;
-  padding: 0.25rem 0;
 }
 
 .assignment {

@@ -2,21 +2,209 @@
     grid-template-columns: repeat(7,1fr);
     display:grid;
     text-align: center;
+    width: 215px;
+    height: 196px;
 }
 
-.mini-nav{
-    display:flex;
-    grid-column-start: 1;
-    grid-column-end: -1;
-}
 
 .mini-box {
     font-size: 10px;
     font-weight: 500;
     position: relative;
-    padding: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     p {
         cursor: default;
     }
 }
 
+.mini-today {
+    color: white;
+    background-color: var(--main-focus);
+    &:hover {
+      background-color: var(--hover-main-focus)!important;
+    }
+}
+
+.p1 {
+    color: var(--text-body);
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "Sunday";
+        width: 9ch;
+        height: 20px;
+        color: white;
+        font-weight: 500;
+        background-color: var(--hover-info);
+        border-radius: 2px;
+        font-size: 11px;
+        z-index: -1;
+        top: 20px;
+        left: -4ch;
+        opacity: 0;
+        transition: 0.3s ease-in-out;
+    }
+    &:hover::before {
+        opacity: 1;
+        top: 35px;
+    
+    }
+}
+.p2 {
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "Monday";
+        width: 9ch;
+        height: 20px;
+        color: white;
+        font-weight: 500;
+        background-color: var(--hover-info);
+        border-radius: 2px;
+        font-size: 11px;
+        z-index: -1;
+        top: 20px;
+        left: -4ch;
+        opacity: 0;
+        transition: 0.3s ease-in-out;
+    
+    }
+    &:hover::before {
+        opacity: 1;
+        top: 35px;
+    
+    }
+}
+.p3 {
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "Tuesday";
+        width: 9ch;
+        height: 20px;
+        color: white;
+        font-weight: 500;
+        background-color: var(--hover-info);
+        border-radius: 2px;
+        font-size: 11px;
+        z-index: -1;
+        top: 20px;
+        left: -4ch;
+        opacity: 0;
+        transition: 0.3s ease-in-out;
+
+    }
+    &:hover::before {
+        opacity: 1;
+        top: 35px;
+    }
+}
+.p4 {
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "Wednesday ";
+        width: 12ch;
+        height: 20px;
+        color: white;
+        font-weight: 500;
+        background-color: var(--hover-info);
+        border-radius: 2px;
+        font-size: 11px;
+        z-index: -1;
+        top: 20px;
+        left: -5.5ch;
+        opacity: 0;
+        transition: 0.3s ease-in-out;
+    }
+    &:hover::before {
+        opacity: 1;
+        top: 35px;
+    }
+}
+.p5 {
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "Thursday";
+        width: 10ch;
+        height: 20px;
+        color: white;
+        font-weight: 500;
+        background-color: var(--hover-info);
+        border-radius: 2px;
+        font-size: 11px;
+        z-index: -1;
+        top: 20px;
+        left: -4.5ch;
+        opacity: 0;
+        transition: 0.3s ease-in-out;
+
+    }
+    &:hover::before {
+        opacity: 1;
+        top: 35px;
+    }
+}
+.p6 {
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "Friday";
+        width: 8ch;
+        height: 20px;
+        color: white;
+        font-weight: 500;
+        background-color: var(--hover-info);
+        border-radius: 2px;
+        font-size: 11px;
+        top: 20px;
+        left: -3.5ch;
+        opacity: 0;
+        z-index: -1;
+        transition: 0.3s ease-in-out;
+    }
+    &:hover::before {
+        opacity: 1;
+        top:35px;
+    }
+}
+.p7 {
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "Saturday";
+        width: 10ch;
+        height: 20px;
+        color: white;
+        font-weight: 500;
+        background-color: var(--hover-info);
+        border-radius: 2px;
+        font-size: 11px;
+        z-index: -1;
+        top: 20px;
+        left: -4.5ch;
+        opacity: 0;
+        transition: 0.3s ease-in-out;
+    }
+    &:hover::before {
+        opacity: 1;
+        top: 35px;
+    }
+}
+
+.day-index-mini {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    &:hover {
+        background-color: var(--hover-main);
+    }
+    cursor: pointer;
+    user-select: none;
+}
