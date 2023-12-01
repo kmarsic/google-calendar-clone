@@ -76,6 +76,7 @@ export function NewTaskForm ({clickedItem}) {
                 <input
                 type="text"
                 id="title"
+                autoFocus
                 required
                 placeholder="Add title"
                 value={formData.title}
