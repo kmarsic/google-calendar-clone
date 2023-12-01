@@ -1,0 +1,71 @@
+.week-view {
+    width: 100%;
+}
+
+.week-nav {
+    display:grid;
+    height: 84px;
+    grid-template-columns: repeat(7, 1fr);
+    padding-top: 1rem ;
+}
+
+.border-divs {
+    display:grid;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+}
+
+.week-day {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: column;
+
+}
+
+.week-day-name {
+    font-size: 12px;
+}
+
+.week-day-index {
+    font-size: 26px;
+    font-weight: 500;
+}
+
+.week-cal-body {
+    display: flex;
+}
+
+.week-cal-grid {
+    display:grid;
+    height: 100%;
+    grid-template-columns: repeat(7, 1fr);
+    flex: 1;
+    padding-right: 4px;
+    margin-right: 4px;
+    overflow-y: scroll;
+    max-height: 822px;
+    &::-webkit-scrollbar {
+        width:8px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color:var(--border);
+        border-radius: 8px;
+        min-height: 40px;
+        border: none;
+    }
+    &:hover::-webkit-scrollbar-thumb {
+        background-color: rgb(177, 180, 186);
+    }
+}
+
+
+
+.time-slot {
+    height: 48px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+    
+}

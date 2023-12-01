@@ -12,6 +12,7 @@ body {
   transition: background-color .25s ease-in;
   height: 100vh;
   font-size: 12px;
+  overflow-y: hidden;
 }
 
 #root {
@@ -25,6 +26,4 @@ body {
     display:flex;
     flex: 1;
     align-self: stretch;
-    border-top: 1px solid var(--border);
-    border-right: 1px solid var(--border);
   }
