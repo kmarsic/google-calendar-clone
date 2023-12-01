@@ -7,6 +7,8 @@ import getData from './redux/features/thunk/getData';
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet'
+import { Link, Route, Routes } from 'react-router-dom';
+import { WeekView } from './Components/CalendarViews/week/WeekView';
 
 function App() {
   const [burger, setBurgerOpen] = useState(false);
@@ -31,7 +33,10 @@ function App() {
     <Navigation today={today} burger={burger} setBurger={setBurgerOpen}/>
     <div className='calendar-main'>
       <Sidebar burgerOpen={burger}/>
-      <MonthView/>
+      <Routes>
+        <Route path='/month' element={<MonthView/>}></Route>
+        <Route path='/week' element={<WeekView/>}></Route>
+      </Routes>
     </div>
   </>
   )

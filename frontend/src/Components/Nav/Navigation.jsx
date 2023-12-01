@@ -7,6 +7,8 @@ import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faSearch,faAngleLeft, faAngleRight, faCaretDown} from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect, useRef } from 'react';
 import { MiniView } from '../MonthView/mini/MiniView';
+import { Link } from 'react-router-dom';
+
 
 export const Navigation = ({ burger, setBurger, today}) => {
   const date = new Date(useSelector(currentDate));
@@ -72,9 +74,10 @@ export const Navigation = ({ burger, setBurger, today}) => {
               <div className='menu-item'>
                 <FontAwesomeIcon icon={faSearch} size='xl'/>
               </div>
-              <div className='btn-header'>
-                MONTH
-              </div>
+              <ul>
+                <li><li><Link to={"/week"}>Week</Link></li></li>
+                <li><li><Link to={"/month"}>Week</Link></li></li>
+              </ul>
             </div>
           </div>
           <DarkToggle></DarkToggle>
