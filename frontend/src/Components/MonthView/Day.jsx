@@ -21,7 +21,7 @@ export function Day({date, iterator,isToday, previous, next}) {
           iterator === 1 ? 
           (
             <> 
-              {date.toLocaleString("default", {month:"short"}) + " "}
+              {isToday ? null : date.toLocaleString("default", {month:"short"}) + " "}
               <span className={`dayIndex ${isToday ? "today" : ""}`}>
                 {iterator}
               </span>
