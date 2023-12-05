@@ -1,0 +1,21 @@
+.day-cal-grid {
+    display: grid;
+    grid-template-columns: 8px 1fr;
+}
+
+.nav-grid-day {
+    position: relative;
+    display:grid;
+    height: 84px;
+    width: 100%;
+    grid-template-columns: 46px 1fr;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.single-day {
+    .week-day {
+        padding-left: 14px;
+    }
+}
+
