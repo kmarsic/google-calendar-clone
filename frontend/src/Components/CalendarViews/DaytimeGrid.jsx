@@ -8,7 +8,7 @@ export function DaytimeGrid({iterator, day}) {
                 <div key={"ts" + i} className={iterator == 0 ? "hairline-border" : "time-slot"}></div>
             ) :
             grid.push(
-                <div className="time-slot">
+                <div key={"Tsa" + i} className="time-slot">
                 </div>
             )
         }
