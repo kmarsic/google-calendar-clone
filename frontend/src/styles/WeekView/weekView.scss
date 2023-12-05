@@ -1,5 +1,6 @@
 .week-view {
     width: 100%;
+    margin-left: -15px;
 }
 
 .week-nav {
@@ -8,17 +9,13 @@
 }
 
 .nav-grid {
+    position: relative;
     display:grid;
-    height: 108px;
+    height: 84px;
     width: 100%;
     grid-template-columns: repeat(7, 1fr);
     padding-left: 8px;
     padding-right: 8px;
-}
-
-.nav-spacer {
-    width: 64px;
-    height: 108px;
 }
 
 .nav-border-div {
@@ -30,27 +27,52 @@
 .week-day {
     display: grid;
     justify-items: center;
-    gap: 0.5rem;
-    height: 84px;
-    padding-top: 1rem;
+    position: relative;
+    top: 16px;
+    gap: 0.25rem;
+    height: 60px;
+}
+
+.week-today {
+    background-color: var(--main-focus);
+    color: white;
+    &:hover {
+        background-color: var(--hover-main-focus)!important;
+    }
+}
+
+.past {
+    color: var(--text-body);
 }
 
 .week-day-name {
-    font-size: 12px;
+    font-family: 'Open Sans';
+    font-size: 11px;
+    text-indent: 0.8px;
+    font-weight: 600;
+    color: var(--text-body);
+    letter-spacing: 0.8px;
 }
 
 .week-day-index {
     font-size: 26px;
-    font-weight: 600;
-
-
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-content: center;
+    border-radius: 100%;
+    user-select: none;
+    cursor: pointer;
+    &:hover {
+        background-color: var(--hover-main);
+    }
 }
 
 .week-cal-body {
     display: grid;
     grid-template-columns: 64px 1fr;
     overflow-y: scroll;
-    max-height: 800px;
+    max-height: 820px;
     &::-webkit-scrollbar {
         width:8px;
     }
@@ -94,7 +116,34 @@
         span {
             position: relative;
             top: 42px;
+            z-index: 5;
             color: var(--text-body);
+            -webkit-text-stroke: 0.1px;
         }
     }
+}
+
+.gmt {
+    color: var(--text-body);
+    -webkit-text-stroke: 0.1px;
+    position: absolute;
+    font-size: 10px;
+    top: 88px;
+    left: -45px
+}
+
+.day-cal-grid {
+    display: grid;
+    grid-template-columns: 8px 1fr;
+}
+
+.nav-grid-day {
+    position: relative;
+    display:grid;
+    height: 84px;
+    width: 100%;
+    grid-template-columns: repeat(7, 1fr);
+    padding-left: 8px;
+    padding-right: 8px;
+    
 }
