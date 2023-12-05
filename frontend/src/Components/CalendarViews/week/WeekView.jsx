@@ -23,8 +23,8 @@ export function WeekView() {
             const year = mainDate.getFullYear();
             const currentMonth = mainDate.getMonth();
             const firstDay = (mainDate.getDate() - mainDate.getDay()) + i;
-            const isToday = true;
-            const currentDate = new Date(year, currentMonth, firstDay)
+            const currentDate = new Date(year, currentMonth, firstDay);
+            const isToday = Date.parse(currentDate) === Date.parse(new Date());
             weekDays.push(
                 <WeekDays
                 key={"wv"+i}
@@ -41,7 +41,7 @@ export function WeekView() {
         const borders = [];
         for (let i = 0; i <= 6; i++) {
             borders.push(
-                <div className="nav-border-div"></div>
+                <div key={"b" + i} className="nav-border-div"></div>
             )
         }
         return borders;
@@ -51,14 +51,14 @@ export function WeekView() {
         const times = [];
         for (let i = 1; i <= 12; i++) {
             times.push(
-                <div className="time-frame">
+                <div key={"ta" + i} className="time-frame">
                     <span className="time">{i} AM</span>
                 </div>
             )
         }
         for (let i = 1; i <= 11; i++) {
             times.push(
-                <div className="time-frame">
+                <div key={"tp" + i} className="time-frame">
                     <span className="time">{i} PM</span>
                 </div>
             )
@@ -69,8 +69,9 @@ export function WeekView() {
     return (
         <div className="week-view">
             <div className="week-nav">
-                <div className="nav-spacer"></div>
+                <div></div>
                 <div className="nav-grid">
+                    <div className="gmt">GMT+01</div>
                     {showWeekDays()}
                     {navBorderDiv()}
                 </div>
