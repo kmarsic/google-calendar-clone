@@ -75,8 +75,8 @@ export const Navigation = ({ burger, setBurger, today}) => {
                 <FontAwesomeIcon icon={faSearch} size='xl'/>
               </div>
               <ul>
-                <li><li><Link to={"/week"}>Week</Link></li></li>
-                <li><li><Link to={"/month"}>Week</Link></li></li>
+                <li><Link to={"/week"}>Week</Link></li>
+                <li><Link to={"/month"}>Month</Link></li>
               </ul>
             </div>
           </div>
