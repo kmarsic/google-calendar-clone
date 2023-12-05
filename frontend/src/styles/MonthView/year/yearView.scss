@@ -1,0 +1,12 @@
+.year-grid {
+    width: 100%;
+    padding-left: 90px;
+    padding-right: 90px;
+    padding-top: 50px;
+    column-gap: 150px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    div {
+        font-size: 12px;
+    }
+}
