@@ -2,26 +2,29 @@
 import { DarkToggle } from './DarkToggle';
 import { Hamburger } from './Hamburger';
 import { useDispatch, useSelector } from 'react-redux';
-import { previousMonth, nextMonth, currentDate, miniDate } from '../../redux/features/dateSlicer';
+import { previousMonth, nextMonth, currentDate, miniDate, currentView, previousWeek, previousDay, nextDay, nextWeek, setDate } from '../../redux/features/dateSlicer';
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faSearch,faAngleLeft, faAngleRight, faCaretDown} from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect, useRef } from 'react';
 import { MiniView } from '../CalendarViews/MonthView/mini/MiniView';
-import { Link } from 'react-router-dom';
+import { ViewDropdown } from '../ViewDropdown';
 
 
 export const Navigation = ({ burger, setBurger, today}) => {
+  const view = useSelector(currentView);
   const date = new Date(useSelector(currentDate));
   const minDate = new Date(useSelector(miniDate));
-  const [isVisible, setIsVisible] = useState(false);
-  const containerRef = useRef(null);
+  const [isCalVisible, setIsCalVisible] = useState(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+
+  const calendarRef = useRef(null);
 
   const dispatch = useDispatch();
   const imgref = () => `./src/images/title/calendar_${today}_2x.png`
 
   const handleClickOutside = (e) => {
-    if (containerRef.current && !containerRef.current.contains(e.target)) {
-      setIsVisible(false);
+    if (calendarRef.current && !calendarRef.current.contains(e.target)) {
+      setIsCalVisible(false);
     }
   }
 
@@ -33,8 +36,38 @@ export const Navigation = ({ burger, setBurger, today}) => {
     }
   }, []);
 
-  const handleButtonClick = () => {
-    setIsVisible(true);
+  const handleButtonClick = (e) => {
+    if (e.target.closest(".current-date")) {
+      setIsCalVisible(true);
+    } else if (e.target.closest(".view-dropdown")) {
+      setIsDropdownVisible(!isDropdownVisible);
+    }
+  }
+
+  const handleViewChange = (view, time) => {
+    if (time == "prev") {
+      switch(view) {
+        case "Month":
+          dispatch(previousMonth());
+          break;
+        case "Week":
+          dispatch(previousWeek());
+          break;
+        case "Day":
+          dispatch(previousDay());
+      }
+    } else if (time == "next") {
+      switch(view) {
+        case "Month":
+          dispatch(nextMonth());
+          break;
+        case "Week":
+          dispatch(nextWeek());
+          break;
+        case "Day":
+          dispatch(nextDay());
+      }
+    }
   }
     return (
         <div className="calendar-header">
@@ -46,27 +79,25 @@ export const Navigation = ({ burger, setBurger, today}) => {
           <div className='header-menu'>
             <div className='menu-left'>
               <div className="date-switch">
-                <div className='btn-header'>
+                <div onClick={() => dispatch(setDate(Date.parse(new Date())))} className='btn-header'>
                     <span>Today</span>
                 </div>
                 <div className="switches">
-                  <div className="menu-item" onClick={() => dispatch(previousMonth())}>
+                  <div className="menu-item" onClick={() => handleViewChange(view, "prev")}>
                       <FontAwesomeIcon icon={faAngleLeft} style={{color : "#3c4043"}} size='xl'></FontAwesomeIcon>
                   </div>
-                  <div className="menu-item" onClick={() => dispatch(nextMonth())}>
+                  <div className="menu-item" onClick={() => handleViewChange(view, "next")}>
                       <FontAwesomeIcon icon={faAngleRight} style={{color: "#3c4043"}} size='xl'></FontAwesomeIcon>
                   </div>
                 </div>
               </div>
-              <div className='current-date' ref={containerRef}  onClick={handleButtonClick}  >
-                <span>
+              <div className='current-date' ref={calendarRef}  onClick={handleButtonClick}  >
                   {date.toLocaleString("default", {
                     month: "long",
                     year: "numeric",
                   })}
-                </span>
                 <FontAwesomeIcon icon={faCaretDown} size='2xs' style={{color: "rgba(0, 0, 0, 0.4)"}}/>
-                {isVisible ? 
+                {isCalVisible ? 
                   <MiniView embed={true} date={minDate}/> : null}
               </div>
             </div>
@@ -74,10 +105,11 @@ export const Navigation = ({ burger, setBurger, today}) => {
               <div className='menu-item'>
                 <FontAwesomeIcon icon={faSearch} size='xl'/>
               </div>
-              <ul>
-                <li><Link to={"/week"}>Week</Link></li>
-                <li><Link to={"/month"}>Month</Link></li>
-              </ul>
+              <div onClick={(e) => handleButtonClick(e)} className='view-dropdown'>
+                  <div>{view}</div>
+                  <FontAwesomeIcon icon={faCaretDown} size='2xs'/>
+                  {isDropdownVisible ? <ViewDropdown/> : null}
+              </div>
             </div>
           </div>
           <DarkToggle></DarkToggle>
