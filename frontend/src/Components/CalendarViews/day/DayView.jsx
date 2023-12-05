@@ -6,9 +6,8 @@ import { WeekDays } from "../week/WeekDays";
 export function DayView() {
     const mainDate = new Date(useSelector(currentDate));
     const day = mainDate.getDay();
-    console.log(day)
     const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-
+    const today = new Date();
     const showTimeFrames = () => {
         const times = [];
         for (let i = 1; i <= 12; i++) {
@@ -33,8 +32,8 @@ export function DayView() {
                 <div></div>
                 <div className="nav-grid-day">
                     <div className="gmt">GMT+01</div>
-                    <div>
-                        <WeekDays day={dayNames[day]} date={mainDate}/>
+                    <div className="single-day">
+                        <WeekDays day={dayNames[day]} date={mainDate} today={today}/>
                         <div className="nav-border-div"></div>
                     </div>
                     
