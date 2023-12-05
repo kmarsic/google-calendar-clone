@@ -4,9 +4,8 @@ export function WeekDays({date,day}) {
         <div className="week-day">
             <div className="week-day-name">{day}</div>
             <div>
-                <h2 className="week-day-index">{date.getDate()}</h2>
+                <span className="week-day-index">{date.getDate()}</span>
             </div>
-            <div className="week-day-border-div"></div>
         </div>
     )
 }

@@ -8,9 +8,9 @@ export function WeekView() {
 
     const showWeekGrid = () => {
         const grid = [];
-        for (let i = 0; i <= 6; i++) {
+        for (let i = 0; i <= 7; i++) {
             grid.push(
-                <DaytimeGrid/>
+                <DaytimeGrid key={"dgr" + i} iterator={i}/>
             )
         }
         return grid;
@@ -36,10 +36,47 @@ export function WeekView() {
         }
         return weekDays;
     }
+
+    const navBorderDiv = () => {
+        const borders = [];
+        for (let i = 0; i <= 6; i++) {
+            borders.push(
+                <div className="nav-border-div"></div>
+            )
+        }
+        return borders;
+    }
+
+    const showTimeFrames = () => {
+        const times = [];
+        for (let i = 1; i <= 12; i++) {
+            times.push(
+                <div className="time-frame">
+                    <span className="time">{i} AM</span>
+                </div>
+            )
+        }
+        for (let i = 1; i <= 11; i++) {
+            times.push(
+                <div className="time-frame">
+                    <span className="time">{i} PM</span>
+                </div>
+            )
+        }
+        return times;
+    }
+    
     return (
         <div className="week-view">
-            <div className="week-nav">{showWeekDays()}</div>
+            <div className="week-nav">
+                <div className="nav-spacer"></div>
+                <div className="nav-grid">
+                    {showWeekDays()}
+                    {navBorderDiv()}
+                </div>
+            </div>
             <div className="week-cal-body">
+                <div className="time-frames">{showTimeFrames()}</div>
                 <div className="week-cal-grid">
                     {showWeekGrid()}
                 </div>
