@@ -116,10 +116,11 @@
         span {
             position: relative;
             top: 42px;
-            z-index: 5;
+            z-index: 1;
             color: var(--text-body);
             -webkit-text-stroke: 0.1px;
         }
+        user-select: none;
     }
 }
 
@@ -129,21 +130,20 @@
     position: absolute;
     font-size: 10px;
     top: 88px;
-    left: -45px
+    left: -45px;
+    background-color: white;
+    z-index: 2;
+    user-select: none;
 }
 
-.day-cal-grid {
-    display: grid;
-    grid-template-columns: 8px 1fr;
+.windex-today {
+    background-color: var(--main-focus);
+    color: white;
+    &:hover {
+        background-color: var(--hover-main-focus);
+    }
 }
 
-.nav-grid-day {
-    position: relative;
-    display:grid;
-    height: 84px;
-    width: 100%;
-    grid-template-columns: repeat(7, 1fr);
-    padding-left: 8px;
-    padding-right: 8px;
-    
+.wname-today {
+    color: var(--main-focus)
 }
