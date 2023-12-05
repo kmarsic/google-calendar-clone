@@ -4,6 +4,8 @@ import { Assignment } from "./../../Forms/Assignment"
 import { NewTaskForm } from "./../../Forms/NewTaskForm"
 import { allTasks } from "../../../redux/features/taskSlicer";
 import { clicked, handleBoxClick } from "../../../redux/features/clickedSlicer";
+import { setDate } from "../../../redux/features/dateSlicer";
+import { Link } from "react-router-dom";
 
 export function MonthDay({date, iterator,isToday, previous, next}) {
     const parsedDate = Date.parse(date);
@@ -17,19 +19,23 @@ export function MonthDay({date, iterator,isToday, previous, next}) {
         className={previous || next ? "box empty" : "box"}
         >
           {previous ? 
-          (<span className='dayIndex'>{iterator}</span>) : 
+          (<Link to='/day'><span onClick={() => dispatch(setDate(parsedDate))} className='dayIndex'>{iterator}</span></Link>) : 
           iterator === 1 ? 
           (
             <> 
               {isToday ? null : date.toLocaleString("default", {month:"short"}) + " "}
-              <span className={`dayIndex ${isToday ? "today" : ""}`}>
-                {iterator}
-              </span>
+              <Link to='/day'>
+                <span onClick={() => dispatch(setDate(parsedDate))} className={`dayIndex ${isToday ? "today" : ""}`}>
+                  {iterator}
+                </span>
+              </Link>
             </>
           ) : 
-            <span className={`dayIndex ${isToday ? "today" : ""}`}>
-              {iterator}
-            </span>
+            <Link to='/day'>
+              <span onClick={() => dispatch(setDate(parsedDate))} className={`dayIndex ${isToday ? "today" : ""}`}>
+                {iterator}
+              </span>
+            </Link>
             }
           {clickedItem.id == parsedDate ? 
           <Assignment key={1} title="???"/> : 
