@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import './styles/_index.scss';
-import { MonthView } from './Components/MonthView/MonthView';
+import { MonthView } from './Components/CalendarViews/MonthView/MonthView';
 import { Navigation } from './Components/Nav/Navigation';
 import { Sidebar } from './Components/Sidebar/Sidebar';
 import { currentDate } from './redux/features/dateSlicer';
@@ -7,8 +8,9 @@ import getData from './redux/features/thunk/getData';
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet'
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { WeekView } from './Components/CalendarViews/week/WeekView';
+import { DayView } from './Components/CalendarViews/day/DayView';
 
 function App() {
   const [burger, setBurgerOpen] = useState(false);
@@ -34,8 +36,10 @@ function App() {
     <div className='calendar-main'>
       <Sidebar burgerOpen={burger}/>
       <Routes>
+        <Route path='/' element={<MonthView/>}></Route>
         <Route path='/month' element={<MonthView/>}></Route>
-        <Route path='/week' element={<WeekView/>}></Route>
+        <Route path='/week' element={<WeekView/>}></Route> 
+        <Route path='/day' element={<DayView/>}></Route>
       </Routes>
     </div>
   </>

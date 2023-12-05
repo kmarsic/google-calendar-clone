@@ -6,7 +6,7 @@ import { previousMonth, nextMonth, currentDate, miniDate } from '../../redux/fea
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faSearch,faAngleLeft, faAngleRight, faCaretDown} from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect, useRef } from 'react';
-import { MiniView } from '../MonthView/mini/MiniView';
+import { MiniView } from '../CalendarViews/MonthView/mini/MiniView';
 import { Link } from 'react-router-dom';
 
 

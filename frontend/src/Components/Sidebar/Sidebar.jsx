@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { MiniView } from '../MonthView/mini/MiniView';
+import { MiniView } from "../CalendarViews/MonthView/mini/MiniView"
 
 export const Sidebar = ({burgerOpen}) => {
 
