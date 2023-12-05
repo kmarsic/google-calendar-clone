@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet'
 import { Route, Routes } from 'react-router-dom';
 import { WeekView } from './Components/CalendarViews/week/WeekView';
 import { DayView } from './Components/CalendarViews/day/DayView';
+import { YearView } from './Components/CalendarViews/Year/YearView';
 
 function App() {
   const [burger, setBurgerOpen] = useState(false);
@@ -21,7 +22,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getData());
-    }, []) 
+    }, [dispatch]) 
 
   const faviconHref = num => {
     return `./src/images/favi/calendar_${num}.ico`}
@@ -40,6 +41,7 @@ function App() {
         <Route path='/month' element={<MonthView/>}></Route>
         <Route path='/week' element={<WeekView/>}></Route> 
         <Route path='/day' element={<DayView/>}></Route>
+        <Route path='/year' element={<YearView/>}></Route>
       </Routes>
     </div>
   </>
