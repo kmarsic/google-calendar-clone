@@ -3,25 +3,36 @@
 }
 
 .week-nav {
-    display:grid;
-    height: 84px;
-    grid-template-columns: repeat(7, 1fr);
-    padding-top: 1rem ;
+    display: grid;
+    grid-template-columns: 64px 1fr;
 }
 
-.border-divs {
+.nav-grid {
     display:grid;
-    border-bottom: 1px solid var(--border);
-    border-right: 1px solid var(--border);
+    height: 108px;
+    width: 100%;
+    grid-template-columns: repeat(7, 1fr);
+    padding-left: 8px;
+    padding-right: 8px;
 }
+
+.nav-spacer {
+    width: 64px;
+    height: 108px;
+}
+
+.nav-border-div {
+    height: 24px;
+    border-left: 1px solid var(--border);
+}
+
 
 .week-day {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-direction: column;
-
+    display: grid;
+    justify-items: center;
+    gap: 0.5rem;
+    height: 84px;
+    padding-top: 1rem;
 }
 
 .week-day-name {
@@ -30,22 +41,16 @@
 
 .week-day-index {
     font-size: 26px;
-    font-weight: 500;
+    font-weight: 600;
+
+
 }
 
 .week-cal-body {
-    display: flex;
-}
-
-.week-cal-grid {
-    display:grid;
-    height: 100%;
-    grid-template-columns: repeat(7, 1fr);
-    flex: 1;
-    padding-right: 4px;
-    margin-right: 4px;
+    display: grid;
+    grid-template-columns: 64px 1fr;
     overflow-y: scroll;
-    max-height: 822px;
+    max-height: 800px;
     &::-webkit-scrollbar {
         width:8px;
     }
@@ -60,12 +65,36 @@
     }
 }
 
+.week-cal-grid {
+    display:grid;
+    grid-template-columns: 8px repeat(7, 1fr);
+}
 
+.hairline-border {
+    border-top: 1px solid var(--border);
+    height: 48px;
+}
 
 .time-slot {
     height: 48px;
     position: relative;
-    border-bottom: 1px solid var(--border);
+    border-top: 1px solid var(--border);
     border-left: 1px solid var(--border);
     
+}
+
+.time-frames {
+    display: grid;
+    grid-template-rows: repeat(24, 1fr);
+    font-size: 10px;
+    text-align: right;
+    padding-right: 8px;
+    position: relative;
+    .time-frame {
+        span {
+            position: relative;
+            top: 42px;
+            color: var(--text-body);
+        }
+    }
 }
