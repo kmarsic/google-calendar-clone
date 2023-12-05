@@ -5,6 +5,7 @@ export const dateManager = createSlice({
     initialState: {
         mainDate: Date.parse(new Date()),
         miniDate: Date.parse(new Date()),
+        currentView: "week",
     },
     reducers: {
         nextMonth(state) {
@@ -42,14 +43,46 @@ export const dateManager = createSlice({
             const newDate = action.payload;
             state.mainDate = newDate;
             state.miniDate = newDate;
+        },
+        nextWeek(state) {
+            const date = new Date(state.mainDate)
+            const day = date.getDate();
+            const newDate = new Date(date.getFullYear(), date.getMonth(), day + 7);
+            state.miniDate = Date.parse(newDate);
+            state.mainDate = Date.parse(newDate);
+        },
+        previousWeek(state) {
+            const date = new Date(state.mainDate)
+            const day = date.getDate();
+            const newDate = new Date(date.getFullYear(), date.getMonth(), day - 7);
+            state.miniDate = Date.parse(newDate);
+            state.mainDate = Date.parse(newDate);
+        },
+        nextDay(state) {
+            const date = new Date(state.mainDate)
+            const day = date.getDate();
+            const newDate = new Date(date.getFullYear(), date.getMonth(), day + 1);
+            state.miniDate = Date.parse(newDate);
+            state.mainDate = Date.parse(newDate);
+        },
+        previousDay(state) {
+            const date = new Date(state.mainDate)
+            const day = date.getDate();
+            const newDate = new Date(date.getFullYear(), date.getMonth(), day - 1);
+            state.miniDate = Date.parse(newDate);
+            state.mainDate = Date.parse(newDate);
+        },
+        setView (state, action) {
+            state.currentView = action.payload;
         }
 
     }
 })
 
-export const {nextMonth, previousMonth, previousMonthMini, nextMonthMini, setDate} = dateManager.actions;
+export const {nextMonth, previousMonth, previousMonthMini, nextMonthMini, nextWeek, previousWeek, nextDay, previousDay, setDate, setView} = dateManager.actions;
 
 export const currentDate = (state) => state.dateList.mainDate;
 export const miniDate = (state) => state.dateList.miniDate;
+export const currentView = (state) => state.dateList.currentView;
 
 export default dateManager.reducer;
