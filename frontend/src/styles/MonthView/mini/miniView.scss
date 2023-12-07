@@ -77,11 +77,11 @@
 }
 
 .p1 {
-    color: var(--text-body);
     position: relative;
     &::before {
         position: absolute;
         content: "Sunday";
+        line-height: 18px;
         width: 9ch;
         height: 20px;
         color: white;
@@ -108,6 +108,7 @@
         content: "Monday";
         width: 9ch;
         height: 20px;
+        line-height: 18px;
         color: white;
         font-weight: 500;
         background-color: var(--hover-info);
@@ -133,6 +134,7 @@
         content: "Tuesday";
         width: 9ch;
         height: 20px;
+        line-height: 18px;
         color: white;
         font-weight: 500;
         background-color: var(--hover-info);
@@ -157,6 +159,7 @@
         content: "Wednesday ";
         width: 12ch;
         height: 20px;
+        line-height: 18px;
         color: white;
         font-weight: 500;
         background-color: var(--hover-info);
@@ -180,6 +183,7 @@
         content: "Thursday";
         width: 10ch;
         height: 20px;
+        line-height: 18px;
         color: white;
         font-weight: 500;
         background-color: var(--hover-info);
@@ -204,6 +208,7 @@
         content: "Friday";
         width: 8ch;
         height: 20px;
+        line-height: 18px;
         color: white;
         font-weight: 500;
         background-color: var(--hover-info);
@@ -227,6 +232,7 @@
         content: "Saturday";
         width: 10ch;
         height: 20px;
+        line-height: 18px;
         color: white;
         font-weight: 500;
         background-color: var(--hover-info);
