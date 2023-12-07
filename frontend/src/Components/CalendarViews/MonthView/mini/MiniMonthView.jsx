@@ -29,6 +29,10 @@ export function MiniMonthView() {
       const prevMonthDays = findMonthDays(year, prevMonth);
       const day = prevMonthDays - i
       const date = new Date(year, prevMonth, day);
+      const isToday =
+      date.getDate() === new Date().getDate() && 
+      date.getMonth() === new Date().getMonth() && 
+      year === new Date().getFullYear();
       count = count + 1;
     
       allDays.unshift(
@@ -36,7 +40,8 @@ export function MiniMonthView() {
         key={"pm"+i}
         date={date} 
         iterator={day}
-        previous={true}/>
+        previous={true}
+        isToday={isToday}/>
       );
     }
     
@@ -64,6 +69,10 @@ export function MiniMonthView() {
     //show days of next month
     for (let i = 1; i <= 14; i++) {
       const date = new Date(year, month + 1, i);
+      const isToday =
+      date.getDate() === new Date().getDate() && 
+      date.getMonth() === new Date().getMonth() && 
+      year === new Date().getFullYear();
       if (count >= 42) return allDays;
       count = count + 1;
 
@@ -73,6 +82,7 @@ export function MiniMonthView() {
         date={date}
         iterator={i}
         next={true}
+        isToday={isToday}
         />
       )
     }
