@@ -1,7 +1,7 @@
 @import 'mixins';
 @import 'colors';
-@import './MonthView/monthView';
-@import './MonthView/monthDay';
+@import './CalendarViews/MonthView/monthView.scss';
+@import './CalendarViews/MonthView/monthDay';
 @import 'App';
 @import './Nav/navigation';
 @import './Nav/DarkToggle';
@@ -9,8 +9,8 @@
 @import 'sidebar';
 @import './icons/variables';
 @import './Forms/newTaskForm.scss';
-@import './MonthView/mini/miniView.scss';
-@import './WeekView/weekView.scss';
-@import './DayView/dayView.scss';
+@import './CalendarViews/MonthView/mini/miniView.scss';
+@import './Calendar/Views/WeekView/weekView.scss';
+@import './Calendar/Views/DayView/dayView.scss';
 @import './dropdown.scss';
-@import './MonthView/year/yearView.scss';
+@import './Calendar/Views/year/yearView.scss';
