@@ -5,9 +5,23 @@ export const dateManager = createSlice({
     initialState: {
         mainDate: Date.parse(new Date()),
         miniDate: Date.parse(new Date()),
-        currentView: "week",
+        currentView: "Month",
     },
     reducers: {
+        nextYear(state) {
+            const date = new Date(state.mainDate)
+            const nextYear = date.getFullYear() + 1;
+            const newDate = new Date(nextYear, date.getMonth());
+            state.miniDate = Date.parse(newDate);
+            state.mainDate = Date.parse(newDate);
+        },
+        prevYear(state) {
+            const date = new Date(state.mainDate)
+            const prevYear = date.getFullYear() - 1;
+            const newDate= new Date(prevYear, date.getMonth());
+            state.miniDate = Date.parse(newDate);
+            state.mainDate = Date.parse(newDate);
+        },
         nextMonth(state) {
             const date = new Date(state.mainDate)
             const nextMonth = date.getMonth() + 1;
@@ -79,7 +93,7 @@ export const dateManager = createSlice({
     }
 })
 
-export const {nextMonth, previousMonth, previousMonthMini, nextMonthMini, nextWeek, previousWeek, nextDay, previousDay, setDate, setView} = dateManager.actions;
+export const {nextYear, prevYear, nextMonth, previousMonth, previousMonthMini, nextMonthMini, nextWeek, previousWeek, nextDay, previousDay, setDate, setView} = dateManager.actions;
 
 export const currentDate = (state) => state.dateList.mainDate;
 export const miniDate = (state) => state.dateList.miniDate;
