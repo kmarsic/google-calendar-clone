@@ -17,7 +17,10 @@ export function MonthView() {
   const gridRule = () => {
     const month = mainDate.getMonth();
     const year = mainDate.getFullYear();
-     if (findFirstDay(year,month) > 4 && findMonthDays(year,month) >= 30 ) {
+    if(findFirstDay(year,month) == 5 && findMonthDays(year, month) == 30) {
+      return false
+    }
+     else if (findFirstDay(year,month) > 4 && findMonthDays(year,month) >= 30 ) {
         return true
      }
      return false
@@ -30,6 +33,7 @@ export function MonthView() {
     const firstDay = findFirstDay(year, month);
 
     const allDays  = [];
+    let count = 0;
 
     //last month
     for (let i = 0; i < firstDay; i++) {
@@ -37,6 +41,7 @@ export function MonthView() {
       const prevMonthDays = findMonthDays(year, prevMonth);
       const day = prevMonthDays - i;
       const date = new Date(year, prevMonth, day);
+      count = count + 1;
       allDays.unshift(
         <MonthDay
         key={"pm"+i}
@@ -55,7 +60,7 @@ export function MonthView() {
       j === new Date().getDate() && 
       month === new Date().getMonth() && 
       year === new Date().getFullYear();
-
+      count = count + 1;
       allDays.push(
         <MonthDay
         key={"cm"+ j}
@@ -66,9 +71,10 @@ export function MonthView() {
     }
 
     //show days of next month
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i <= 7; i++) {
       const date = new Date(year, month + 1, i);
-      if (date.getDay() === 0) return allDays;
+      if (date.getDay() == 0 && count >= 35) return allDays;
+      count = count + 1;
       allDays.push(
         <MonthDay
         key={"nm"+i}
