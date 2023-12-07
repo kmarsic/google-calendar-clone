@@ -1,21 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+//styles
 import './styles/_index.scss';
-import { MonthView } from './Components/CalendarViews/MonthView/MonthView';
+// components
 import { Navigation } from './Components/Nav/Navigation';
 import { Sidebar } from './Components/Sidebar/Sidebar';
+import { Helmet } from 'react-helmet'
+import { SiteRouter } from './SiteRouter';
+//funcs
 import { currentDate } from './redux/features/dateSlicer';
 import getData from './redux/features/thunk/getData';
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet'
-import { Route, Routes } from 'react-router-dom';
-import { WeekView } from './Components/CalendarViews/week/WeekView';
-import { DayView } from './Components/CalendarViews/day/DayView';
-import { YearView } from './Components/CalendarViews/Year/YearView';
+
+
 
 function App() {
   const [burger, setBurgerOpen] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const date = new Date(useSelector(currentDate))
   const today = new Date().getDate();
@@ -24,9 +25,9 @@ function App() {
     dispatch(getData());
     }, [dispatch]) 
 
-  const faviconHref = num => {
-    return `./src/images/favi/calendar_${num}.ico`}
-
+  const faviconHref = (num) => {
+    return `https://calendar.google.com/googlecalendar/images/favicons_2020q4/calendar_${num}.ico`
+  }
   return (
   <>
     <Helmet>
@@ -36,13 +37,7 @@ function App() {
     <Navigation today={today} burger={burger} setBurger={setBurgerOpen}/>
     <div className='calendar-main'>
       <Sidebar burgerOpen={burger}/>
-      <Routes>
-        <Route path='/' element={<MonthView/>}></Route>
-        <Route path='/month' element={<MonthView/>}></Route>
-        <Route path='/week' element={<WeekView/>}></Route> 
-        <Route path='/day' element={<DayView/>}></Route>
-        <Route path='/year' element={<YearView/>}></Route>
-      </Routes>
+      <SiteRouter/>
     </div>
   </>
   )
