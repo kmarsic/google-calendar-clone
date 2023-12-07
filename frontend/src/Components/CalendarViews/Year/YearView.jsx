@@ -1,10 +1,12 @@
 import { useSelector } from "react-redux";
 import { MiniDay } from "../MonthView/mini/MiniDay";
-import { miniDate } from "../../../redux/features/dateSlicer";
+import { currentDate } from "../../../redux/features/dateSlicer";
 
 export function YearView() {
-    const selectedDate = new Date(useSelector(miniDate));
-    const month = selectedDate.getMonth();
+    const selectedDate = new Date(useSelector(currentDate));
+    const currDate = new Date();
+    const currentMonth = currDate.getMonth();
+    const currentYear = currDate.getFullYear();
     const findMonthDays = (y, m) => {
     return new Date(y, m + 1, 0).getDate();
     };
@@ -73,7 +75,6 @@ export function YearView() {
         />
       )
     }
-    console.log(count);
     return allDays
   }
 
@@ -91,12 +92,21 @@ export function YearView() {
 
   const showYear = () => {
     const year = [];
+    const currYear = selectedDate.getFullYear();
+
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     for (let i = 0; i < 12; i++) {
+      const date = new Date(currYear, i);
+      const dateMonth = date.getMonth();
+      const dateYear = date.getFullYear();
         year.push(
-        <div className="mini-calendar-grid">
-            {showWeekDays()}
-            {showMiniCalendarMonth(month + i)}
-      </div>
+        <div key={"yd" + i} style={{display: "grid"}}>
+          <div className={(dateYear < currentYear) || (dateMonth < currentMonth && dateYear == currentYear) ? "year-month prevm" : "year-month"}>{months[i]}</div>
+          <div className="mini-calendar-grid-year">
+              {showWeekDays()}
+              {showMiniCalendarMonth(i)}
+          </div>
+        </div>
         )
     }
     return year;
