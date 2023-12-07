@@ -2,7 +2,7 @@
 import { DarkToggle } from './DarkToggle';
 import { Hamburger } from './Hamburger';
 import { useDispatch, useSelector } from 'react-redux';
-import { previousMonth, nextMonth, currentDate, miniDate, currentView, previousWeek, previousDay, nextDay, nextWeek, setDate } from '../../redux/features/dateSlicer';
+import { previousMonth, nextMonth, currentDate, miniDate, currentView, previousWeek, previousDay, nextDay, nextWeek, setDate, nextYear, prevYear } from '../../redux/features/dateSlicer';
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faSearch,faAngleLeft, faAngleRight, faCaretDown} from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect, useRef } from 'react';
@@ -20,7 +20,7 @@ export const Navigation = ({ burger, setBurger, today}) => {
   const calendarRef = useRef(null);
 
   const dispatch = useDispatch();
-  const imgref = () => `./src/images/title/calendar_${today}_2x.png`
+  const imgref = () => `https://ssl.gstatic.com/calendar/images/dynamiclogo_2020q4/calendar_${today}_2x.png`
 
   const handleClickOutside = (e) => {
     if (calendarRef.current && !calendarRef.current.contains(e.target)) {
@@ -47,6 +47,9 @@ export const Navigation = ({ burger, setBurger, today}) => {
   const handleViewChange = (view, time) => {
     if (time == "prev") {
       switch(view) {
+        case "Year":
+          dispatch(prevYear());
+          break;
         case "Month":
           dispatch(previousMonth());
           break;
@@ -55,9 +58,13 @@ export const Navigation = ({ burger, setBurger, today}) => {
           break;
         case "Day":
           dispatch(previousDay());
+          break;
       }
     } else if (time == "next") {
       switch(view) {
+        case "Year":
+          dispatch(nextYear());
+          break;
         case "Month":
           dispatch(nextMonth());
           break;
@@ -66,6 +73,7 @@ export const Navigation = ({ burger, setBurger, today}) => {
           break;
         case "Day":
           dispatch(nextDay());
+          break;
       }
     }
   }
@@ -73,7 +81,7 @@ export const Navigation = ({ burger, setBurger, today}) => {
         <div className="calendar-header">
           <div className='burger-title'>
             <Hamburger burger={burger} setBurger={setBurger}></Hamburger>
-            <img src={imgref()} width={"40px"} loading='lazy' alt={today}/>
+            <img src={imgref()} width={"40px"} height={"40px"} loading='lazy' alt={today}/>
             <p id='title'>Calendar</p>
           </div>
           <div className='header-menu'>
