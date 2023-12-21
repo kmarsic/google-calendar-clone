@@ -13,7 +13,7 @@ export function EventForm ({formData, handleInputChange}) {
             <div className="input-shell">
                 <input
                     type="text"
-                    id="time"
+                    name="time"
                     autoComplete="off"
                     value={formData.time}
                     onChange={(e) => handleInputChange(e)}>
@@ -29,7 +29,7 @@ export function EventForm ({formData, handleInputChange}) {
             <div className="input-shell">
                 <input
                     type="text"
-                    id="location"
+                    name="location"
                     value={formData.location}
                     placeholder="Location"
                     autoComplete="off"
@@ -46,7 +46,7 @@ export function EventForm ({formData, handleInputChange}) {
             <div className="input-shell">
                     <input
                     type="text"
-                    id="description"
+                    name="description"
                     placeholder="Add description or attachments"
                     autoComplete="off"
                     value={formData.description}

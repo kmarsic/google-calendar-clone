@@ -13,7 +13,7 @@ export function TaskForm ({formData, handleInputChange}) {
             <div className="input-shell">
                 <input
                     type="text"
-                    id="time"
+                    name="time"
                     autoComplete="off"
                     value={formData.time}
                     onChange={(e) => handleInputChange(e)}>
@@ -31,7 +31,7 @@ export function TaskForm ({formData, handleInputChange}) {
             <div className="input-shell">
                     <input
                     type="text"
-                    id="description"
+                    name="description"
                     placeholder="Add description or attachments"
                     autoComplete="off"
                     value={formData.description}
