@@ -1,30 +1,42 @@
 /* eslint-disable react/prop-types */
+//componets
 import { DarkToggle } from './DarkToggle';
 import { Hamburger } from './Hamburger';
-import { useDispatch, useSelector } from 'react-redux';
-import { previousMonth, nextMonth, currentDate, miniDate, currentView, previousWeek, previousDay, nextDay, nextWeek, setDate, nextYear, prevYear } from '../../redux/features/dateSlicer';
-import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import { faSearch,faAngleLeft, faAngleRight, faCaretDown} from '@fortawesome/free-solid-svg-icons';
-import { useState, useEffect, useRef } from 'react';
 import { MiniView } from '../CalendarViews/MonthView/mini/MiniView';
 import { ViewDropdown } from '../ViewDropdown';
+//redux
+import { useDispatch, useSelector } from 'react-redux';
+import { previousMonth, nextMonth, currentDate, miniDate, currentView, previousWeek, previousDay, nextDay, nextWeek, setDate, nextYear, prevYear, setView } from '../../redux/features/dateSlicer';
+import { useState, useEffect, useRef } from 'react';
+//helpers
+import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { faSearch,faAngleLeft, faAngleRight, faCaretDown} from '@fortawesome/free-solid-svg-icons';
+import { titleTimeFormat } from '../../Fncs/titleTimeFormat';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Navigation = ({ burger, setBurger, today}) => {
   const view = useSelector(currentView);
   const date = new Date(useSelector(currentDate));
   const minDate = new Date(useSelector(miniDate));
+
   const [isCalVisible, setIsCalVisible] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-
+  
   const calendarRef = useRef(null);
-
+  const dropdownRef = useRef(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const imgref = () => `https://ssl.gstatic.com/calendar/images/dynamiclogo_2020q4/calendar_${today}_2x.png`
 
   const handleClickOutside = (e) => {
     if (calendarRef.current && !calendarRef.current.contains(e.target)) {
       setIsCalVisible(false);
+    }
+
+    if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      setIsDropdownVisible(false);
     }
   }
 
@@ -35,6 +47,12 @@ export const Navigation = ({ burger, setBurger, today}) => {
       document.removeEventListener('mousedown', handleClickOutside);
     }
   }, []);
+
+  // sync store with router
+  useEffect(() => {
+    navigate(`/${view}`)
+  }, [view]);
+
 
   const handleButtonClick = (e) => {
     if (e.target.closest(".current-date")) {
@@ -57,7 +75,8 @@ export const Navigation = ({ burger, setBurger, today}) => {
           dispatch(previousWeek());
           break;
         case "Day":
-          dispatch(previousDay());
+  
+        dispatch(previousDay());
           break;
       }
     } else if (time == "next") {
@@ -87,7 +106,7 @@ export const Navigation = ({ burger, setBurger, today}) => {
           <div className='header-menu'>
             <div className='menu-left'>
               <div className="date-switch">
-                <div onClick={() => dispatch(setDate(Date.parse(new Date())))} className='btn-header'>
+                <div onClick={() => {dispatch(setDate(Date.parse(new Date()))); dispatch(setView("Day"))}} className='btn-header'>
                     <span>Today</span>
                 </div>
                 <div className="switches">
@@ -100,10 +119,7 @@ export const Navigation = ({ burger, setBurger, today}) => {
                 </div>
               </div>
               <div className='current-date' ref={calendarRef}  onClick={handleButtonClick}  >
-                  {date.toLocaleString("default", {
-                    month: "long",
-                    year: "numeric",
-                  })}
+                  {titleTimeFormat(view, date)}
                 <FontAwesomeIcon icon={faCaretDown} size='2xs' style={{color: "rgba(0, 0, 0, 0.4)"}}/>
                 {isCalVisible ? 
                   <MiniView embed={true} date={minDate}/> : null}
@@ -113,7 +129,7 @@ export const Navigation = ({ burger, setBurger, today}) => {
               <div className='menu-item'>
                 <FontAwesomeIcon icon={faSearch} size='xl'/>
               </div>
-              <div onClick={(e) => handleButtonClick(e)} className='view-dropdown'>
+              <div onClick={(e) => handleButtonClick(e)} className='view-dropdown' ref={dropdownRef}>
                   <div>{view}</div>
                   <FontAwesomeIcon icon={faCaretDown} size='2xs'/>
                   {isDropdownVisible ? <ViewDropdown/> : null}

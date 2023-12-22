@@ -11,18 +11,18 @@ export function SiteRouter() {
             element: <MonthView/>
         },
         {
-            path: "/month",
+            path: "/Month",
             element: <MonthView/>,
             children: 
                 [{
-                    path: ":yearId",
+                    path: ":YearId",
                     element: <MonthView/>,
                     children: [{
-                        path: ":monthId",
+                        path: ":MonthId",
                         element: <MonthView/>,
                         children: [
                             {
-                                path: ":dayId",
+                                path: ":DayId",
                                 element: <MonthView/>
                             }
                         ]
@@ -31,18 +31,18 @@ export function SiteRouter() {
             
         },
         {
-            path: "/year",
+            path: "/Year",
             element: <YearView/>,
             children: 
                 [{
-                    path: ":yearId",
+                    path: ":YearId",
                     element: <YearView/>,
                     children: [{
-                        path: ":monthId",
+                        path: ":MonthId",
                         element: <YearView/>,
                         children: [
                             {
-                                path: ":dayId",
+                                path: ":DayId",
                                 element: <YearView/>
                             }
                         ]
@@ -51,18 +51,18 @@ export function SiteRouter() {
             
         },
         {
-            path: "/week",
+            path: "/Week",
             element: <WeekView/>,
             children: 
                 [{
-                    path: ":yearId",
+                    path: ":YearId",
                     element: <WeekView/>,
                     children: [{
-                        path: ":monthId",
+                        path: ":MonthId",
                         element: <WeekView/>,
                         children: [
                             {
-                                path: ":dayId",
+                                path: ":DayId",
                                 element: <WeekView/>
                             }
                         ]
@@ -71,18 +71,18 @@ export function SiteRouter() {
             
         },
         {
-            path: "/day",
+            path: "/Day",
             element: <DayView/>,
             children: 
                 [{
-                    path: ":yearId",
+                    path: ":YearId",
                     element: <DayView/>,
                     children: [{
-                        path: ":monthId",
+                        path: ":MonthId",
                         element: <DayView/>,
                         children: [
                             {
-                                path: ":dayId",
+                                path: ":DayId",
                                 element: <DayView/>
                             }
                         ]

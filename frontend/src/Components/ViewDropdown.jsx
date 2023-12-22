@@ -17,25 +17,25 @@ export function ViewDropdown () {
         <>
             <ul ref={dropdownRef} className="dropdown">
                     <li onClick={() => dispatch(setView("Day"))}>
-                        <Link to={"/day"}>
+                        <Link to={"/Day"}>
                             <div>Day</div>
                             <div>D</div>
                         </Link>
                     </li>
                     <li onClick={() => dispatch(setView("Week"))}>
-                        <Link to={"/week"}>
+                        <Link to={"/Week"}>
                             <div>Week</div>
                             <div>W</div>
                         </Link>
                     </li>
                     <li onClick={() => dispatch(setView("Month"))}>
-                        <Link to={"/month"}>
+                        <Link to={"/Month"}>
                             <div>Month</div>
                             <div>M</div>
                         </Link>
                     </li>
                     <li onClick={() => dispatch(setView("Year"))}>
-                        <Link to={"/year"}>
+                        <Link to={"/Year"}>
                             <div>Year</div>
                             <div>Y</div>
                         </Link>
