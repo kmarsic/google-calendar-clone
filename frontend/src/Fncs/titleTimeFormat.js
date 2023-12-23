@@ -1,12 +1,14 @@
 export function titleTimeFormat (view, date) {
     function checkDate() {
-        const dayRule = date.getDate() + 7;
-        const nextMonth = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+        const day = date.getDay()
+        const firstOfWeek = new Date(date.getFullYear(), date.getMonth(), date.getDate() - day);
+        const dayRule = firstOfWeek.getDate() + 6;
+        const nextMonth = new Date(firstOfWeek.getFullYear(), firstOfWeek.getMonth() + 1, 1);
         const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
         if (dayRule > lastDay) {
             if (date.getFullYear() < nextMonth.getFullYear()){
                 return (
-                    date.toLocaleString("default", {
+                    firstOfWeek.toLocaleString("default", {
                     month: "short",
                     year: "numeric"
                     }) + " - " +
@@ -17,7 +19,7 @@ export function titleTimeFormat (view, date) {
                 )
             } else {
                 return (
-                    date.toLocaleString("default", {
+                    firstOfWeek.toLocaleString("default", {
                         month: "short",
                     }) + " - " +
                     nextMonth.toLocaleString("default", {
@@ -27,7 +29,7 @@ export function titleTimeFormat (view, date) {
                 )
             }
         } else {
-            return (date.toLocaleString("default", {
+            return (firstOfWeek.toLocaleString("default", {
                 month: "long",
                 year: "numeric",
             }))
