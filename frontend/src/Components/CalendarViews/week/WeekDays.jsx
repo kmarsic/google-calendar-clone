@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { setDate } from "../../../redux/features/dateSlicer";
+import { setDate, setView } from "../../../redux/features/dateSlicer";
 export function WeekDays({date,day}) {
     const dispatch = useDispatch();
     const newDate = new Date(date);
@@ -13,8 +13,8 @@ export function WeekDays({date,day}) {
     return (
         <div className="week-day">
             <div className={isToday ? "week-day-name wname-today" : "week-day-name"}>{day}</div>
-            <Link to='/day'>
-                <div onClick={() => dispatch(setDate(Date.parse(date)))} id={Date.parse(date)} className={isToday ? "week-day-index windex-today" : "week-day-index"}>
+            <Link to='/Day'>
+                <div onClick={() => {dispatch(setDate(Date.parse(date))); dispatch(setView("Day"))}} id={Date.parse(date)} className={isToday ? "week-day-index windex-today" : "week-day-index"}>
                     <span>{date.getDate()}</span>
                 </div>
             </Link>
