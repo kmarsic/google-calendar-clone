@@ -6,10 +6,10 @@ import { BrowserRouter } from "react-router-dom";
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <BrowserRouter basename='/'>
     <Provider store={store}>
-      <BrowserRouter basename='/calendar'>
         <App />
-      </BrowserRouter>
     </Provider>
+  </BrowserRouter>
 
 )
