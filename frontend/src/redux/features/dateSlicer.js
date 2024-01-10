@@ -5,6 +5,7 @@ export const dateManager = createSlice({
     initialState: {
         mainDate: Date.parse(new Date()),
         miniDate: Date.parse(new Date()),
+        focusDate: Date.parse(new Date()),
         currentView: "Month",
     },
     reducers: {
@@ -58,6 +59,10 @@ export const dateManager = createSlice({
             state.mainDate = newDate;
             state.miniDate = newDate;
         },
+        setFocusDate(state, action) {
+            const newDate = action.payload;
+            state.focusDate = newDate;
+        },
         nextWeek(state) {
             const date = new Date(state.mainDate)
             const day = date.getDate();
@@ -93,10 +98,11 @@ export const dateManager = createSlice({
     }
 })
 
-export const {nextYear, prevYear, nextMonth, previousMonth, previousMonthMini, nextMonthMini, nextWeek, previousWeek, nextDay, previousDay, setDate, setView} = dateManager.actions;
+export const {nextYear, prevYear, nextMonth, previousMonth, previousMonthMini, nextMonthMini, nextWeek, previousWeek, nextDay, previousDay, setDate, setFocusDate, setView} = dateManager.actions;
 
 export const currentDate = (state) => state.dateList.mainDate;
 export const miniDate = (state) => state.dateList.miniDate;
 export const currentView = (state) => state.dateList.currentView;
+export const focusDate = (state) => state.dateList.focusDate;
 
 export default dateManager.reducer;
