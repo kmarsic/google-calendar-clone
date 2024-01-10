@@ -10,9 +10,13 @@ body {
     --highlightTime: rgb(213, 0, 0);
     --main-focus: rgb(26, 115, 232);
     --secondary-focus: rgb(210, 227, 252);
+    --third-focus: rgba(174, 203, 250, 0.6);
+    --past-focus: rgb(241, 243, 244);
     --hover-main: rgba(0, 0, 0, 0.05);
     --hover-main-focus: rgb(26, 104, 206);
+    --hover-third-focus: rgb(174, 203, 250);
     --hover-info: rgb(112,112,112);
+    --hover-past: rgb(229, 229, 229);
     
 
     @include whenDark {

@@ -288,4 +288,19 @@
     opacity: 1;
     transform: scale(1);
 }
-  
+
+.focused-date {
+    background-color: var(--third-focus);
+    &:hover {
+      background-color: var(--hover-third-focus)!important;
+    }
+}
+
+.focused-date.empty {
+    color: var(--text-body)!important;
+    background-color: var(--past-focus)!important;
+    &:hover {
+        background-color: var(--hover-past)!important;
+    }
+    
+}
