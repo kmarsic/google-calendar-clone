@@ -1,21 +1,17 @@
 /* eslint-disable react/prop-types */
 import { useDispatch, useSelector } from "react-redux";
 import { Assignment } from "./../../Forms/Assignment"
-import { NewTaskForm } from "./../../Forms/NewTaskForm"
 import { allTasks } from "../../../redux/features/taskSlicer";
-import { clicked, handleBoxClick } from "../../../redux/features/clickedSlicer";
 import { setDate, setView } from "../../../redux/features/dateSlicer";
 import { Link } from "react-router-dom";
 
 export function MonthDay({date, iterator,isToday, previous, next}) {
     const parsedDate = Date.parse(date);
     const assignments = useSelector(allTasks);
-    const clickedItem = useSelector(clicked);
     const dispatch = useDispatch();
     return (
         <div 
         id={parsedDate} 
-        onClick={(e) => dispatch(handleBoxClick(e))} 
         className={previous || next ? "box empty" : "box"}
         >
           {previous ? 
@@ -37,10 +33,6 @@ export function MonthDay({date, iterator,isToday, previous, next}) {
               </span>
             </Link>
             }
-          {clickedItem.id == parsedDate ? 
-          <Assignment key={1} title="???"/> : 
-          null} 
-          {clickedItem.id == parsedDate ? <NewTaskForm clickedItem={clickedItem}/>: null}
           {assignments.map(task => {
             if(task.name == parsedDate) {
                 return <Assignment key={task.title + task.id} title={task.title} task={task} color={task.color}/>
