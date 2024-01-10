@@ -5,12 +5,12 @@ import { DaytimeGrid } from "../DaytimeGrid";
 
 export function WeekView() {
     const mainDate = new Date(useSelector(currentDate))
-
+    
     const showWeekGrid = () => {
         const grid = [];
         for (let i = 0; i <= 7; i++) {
             grid.push(
-                <DaytimeGrid key={"dgr" + i} iterator={i}/>
+                <DaytimeGrid date={mainDate} key={"dgr" + i} iterator={i}/>
             )
         }
         return grid;

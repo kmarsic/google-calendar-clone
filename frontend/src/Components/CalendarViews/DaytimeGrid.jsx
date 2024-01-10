@@ -1,14 +1,26 @@
 /* eslint-disable react/prop-types */
-export function DaytimeGrid({iterator, day}) {
+export function DaytimeGrid({iterator, date}) {
+    const parsedDate = Date.parse(date);
+    const hours = (date) => {
+        const newDate = new Date(date)
+        const hourGrid = [];
+        for (let i = 0; i < 60; i+= 15) {
+            newDate.setMinutes(i);
+            newDate.setSeconds(0);
+            hourGrid.push(
+                <div className="hours" id={Date.parse(newDate)}></div>
+            )
+        }
+        return hourGrid
+    }
     const dayGrid = () => {
         const grid = [];
         for (let i = 0; i < 24; i++) {
-            !day ?
+            const newDate = new Date(parsedDate)
+            newDate.setHours(i);
             grid.push(
-                <div key={"ts" + i} className={iterator == 0 ? "hairline-border" : "time-slot"}></div>
-            ) :
-            grid.push(
-                <div key={"Tsa" + i} className="time-slot">
+                <div key={"ts" + i} id={Date.parse(newDate)} className={iterator == 0 ? "hairline-border" : "time-slot"}>
+                        {hours(newDate)}
                 </div>
             )
         }
