@@ -43,7 +43,7 @@ export function DayView() {
                 <div className="time-frames">{showTimeFrames()}</div>
                 <div className="day-cal-grid">
                     <DaytimeGrid iterator={0}/>
-                    <DaytimeGrid iterator={0} day={true}/>
+                    <DaytimeGrid date={mainDate}/>
                 </div>
             </div>
         </div>
