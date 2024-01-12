@@ -1,5 +1,6 @@
 .week-view {
     flex-grow: 1;
+    display: grid;
 }
 
 .week-nav {
@@ -150,6 +151,6 @@
 }
 
 .hours {
-    z-index: 10;
+    position: relative;
     height: 25%;
 }

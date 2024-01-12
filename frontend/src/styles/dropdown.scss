@@ -1,6 +1,7 @@
 .view-dropdown {
     display: flex;
     position: relative;
+    z-index: 1;
     gap: 1rem;
     align-items: center;
     outline: 1px solid var(--border);
@@ -21,19 +22,13 @@
     position: absolute;
     padding: 10px 0;
     font-size: 14px;
-    top: 40px;
     font-weight: 400;
-    left: -165px;
-    z-index: 2;
     width: 250px;
+    z-index: 5;
     border-radius: 4px;
     background-color: white;
     box-shadow: 0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
     list-style-type: none;
-    transform-origin: right top;
-    transform: scale(0.8);
-    opacity: 0;
-    transition: 0.2s;
     li {
         &:hover {
             background-color: var(--hover-main);
@@ -52,9 +47,4 @@
             }
         }
     }
-}
-
-.visible {
-    opacity: 1;
-    transform: scale(1);
 }

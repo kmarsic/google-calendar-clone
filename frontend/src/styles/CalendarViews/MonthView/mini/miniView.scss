@@ -272,22 +272,14 @@
     flex-direction: column;
     background-color: white;
     top: 14px;
-    left: 450px;
+    left: 400px;
     padding: 0.25rem 1rem 1rem 1rem;
     border-radius: 8px;
     width: 275px;
     height: 245px;
     box-shadow: 0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
     font-size: 12px;
-    transform: scale(0.8);
-    opacity: 0;
-    transition: transform 0.2s ease, opacity 0.2s ease;
   }
-
-.visible {
-    opacity: 1;
-    transform: scale(1);
-}
 
 .focused-date {
     background-color: var(--third-focus);
