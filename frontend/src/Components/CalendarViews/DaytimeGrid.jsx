@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 export function DaytimeGrid({iterator, date}) {
+
     const hours = (date) => {
         const newDate = new Date(date)
         const hourGrid = [];
@@ -7,7 +8,7 @@ export function DaytimeGrid({iterator, date}) {
             newDate.setMinutes(i);
             newDate.setSeconds(0);
             hourGrid.push(
-                <div className="hours" id={Date.parse(newDate)}></div>
+                <div className="hours" key={"hr" + i} id={Date.parse(newDate)}></div>
             )
         }
         return hourGrid
