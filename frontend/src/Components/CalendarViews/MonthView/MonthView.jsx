@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useSelector } from 'react-redux';
-import { currentDate } from '../../../redux/features/dateSlicer';
+import { currentDate, timeSwitch } from '../../../redux/features/dateSlicer';
 import { MonthDay } from './MonthDay';
+import { motion } from 'framer-motion';
+import { calendarVariantPrev, calendarVariantNext } from '../../../Fncs/framerVariants';
 
 export function MonthView() {
   const mainDate = new Date(useSelector(currentDate));
+  const switchTime = useSelector(timeSwitch);
 
   const findMonthDays = (y, m) => {
     return new Date(y, m + 1, 0).getDate();
@@ -26,15 +29,25 @@ export function MonthView() {
      return false
   }
 
+  const showWeekDays = () => {
+    let weekDays = ["SUN", "MON", "TUE","WED", "THU", "FRI", "SAT"];
+    const list = [];
+    for (let i = 0; i <=6; i++) {
+      list.push(
+        <div key = {`day-${i}`} className='weekDay'>{weekDays[i]}</div>
+      )
+    }
+
+    return list
+  }
+
   const showCalendarMonth = () => {
     const year = mainDate.getFullYear();
     const month = mainDate.getMonth();
     const monthDays = findMonthDays(year, month);
     const firstDay = findFirstDay(year, month);
-
     const allDays  = [];
     let count = 0;
-
     //last month
     for (let i = 0; i < firstDay; i++) {
       const prevMonth = month - 1;
@@ -51,7 +64,6 @@ export function MonthView() {
         
       );
     }
-
     //show days of current month
     for (let j = 1; j <= monthDays; j++) {
 
@@ -69,11 +81,15 @@ export function MonthView() {
         isToday={isToday}/>
       )
     }
-
     //show days of next month
     for (let i = 1; i <= 7; i++) {
       const date = new Date(year, month + 1, i);
-      if (date.getDay() == 0 && count >= 35) return allDays;
+      if (date.getDay() == 0 && count >= 35) {
+        const Container = 
+      <div className='month-container' style={{gridTemplateRows: `repeat(${gridRule() ? 6 : 5},1fr)`}}>
+        {allDays.map(key => key)}
+      </div>
+        return Container}
       count = count + 1;
       allDays.push(
         <MonthDay
@@ -84,26 +100,27 @@ export function MonthView() {
         />
       )
     }
-    return allDays
-  }
-
-  const showWeekDays = () => {
-    let weekDays = ["SUN", "MON", "TUE","WED", "THU", "FRI", "SAT"];
-    const list = [];
-    for (let i = 0; i <=6; i++) {
-      list.push(
-        <div key = {`day-${i}`} className='weekDay'>{weekDays[i]}</div>
-      )
-    }
-
-    return list
-  }
-
-  return (
-      <div className="calendar-grid" style={{gridTemplateRows: `25px repeat(${gridRule() ? 6 : 5},1fr)`}}>
-        {showWeekDays()}
-        {showCalendarMonth()}
+    const Container = 
+      <div className='month-container' style={{gridTemplateRows: `repeat(${gridRule() ? 6 : 5},1fr)`}}>
+        {allDays.map(key => key)}
       </div>
+    return Container
+  }
+
+  console.log(switchTime)
+  return (
+      <motion.div 
+      className="calendar-grid"
+      key={mainDate}
+      variants={calendarVariantNext}
+      initial={"hidden"}
+      animate={"visible"}
+      exit={"exit"}
+      >
+        <div className="weekDay-container">{showWeekDays()}</div>
+        {showCalendarMonth()}
+      </motion.div>
+     
 
   )
 }
