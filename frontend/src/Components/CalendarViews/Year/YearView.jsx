@@ -1,9 +1,12 @@
 import { useSelector } from "react-redux";
 import { MiniDay } from "../MonthView/mini/MiniDay";
-import { currentDate } from "../../../redux/features/dateSlicer";
+import { currentDate, switchView } from "../../../redux/features/dateSlicer";
+import { motion } from "framer-motion";
+import { calendarVariant } from "../../../Fncs/framerVariants";
 
 export function YearView() {
-    const selectedDate = new Date(useSelector(currentDate));
+    const mainDate = new Date(useSelector(currentDate));
+    const switches = useSelector(switchView);
     const currDate = new Date();
     const currentMonth = currDate.getMonth();
     const currentYear = currDate.getFullYear();
@@ -16,7 +19,7 @@ export function YearView() {
     }
 
     const showMiniCalendarMonth = (month) => {
-        const year = selectedDate.getFullYear();
+        const year = mainDate.getFullYear();
         const monthDays = findMonthDays(year, month);
         const firstDay = findFirstDay(year, month);
         const allDays  = [];
@@ -92,7 +95,7 @@ export function YearView() {
 
   const showYear = () => {
     const year = [];
-    const currYear = selectedDate.getFullYear();
+    const currYear = mainDate.getFullYear();
 
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     for (let i = 0; i < 12; i++) {
@@ -113,9 +116,16 @@ export function YearView() {
   }
 
   return (
-    <div className="year-grid">
+    <motion.div 
+    className="year-grid"
+    key={mainDate}
+    variants={calendarVariant}
+    initial={switches == "prev" ? "hidden" : "hiddenNext"}
+    animate={"visible"}
+    exit={"exit"}
+    >
       {showYear()}
-    </div>
+    </motion.div>
 
   )
 }

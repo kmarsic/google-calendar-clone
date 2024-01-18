@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const dateManager = createSlice({
-    name:'dateManager',
+    name:'dateList',
     initialState: {
         mainDate: Date.parse(new Date()),
         miniDate: Date.parse(new Date()),
         focusDate: Date.parse(new Date()),
         currentView: "Month",
+        switch: "prev"
     },
     reducers: {
         nextYear(state) {
@@ -93,16 +94,19 @@ export const dateManager = createSlice({
         },
         setView (state, action) {
             state.currentView = action.payload;
+        },
+        setSwitch (state,action) {
+            state.switch = action.payload
         }
-
     }
 })
 
-export const {nextYear, prevYear, nextMonth, previousMonth, previousMonthMini, nextMonthMini, nextWeek, previousWeek, nextDay, previousDay, setDate, setFocusDate, setView} = dateManager.actions;
+export const {nextYear, prevYear, nextMonth, previousMonth, previousMonthMini, nextMonthMini, nextWeek, previousWeek, nextDay, previousDay, setDate, setFocusDate, setView, setSwitch} = dateManager.actions;
 
 export const currentDate = (state) => state.dateList.mainDate;
 export const miniDate = (state) => state.dateList.miniDate;
 export const currentView = (state) => state.dateList.currentView;
 export const focusDate = (state) => state.dateList.focusDate;
+export const switchView = (state) => state.dateList.switch;
 
 export default dateManager.reducer;

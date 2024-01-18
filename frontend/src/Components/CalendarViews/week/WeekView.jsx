@@ -1,10 +1,13 @@
 import { useSelector } from "react-redux"
-import { currentDate } from "../../../redux/features/dateSlicer"
+import { currentDate, switchView } from "../../../redux/features/dateSlicer"
 import { WeekDays } from "./WeekDays";
 import { DaytimeGrid } from "../DaytimeGrid";
+import { motion } from "framer-motion";
+import { calendarVariant } from "../../../Fncs/framerVariants";
 
 export function WeekView() {
-    const mainDate = new Date(useSelector(currentDate))
+    const mainDate = new Date(useSelector(currentDate));
+    const switches = useSelector(switchView);
     
     const showWeekGrid = () => {
         const grid = [];
@@ -67,7 +70,14 @@ export function WeekView() {
     }
     
     return (
-        <div className="week-view">
+        <motion.div 
+        className="week-view"
+        key={mainDate}
+        variants={calendarVariant}
+        initial={switches == "prev" ? "hidden" : "hiddenNext"}
+        animate={"visible"}
+        exit={"exit"}
+        >
             <div className="week-nav">
                 <div></div>
                 <div className="nav-grid">
@@ -76,12 +86,14 @@ export function WeekView() {
                     {navBorderDiv()}
                 </div>
             </div>
-            <div className="week-cal-body">
+            <motion.div 
+            className="week-cal-body"
+            onScroll={{borderTop : "1px solid black"}}>
                 <div className="time-frames">{showTimeFrames()}</div>
                 <div className="week-cal-grid">
                     {showWeekGrid()}
                 </div>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     )
 }

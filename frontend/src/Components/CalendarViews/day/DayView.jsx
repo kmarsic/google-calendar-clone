@@ -1,9 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useSelector } from "react-redux";
-import { currentDate } from "../../../redux/features/dateSlicer";
+import { currentDate, switchView } from "../../../redux/features/dateSlicer";
 import { DaytimeGrid } from "../DaytimeGrid";
 import { WeekDays } from "../week/WeekDays";
+import { motion } from "framer-motion";
+import { calendarVariant } from "../../../Fncs/framerVariants";
+
 export function DayView() {
+    const switches = useSelector(switchView);
     const mainDate = new Date(useSelector(currentDate));
     const day = mainDate.getDay();
     const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
@@ -27,7 +31,13 @@ export function DayView() {
         return times;
     }
     return (
-        <div className="week-view">
+        <motion.div 
+        className="week-view"
+        key={mainDate}
+        variants={calendarVariant}
+        initial={switches == "prev" ? "hidden" : "hiddenNext"}
+        animate={"visible"}
+        exit={"exit"}>
             <div className="week-nav">
                 <div></div>
                 <div className="nav-grid-day">
@@ -46,6 +56,6 @@ export function DayView() {
                     <DaytimeGrid date={mainDate}/>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }

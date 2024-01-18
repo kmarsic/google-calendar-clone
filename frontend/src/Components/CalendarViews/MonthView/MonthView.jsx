@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useSelector } from 'react-redux';
-import { currentDate, timeSwitch } from '../../../redux/features/dateSlicer';
+import { currentDate, switchView } from '../../../redux/features/dateSlicer';
 import { MonthDay } from './MonthDay';
 import { motion } from 'framer-motion';
-import { calendarVariantPrev, calendarVariantNext } from '../../../Fncs/framerVariants';
+import { calendarVariant } from '../../../Fncs/framerVariants';
 
 export function MonthView() {
   const mainDate = new Date(useSelector(currentDate));
-  const switchTime = useSelector(timeSwitch);
+  const switches = useSelector(switchView);
 
   const findMonthDays = (y, m) => {
     return new Date(y, m + 1, 0).getDate();
@@ -106,14 +106,12 @@ export function MonthView() {
       </div>
     return Container
   }
-
-  console.log(switchTime)
   return (
       <motion.div 
       className="calendar-grid"
       key={mainDate}
-      variants={calendarVariantNext}
-      initial={"hidden"}
+      variants={calendarVariant}
+      initial={switches == "prev" ? "hidden" : "hiddenNext"}
       animate={"visible"}
       exit={"exit"}
       >
