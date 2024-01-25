@@ -1,8 +1,10 @@
 .view-dropdown {
     display: flex;
+    justify-content: space-between;
     position: relative;
     z-index: 1;
     gap: 1rem;
+    width: 90px;
     align-items: center;
     outline: 1px solid var(--border);
     border-radius: 4px;
@@ -16,9 +18,6 @@
 }
 
 .dropdown {
-    &:focus {
-        background-color: var(--hover-main);
-    }
     position: absolute;
     padding: 10px 0;
     font-size: 14px;
