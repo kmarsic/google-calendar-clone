@@ -62,13 +62,23 @@ export function titleTimeFormat (view, date) {
 }
 
 export function formTimeFormat(date) {
-    console.log(date)
+    const currYear = new Date().getFullYear();
+    if (currYear != date.getFullYear()) {
     return (
         date.toLocaleString("default", {
             weekday: "long",
             month: "long",
             day: "numeric",
-            year: "numeric",
+            year: "numeric"
         })
     )
+    } else {
+        return (
+            date.toLocaleString("default", {
+                weekday: "long",
+                month: "long",
+                day: "numeric",
+            })
+        )
+    }
 }

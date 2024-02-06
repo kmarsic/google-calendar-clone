@@ -27,6 +27,7 @@ export const calendarVariant = {
 
 export const clickVariant = {
   click: {
+    backgroundSize: ["30%", "60%", "90%", "100%"],
     backgroundColor: 'rgb(218, 220, 220)'
   }
 }
