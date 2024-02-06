@@ -1,36 +1,31 @@
 /* eslint-disable react/prop-types */
 //styles
 import "./../../styles/_index.scss";
-//components
-import { EventForm } from "./EventForm";
-import { TaskForm } from "./TaskForm";
-import { faGripLines, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //dependencies
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import postData from "../../redux/features/thunk/postData";
 import { addTask } from "../../redux/features/taskSlicer";
-import { motion } from "framer-motion";
+import { motion, useDragControls } from "framer-motion";
+import { formTimeFormat, calcModalPosition } from "../../Fncs/indexFncs";
+import { FormTitle } from "./Inputs/FormTitle";
+import { FormFooter, EventType, FormDock, TaskForm, EventForm } from "./FormModules/indexFormModules"
 
 export function NewTaskForm({ clickedElement, onClose }) {
     const dispatch = useDispatch();
+    const dragControls = useDragControls();
 
     const [formType, setFormType] = useState(true);
     const [color, setColor] = useState("#039be5");
-
-    const handleColor = (e) => {
-        setColor(e.target.value);
-    };
-
+    const [modalPosition, setModalPosition] = useState({top: 0, left: 0});
     const [formData, setFormData] = useState({
         list: "My Tasks",
-        ID: crypto.randomUUID(),
         name: clickedElement.id,
         type: "task",
         updatedAt: "",
         createdAt: Date.parse(new Date()),
-        startTime: Date.parse(clickedElement.date),
+        startTime: formTimeFormat(new Date(parseInt(clickedElement.id))),
+        endTime: formTimeFormat(new Date(parseInt(clickedElement.id))),
         location: "",
         description: "",
         color: color,
@@ -38,19 +33,25 @@ export function NewTaskForm({ clickedElement, onClose }) {
         completed: false,
     });
 
-    const handleInputChange = (e) => {
+    function startDrag(event) {
+        dragControls.start(event);
+    }
+
+    function handleColor(e) {
+        setColor(e.target.value);
+    }
+
+    function handleInputChange(e) {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+    }
 
     function handleSubmit(e) {
         e.preventDefault();
         if (!formData.title) return;
         dispatch(postData(formData));
         dispatch(addTask(formData));
-
         setFormData({
             ...formData,
-            ID: crypto.randomUUID(),
             updatedAt: "",
             location: "",
             description: "",
@@ -59,55 +60,30 @@ export function NewTaskForm({ clickedElement, onClose }) {
         });
     }
 
+    useEffect(() => {
+        calcModalPosition(clickedElement, setModalPosition);
+    }, [clickedElement])
+
     return (
         <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.2 }}
-            drag="x"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.1 }}
+            dragControls={dragControls}
+            drag
+            dragListener={false}
+            dragMomentum={false}
             className="event-add"
             style={{
-                top: `${clickedElement.cursorY}px`,
-                left: `${clickedElement.cursorX}px`,
-            }}
-        >
-            <div className="form-dock">
-                <FontAwesomeIcon
-                    icon={faGripLines}
-                    color="rgb(139, 143, 147)"
-                    size="xl"
-                />
-                <FontAwesomeIcon
-                    onClick={() => onClose()}
-                    cursor={"pointer"}
-                    icon={faXmark}
-                    size="xl"
-                />
-            </div>
+                top: `${modalPosition.top}px`,
+                left: `${modalPosition.left}px`,
+            }}>
+
+            <FormDock onClose={onClose} startDrag={startDrag}/>
+
             <form onSubmit={handleSubmit} className="form">
-                    <motion.input
-                        type="text"
-                        id="form-title"
-                        name="title"
-                        autoFocus
-                        initial={{ outline: "none" }}
-                        required
-                        placeholder="Add title"
-                        value={formData.title}
-                        autoComplete="off"
-                        onChange={(e) => handleInputChange(e)}
-                    />
-                <div className="event-type">
-                    <button
-                        id="event"
-                        onClick={(e) => {e.preventDefault(); setFormType(true)}}
-                    >Event</button>
-                    <button
-                        id="task"
-                        onClick={(e) => {e.preventDefault();setFormType(false)}}
-                    >Task</button>
-                    <button style={{ display: "none" }}></button>
-                </div>
+                <FormTitle handleInputChange={handleInputChange} formData={formData}/>
+                <EventType setFormType={setFormType}/>
 
                 {formType == true ? (
                     <EventForm
@@ -122,11 +98,7 @@ export function NewTaskForm({ clickedElement, onClose }) {
                         handleInputChange={handleInputChange}
                     />
                 )}
-                <button
-                onClick={(e) => e.preventDefault()}>
-                    More options
-                </button>
-                <button type="submit">Save</button>
+                <FormFooter/>
             </form>
         </motion.div>
     );
