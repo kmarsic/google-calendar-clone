@@ -1,0 +1,69 @@
+.color {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 0.5rem;
+    border-radius: 0.25rem;
+    &:hover {
+        background-color: var(--hover-main);
+    }
+}
+
+.color-switch {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: red;
+}
+
+.color-form {
+    background-color: white;
+    display: grid!important;
+    position: absolute;
+    place-items: center;
+    div {
+        position: relative;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+    left:148px;
+    top:300px;
+    width: 64px;
+    height: 170px;
+    padding: 5px;
+    z-index: 3;
+    box-shadow: 0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
+    border-radius: 4px;
+    cursor: default;
+    grid-template-columns: 1fr 1fr ;
+    input[type="checkbox"] {
+        position: relative;
+        appearance: none;
+        margin:0;
+        color: hsl(236, 33%, 92%);
+        width: 1.25rem;
+        height: 1.25rem;
+        border: 0.1rem solid hsl(236, 33%, 92%);
+        border-radius: 50%;
+        display: grid;
+        place-content: center;
+        cursor: pointer;
+    }
+    
+    input[type="checkbox"]::before {
+        content: "";
+        width: 1.25em;
+        height: 1.25em;
+        border-radius: 50%;
+        transform: scale(0);
+        transition: 120ms transform ease-in-out;
+        background:linear-gradient(to right, hsl(192, 100%, 67%),hsl(280, 87%, 65%));
+        clip-path: polygon(78% 24%, 50% 59%, 29% 48%, 23% 55%, 51% 74%, 83% 32%, 51% 12%, 100% 0, 100% 100%, 0 100%, 1% 0, 100% 0);
+      }
+}
+
+#color-check {
+    position: absolute;
+    z-index: 4;
+}
