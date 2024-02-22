@@ -86,7 +86,6 @@ export function MiniMonthView() {
         />
       )
     }
-    console.log(count);
     return allDays
   }
 
