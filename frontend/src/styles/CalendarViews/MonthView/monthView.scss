@@ -1,8 +1,18 @@
 .calendar-grid {
-  grid-template-columns: repeat(7, 1fr);
   display:grid;
   flex-grow: 1;
   border-right: 1px solid var(--border);
+  grid-template-rows: 25px 1fr;
+}
+
+.weekDay-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.month-container {
+display: grid;
+grid-template-columns: repeat(7, 1fr);
 }
 
 .weekDay {
