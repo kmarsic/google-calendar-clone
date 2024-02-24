@@ -1,29 +1,31 @@
 /* eslint-disable react/prop-types */
-export function InputTime({formData, handleInputChange}) {
+
+export function InputTimeStart({formData, handleInputChange}) {
     return (
-        <div className="input-shell">
-            <div className="form-time">
-                <div className="div-flex">
-                    <input 
-                    type="text" 
-                    className="text-input" 
-                    value={formData.startTime}
-                    autoComplete="off"
-                    name="startTime"
-                    onChange={(e) => handleInputChange(e)}/>
+        <span className="bottom-border-animate">
+            <input
+                className="text-input"
+                autoFocus
+                value={formData.startTime}
+                style={{width: formData.startTime.length + "ch"}}
+                name="startTime"
+                onChange={(e) => handleInputChange(e)}>
+            </input>
+        </span>
+    )
+}
 
-                    <span>&#8212;</span>
-
-                    <input 
-                    type="text" 
-                    className="text-input" 
-                    value={formData.endTime} 
-                    autoComplete="off"
-                    name="endTime"
-                    onChange={(e) => handleInputChange(e)}/>
-                    <button className="btn" onClick={(e) => e.preventDefault()}>Add time</button>
-                </div>
-            </div>
-        </div>
+export function InputTimeEnd({formData, handleInputChange}) {
+    return (
+        <span className="bottom-border-animate">
+            <input
+                className="text-input"
+                autoFocus
+                value={formData.endTime}
+                style={{width: formData.startTime.length + "ch"}}
+                name="endTime"
+                onChange={(e) => handleInputChange(e)}>
+            </input>
+        </span>
     )
 }
