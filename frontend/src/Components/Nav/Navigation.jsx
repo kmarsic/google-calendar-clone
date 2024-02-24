@@ -1,26 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 //components
-import { DarkToggle } from './DarkToggle';
 import { Hamburger } from './Hamburger';
-import { MiniView } from '../CalendarViews/MonthView/mini/MiniView';
+import { MiniViewEmbed } from '../CalendarViews/MonthView/mini/MiniViewEmbed';
 import { ViewDropdown } from '../ViewDropdown';
 import { AnimatePresence } from 'framer-motion';
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { previousMonth, nextMonth, currentDate, miniDate, currentView, previousWeek, previousDay, nextDay, nextWeek, setDate, nextYear, prevYear} from '../../redux/features/dateSlicer';
+import { previousMonth, nextMonth, currentDate, miniDate, currentView, previousWeek, previousDay, nextDay, nextWeek, setDate, nextYear, prevYear, setSwitch} from '../../redux/features/dateSlicer';
 import { useState, useEffect, useRef } from 'react';
 //helpers
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faSearch,faAngleLeft, faAngleRight, faCaretDown} from '@fortawesome/free-solid-svg-icons';
-import { titleTimeFormat } from '../../Fncs/titleTimeFormat';
+import { titleTimeFormat } from '../../Fncs/timeFormat';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { clickVariant } from '../../Fncs/framerVariants';
 
 
-export const Navigation = ({ burger, setBurger, today}) => {
+export const Navigation = ({ burger, setBurger, setElement}) => {
   const view = useSelector(currentView);
   const date = new Date(useSelector(currentDate));
   const minDate = new Date(useSelector(miniDate));
+  const today = new Date().getDate();
 
   const [isCalVisible, setIsCalVisible] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -32,16 +34,26 @@ export const Navigation = ({ burger, setBurger, today}) => {
 
   const imgref = () => `https://ssl.gstatic.com/calendar/images/dynamiclogo_2020q4/calendar_${today}_2x.png`
 
+  const handleButtonClick = (e) => {
+    if (e.target.closest(".current-date")) {
+      if (burger) return;
+      setIsCalVisible(true);
+    } else if (e.target.closest(".view-dropdown")) {
+      setIsDropdownVisible(!isDropdownVisible);
+    }
+  }
+  
   const handleClickOutside = (e) => {
-    if (calendarRef.current && !calendarRef.current.contains(e.target)) {
+    if (!calendarRef.current.contains(e.target)) {
       setIsCalVisible(false);
     }
 
-    if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+    if (!dropdownRef.current.contains(e.target)) {
       setIsDropdownVisible(false);
     }
   }
 
+  //event listener for modals
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
 
@@ -50,25 +62,18 @@ export const Navigation = ({ burger, setBurger, today}) => {
     }
   }, []);
 
-  // sync store with router
+  // sync route with current view
   useEffect(() => {
     navigate(`/${view}`)
   }, [view]);
 
-
-  const handleButtonClick = (e) => {
-    if (e.target.closest(".current-date")) {
-      setIsCalVisible(true);
-    } else if (e.target.closest(".view-dropdown")) {
-      setIsDropdownVisible(!isDropdownVisible);
-    }
-  }
-
   const handleViewChange = (view, time) => {
+    dispatch(setSwitch(time))
     if (time == "prev") {
       switch(view) {
         case "Year":
           dispatch(prevYear());
+          
           break;
         case "Month":
           dispatch(previousMonth());
@@ -99,7 +104,7 @@ export const Navigation = ({ burger, setBurger, today}) => {
     }
   }
     return (
-        <div className="calendar-header">
+        <div className="calendar-header" onClick={() => setElement()}>
           <div className='burger-title'>
             <Hamburger burger={burger} setBurger={setBurger}></Hamburger>
             <img src={imgref()} width={"40px"} height={"40px"} loading='lazy' alt={today}/>
@@ -108,9 +113,15 @@ export const Navigation = ({ burger, setBurger, today}) => {
           <div className='header-menu'>
             <div className='menu-left'>
               <div className="date-switch">
-                <div onClick={() => dispatch(setDate(Date.parse(new Date())))} className='btn-header'>
+                <motion.div
+                 onClick={() => dispatch(setDate(Date.parse(new Date())))} className='btn-header'
+                 variants={clickVariant}
+                 initial={{backgroundSize: "10px"}}
+                 whileTap={"click"}
+                 whileHover={"hover"}
+                 >
                     <span>Today</span>
-                </div>
+                </motion.div>
                 <div className="switches">
                   <div className="menu-item" onClick={() => handleViewChange(view, "prev")}>
                       <FontAwesomeIcon icon={faAngleLeft} style={{color : "#3c4043"}} size='xl'></FontAwesomeIcon>
@@ -122,25 +133,30 @@ export const Navigation = ({ burger, setBurger, today}) => {
               </div>
               <div className='current-date' ref={calendarRef}  onClick={handleButtonClick}  >
                   {titleTimeFormat(view, date)}
-                <FontAwesomeIcon icon={faCaretDown} size='2xs' style={{color: "rgba(0, 0, 0, 0.4)"}}/>
+                {burger ? null : <FontAwesomeIcon icon={faCaretDown} size='2xs' style={{color: "rgba(0, 0, 0, 0.4)"}}/>}
                 {isCalVisible ? 
-                  <MiniView embed={true} date={minDate}/> : null}
+                  <MiniViewEmbed embed={true} date={minDate}/> : null}
               </div>
             </div>
             <div className='menu-right'>
               <div className='menu-item'>
                 <FontAwesomeIcon icon={faSearch} size='xl'/>
               </div>
-              <div onClick={(e) => handleButtonClick(e)} className='view-dropdown' ref={dropdownRef}>
+              <motion.div 
+              onClick={(e) => handleButtonClick(e)} 
+              className='view-dropdown' 
+              ref={dropdownRef}
+              variants={clickVariant}
+              whileTap={"one"}
+              > 
                   <div>
                   {view}
-                  <AnimatePresence>{isDropdownVisible && (<ViewDropdown key="modal"/>)}</AnimatePresence>
+                  <AnimatePresence>{isDropdownVisible && (<ViewDropdown/>)}</AnimatePresence>
                   </div>
                   <FontAwesomeIcon icon={faCaretDown} size='2xs'/>
-              </div>
+              </motion.div>
             </div>
           </div>
-          <DarkToggle></DarkToggle>
         </div>
     )
 }
