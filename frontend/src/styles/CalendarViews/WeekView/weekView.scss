@@ -6,12 +6,20 @@
 .week-nav {
     display: grid;
     grid-template-columns: 64px 1fr;
+    padding-right:5px;
+}
+
+.week-nav-border {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    border-bottom:1px solid var(--border);
+    padding-right:5px;
 }
 
 .nav-grid {
     position: relative;
     display:grid;
-    height: 84px;
+    height: 100%;
     width: 100%;
     grid-template-columns: repeat(7, 1fr);
     padding-left: 8px;
@@ -22,7 +30,6 @@
     height: 24px;
     border-left: 1px solid var(--border);
 }
-
 
 .week-day {
     display: grid;
@@ -72,7 +79,7 @@
     display: grid;
     grid-template-columns: 64px 1fr;
     overflow-y: scroll;
-    max-height: 820px;
+    max-height: 760px;
     &::-webkit-scrollbar {
         width:8px;
     }
@@ -90,6 +97,7 @@
 .week-cal-grid {
     display:grid;
     grid-template-columns: 8px repeat(7, 1fr);
+    padding-right:5px;
 }
 
 .hairline-border {
@@ -129,9 +137,7 @@
     -webkit-text-stroke: 0.1px;
     position: absolute;
     font-size: 10px;
-    height: 30px;
-    line-height: 30px;
-    top: 78px;
+    top: 86px;
     left: -45px;
     background-color: white;
     z-index: 2;
