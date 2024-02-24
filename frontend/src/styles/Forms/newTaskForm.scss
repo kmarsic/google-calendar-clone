@@ -4,8 +4,6 @@
     z-index: 3;
     position: absolute;
     border-radius: 0.25rem;
-    width: 448px;
-    min-height: 450px;
 }
 
 #form-title {
@@ -15,21 +13,30 @@
     font-size: 22px;
     color: var(--text-main);
     letter-spacing: 0.5px;
-    width:370px;
     border: none;
     border-bottom: 1px solid var(--border);
+    &:focus {
+        outline: none;
+    }
 }
 
 .form {
+    font-family: 'Roboto';
+    padding: 0.5rem 1rem
+}
+
+.form-grid {
     display: grid;
     grid-template-columns: 50px 1fr;
+    row-gap: 4px;
     align-items: center;
-    font-family: 'Open Sans';
-    padding: 0.5rem 1rem
 }
 
 .form-dock {
     display: flex;
+    &:hover {
+        cursor: move;
+    }
     justify-content: space-between;
     padding:0.5rem 1rem;
     align-items: center;
@@ -39,31 +46,48 @@
 .input-shell {
     position: relative;
     display: flex;
-    div {
-        display:flex;
-        align-items: center;
-    }
     .text-input {
-        width: 100%;
         &:hover {
             background-color: var(--hover-main);
             cursor: pointer;
         }
-}}
+    }
+}
 
-.text-input {
+.text-input-placeholder {
+    cursor: pointer;
     font-size: 14px;
     padding: 0.75rem 0.5rem;
+    border-radius: 0.25rem;
+    position: relative;
+    user-select: none;
+    &:hover {
+        background-color: var(--hover-main);
+        cursor: pointer;
+    }
+}
+
+.div-flex {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-input {
+    flex-grow: 1;
+    font-size: 14px;
+    padding: 0.75rem 0.5rem;
+    font-family: 'Roboto';
     border: none;
     border-radius: 0.25rem;
-    z-index: 0;
     position: relative;
     &:focus {
         outline: none;
     }
     &::placeholder {
         color: var(--text-body);
-    } 
+    }
 }
 
 .icons {
@@ -97,7 +121,7 @@
 .dropdown-input {
     display: flex;
     width: fit-content;
-    padding-right: 0.5rem;
+    padding-right: 1rem;
     border-radius: 0.25rem;
     justify-content: left;
     align-items: center;
@@ -106,51 +130,43 @@
     }
 }
 
-.color-switch {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background-color: red;
+.form-username {
+    display: flex;
+    height: 40px;
+    align-items: center;
 }
 
-.color-form {
-    background-color: white;
-    display: grid!important;
-    position: absolute;
-    place-items: center;
-    left:81px;
-    top:10px;
-    width: 64px;
-    height: 170px;
-    padding: 5px;
-    z-index: 3;
-    box-shadow: 0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
-    border-radius: 4px;
-    cursor: default;
-    grid-template-columns: 1fr 1fr ;
-    input[type="checkbox"] {
-        appearance: none;
-        margin:0;
-        color: hsl(236, 33%, 92%);
-        width: 1.25rem;
-        height: 1.25rem;
-        border: 0.1rem solid hsl(236, 33%, 92%);
-        border-radius: 50%;
-        display: grid;
-        place-content: center;
-        cursor: pointer;
+.form-footer {
+    justify-content: right;
+}
+
+.btn {
+    background-color: var(--background-primary);
+    border: 1px solid var(--border) ;
+    padding: 0.25rem;
+    font-size: 12px;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    &:hover {
+        background-color: var(--hover-info);
     }
-    
-    input[type="checkbox"]::before {
-        content: "";
-        width: 1.25em;
-        height: 1.25em;
-        border-radius: 50%;
-        transform: scale(0);
-        transition: 120ms transform ease-in-out;
-        background:linear-gradient(to right, hsl(192, 100%, 67%),hsl(280, 87%, 65%));
-        clip-path: polygon(78% 24%, 50% 59%, 29% 48%, 23% 55%, 51% 74%, 83% 32%, 51% 12%, 100% 0, 100% 100%, 0 100%, 1% 0, 100% 0);
-      }
 }
 
+.btn-big {
+    background-color: var(--background-primary);
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    &:hover {
+        background-color: var(--hover-main);
+    }
+}
+
+.btn-main {
+    background-color: var(--main-focus);
+    color: var(--background-primary);
+    &:hover {
+        background-color: var(--hover-main-focus);
+    }
+}
