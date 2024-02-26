@@ -8,7 +8,7 @@ import { Helmet } from 'react-helmet'
 import { SiteRouter } from './SiteRouter';
 import { NewTaskForm } from './Components/Forms/NewTaskForm';
 //deps
-import { currentDate } from './redux/features/dateSlicer';
+import { currentDate, setDate, setFocusDate } from './redux/features/dateSlicer';
 import getData from './redux/features/thunk/getData';
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react';
@@ -34,6 +34,8 @@ function App() {
   const handleClick = (e) => {
 
     if (e.target.classList.contains('box') || e.target.classList.contains('hours')) {
+      console.log(e.target.id)
+      dispatch(setFocusDate(e.target.id));
       setClickedElement({
         id: e.target.id,
         data: e,
@@ -42,7 +44,6 @@ function App() {
   }}
   useEffect(() => {
     document.body.addEventListener('click', handleClick);
-    return ( () => document.body.removeEventListener('click'))
   }, []);
 
   return (
