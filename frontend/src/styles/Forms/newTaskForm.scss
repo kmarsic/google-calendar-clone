@@ -14,7 +14,7 @@
     display: grid;
     grid-template-columns: 50px 1fr;
     row-gap: 4px;
-    align-items: center;
+    align-items: start;
 }
 
 .input-shell {
@@ -35,8 +35,8 @@
         cursor: move;
     }
     justify-content: space-between;
-    padding:0.5rem 1rem;
     align-items: center;
+    padding: 0.25rem;
     background-color: rgb(241, 243, 244);
 }
 
@@ -48,6 +48,7 @@
 
 .icons {
     display: flex;
+    padding-top: 12px;
     justify-content: center;
 }
 
