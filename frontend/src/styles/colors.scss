@@ -15,16 +15,8 @@ body {
     --hover-main: rgba(0, 0, 0, 0.05);
     --hover-main-focus: rgb(26, 104, 206);
     --hover-third-focus: rgb(174, 203, 250);
-    --hover-info: #70757a;
+    --hover-info: rgb(112, 117, 122);
     --hover-past: rgb(229, 229, 229);
-    
-
-    @include whenDark {
-    --background-primary: #222222;
-    --box-primary: #565656;
-    --box-secondary: #56565630;
-    --text: #FFFFFF;
-    --border: #FFFFFF;
-    }
+    --hover-border: rgb(128, 134, 139);
 }
 

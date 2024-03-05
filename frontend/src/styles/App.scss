@@ -67,3 +67,34 @@ a {
   height: 100%;
   z-index: 2;  
 }
+
+.btn {
+  background-color: var(--background-primary);
+  border: 1px solid var(--border) ;
+  padding: 0.25rem;
+  font-size: 12px;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  &:hover {
+      background-color: var(--hover-main);
+  }
+}
+
+.btn-big {
+  background-color: var(--background-primary);
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  &:hover {
+      background-color: var(--hover-main);
+  }
+}
+
+.btn-main {
+  background-color: var(--main-focus);
+  color: var(--background-primary);
+  &:hover {
+      background-color: var(--hover-main-focus);
+  }
+}
