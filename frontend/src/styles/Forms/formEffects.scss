@@ -1,0 +1,21 @@
+.bottom-border-animate {
+    position: relative;
+    flex-grow: 1;
+}
+
+.bottom-border-animate::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--main-focus);
+    transition: width .2s;
+}
+
+.bottom-border-animate:focus-within::after {
+    width: 100%;
+}

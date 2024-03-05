@@ -1,28 +1,13 @@
 .event-add {
     background-color: var(--background-primary);
     box-shadow: 0px 2px 2px 2px rgba(0,0,0,0.25);
+    font-family: 'Roboto';
     z-index: 3;
     position: absolute;
     border-radius: 0.25rem;
-}
-
-#form-title {
-    grid-column-start: 2;
-    margin-top: 10px;
-    margin-bottom: 15px;
-    font-size: 22px;
-    color: var(--text-main);
-    letter-spacing: 0.5px;
-    border: none;
-    border-bottom: 1px solid var(--border);
-    &:focus {
-        outline: none;
+    form {
+        padding: 0.5rem 1rem;
     }
-}
-
-.form {
-    font-family: 'Roboto';
-    padding: 0.5rem 1rem
 }
 
 .form-grid {
@@ -30,6 +15,18 @@
     grid-template-columns: 50px 1fr;
     row-gap: 4px;
     align-items: center;
+}
+
+.input-shell {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    .text-input {
+        &:hover {
+            background-color: var(--hover-main);
+            cursor: pointer;
+        }
+    }
 }
 
 .form-dock {
@@ -43,51 +40,10 @@
     background-color: rgb(241, 243, 244);
 }
 
-.input-shell {
-    position: relative;
-    display: flex;
-    .text-input {
-        &:hover {
-            background-color: var(--hover-main);
-            cursor: pointer;
-        }
-    }
-}
-
-.text-input-placeholder {
-    cursor: pointer;
-    font-size: 14px;
-    padding: 0.75rem 0.5rem;
-    border-radius: 0.25rem;
-    position: relative;
-    user-select: none;
-    &:hover {
-        background-color: var(--hover-main);
-        cursor: pointer;
-    }
-}
-
 .div-flex {
     flex-grow: 1;
     display: flex;
     align-items: center;
-    justify-content: center;
-}
-
-.text-input {
-    flex-grow: 1;
-    font-size: 14px;
-    padding: 0.75rem 0.5rem;
-    font-family: 'Roboto';
-    border: none;
-    border-radius: 0.25rem;
-    position: relative;
-    &:focus {
-        outline: none;
-    }
-    &::placeholder {
-        color: var(--text-body);
-    }
 }
 
 .icons {
@@ -130,43 +86,7 @@
     }
 }
 
-.form-username {
-    display: flex;
-    height: 40px;
-    align-items: center;
-}
-
 .form-footer {
     justify-content: right;
-}
-
-.btn {
-    background-color: var(--background-primary);
-    border: 1px solid var(--border) ;
-    padding: 0.25rem;
-    font-size: 12px;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    &:hover {
-        background-color: var(--hover-info);
-    }
-}
-
-.btn-big {
-    background-color: var(--background-primary);
-    border: none;
-    border-radius: 0.25rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    &:hover {
-        background-color: var(--hover-main);
-    }
-}
-
-.btn-main {
-    background-color: var(--main-focus);
-    color: var(--background-primary);
-    &:hover {
-        background-color: var(--hover-main-focus);
-    }
+    gap: 0.5rem;
 }
