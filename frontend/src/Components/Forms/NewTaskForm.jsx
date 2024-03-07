@@ -2,13 +2,16 @@
 //styles
 import "./../../styles/_index.scss";
 //dependencies
+import { motion, useDragControls } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { FormDataContext, FormDataChangeContext } from "./formContext";
+//redux
 import postData from "../../redux/features/thunk/postData";
 import { addTask } from "../../redux/features/taskSlicer";
-import { motion, useDragControls } from "framer-motion";
-import { formTimeFormat, calcModalPosition } from "../../Fncs/indexFncs";
-import { FormTitle } from "./Inputs/FormTitle";
+//components
+import { calcModalPosition, inputTimeFormat } from "../../Fncs/indexFncs";
+import { InputTitle } from "./Inputs/InputTitle";
 import { FormFooter, EventType, FormDock, TaskForm, EventForm } from "./FormModules/indexFormModules"
 
 export function NewTaskForm({ clickedElement, onClose }) {
@@ -18,18 +21,20 @@ export function NewTaskForm({ clickedElement, onClose }) {
     const [formType, setFormType] = useState(true);
     const [color, setColor] = useState("#039be5");
     const [modalPosition, setModalPosition] = useState({top: 0, left: 0});
+
     const [formData, setFormData] = useState({
-        list: "My Tasks",
+        list: "Events",
         name: clickedElement.id,
-        type: "task",
+        type: "Event",
+        title: "",
         updatedAt: "",
         createdAt: Date.parse(new Date()),
-        startTime: formTimeFormat(new Date(parseInt(clickedElement.id))),
-        endTime: formTimeFormat(new Date(parseInt(clickedElement.id))),
+        startTime: inputTimeFormat(new Date(parseInt(clickedElement.id))),
+        endTime: inputTimeFormat(new Date(parseInt(clickedElement.id))),
+        guests: [],
         location: "",
         description: "",
         color: color,
-        title: "",
         completed: false,
     });
 
@@ -41,6 +46,13 @@ export function NewTaskForm({ clickedElement, onClose }) {
         setColor(e.target.value);
     }
 
+    function handleGuestChange(list) {
+        setFormData({
+            ...formData,
+            guests: list
+        });
+    }
+
     function handleInputChange(e) {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
@@ -50,14 +62,7 @@ export function NewTaskForm({ clickedElement, onClose }) {
         if (!formData.title) return;
         dispatch(postData(formData));
         dispatch(addTask(formData));
-        setFormData({
-            ...formData,
-            updatedAt: "",
-            location: "",
-            description: "",
-            color: color,
-            title: "",
-        });
+        onClose();
     }
 
     useEffect(() => {
@@ -68,6 +73,7 @@ export function NewTaskForm({ clickedElement, onClose }) {
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            exit={{opacity: 0}}
             transition={{ duration: 0.1 }}
             dragControls={dragControls}
             drag
@@ -82,22 +88,28 @@ export function NewTaskForm({ clickedElement, onClose }) {
             <FormDock onClose={onClose} startDrag={startDrag}/>
 
             <form onSubmit={handleSubmit} className="form">
-                <FormTitle handleInputChange={handleInputChange} formData={formData}/>
-                <EventType setFormType={setFormType}/>
-
-                {formType == true ? (
-                    <EventForm
-                        formData={formData}
-                        handleInputChange={handleInputChange}
-                        color={color}
-                        handleColor={handleColor}
-                    />
-                ) : (
-                    <TaskForm
-                        formData={formData}
-                        handleInputChange={handleInputChange}
-                    />
-                )}
+                <FormDataContext.Provider value={formData}>
+                    <FormDataChangeContext.Provider value={handleInputChange}>
+                        <div className="form-grid">
+                            <InputTitle handleInputChange={handleInputChange} formData={formData}/>
+                            <EventType setFormType={setFormType}/>
+                            {formType == true ? (
+                                <EventForm
+                                    formData={formData}
+                                    handleInputChange={handleInputChange}
+                                    handleGuestChange={handleGuestChange}
+                                    color={color}
+                                    handleColor={handleColor}
+                                />
+                            ) : (
+                                <TaskForm
+                                    formData={formData}
+                                    handleInputChange={handleInputChange}
+                                />
+                            )}
+                        </div>
+                    </FormDataChangeContext.Provider>
+                </FormDataContext.Provider>
                 <FormFooter/>
             </form>
         </motion.div>
