@@ -1,32 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons"
+import { FormDataGuestsContext } from "../formContext";
 
-export function InputGuests({handleGuestChange}) {
+export function InputGuests() {
+    const handleGuestChange = useContext(FormDataGuestsContext);
+
     const [email, setEmail] = useState("");
     const [guestList, setGuestList] = useState([]);
     const [error, setError] = useState(false);
     const [focus, setFocus] = useState(false)
 
-    useEffect(() => {
-        handleGuestChange(guestList)
-    }, [guestList])
-
-    const handleRemoveGuest = (removedGuest) => {
-        const newList = guestList.filter(guest => guest !== removedGuest);
-        setGuestList(newList)
-    }
-
-    const emailValidation = () => {
-        const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
-        if (regEx.test(email)) {
-            
-          return true
-        } else if (!regEx.test(email) && email !== "") {
-            return false
-        }
+    const handleOnChange = (e) => {
+        setEmail(e.target.value);
     }
 
     const handleAddGuest = (e) => {
@@ -39,10 +27,25 @@ export function InputGuests({handleGuestChange}) {
             setFocus(true);
         }
     }
-    
-    const handleOnChange = (e) => {
-        setEmail(e.target.value);
+
+    const handleRemoveGuest = (removedGuest) => {
+        const newList = guestList.filter(guest => guest !== removedGuest);
+        setGuestList(newList);
     }
+
+    const emailValidation = () => {
+        const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+        if (regEx.test(email)) {
+            
+          return true
+        } else if (!regEx.test(email) && email !== "") {
+            return false
+        }
+    }
+
+    useEffect(() => {
+        handleGuestChange(guestList)
+    }, [guestList])
     return (
         <div className="input-shell">
             <span className={error ? "bottom-border-error" : "bottom-border-animate"}>

@@ -5,7 +5,7 @@ import "./../../styles/_index.scss";
 import { motion, useDragControls } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { FormDataContext, FormDataChangeContext } from "./formContext";
+import { FormDataContext, FormDataChangeContext, FormDataGuestsContext } from "./formContext";
 //redux
 import postData from "../../redux/features/thunk/postData";
 import { addTask } from "../../redux/features/taskSlicer";
@@ -19,7 +19,6 @@ export function NewTaskForm({ clickedElement, onClose }) {
     const dragControls = useDragControls();
 
     const [formType, setFormType] = useState(true);
-    const [color, setColor] = useState("#039be5");
     const [modalPosition, setModalPosition] = useState({top: 0, left: 0});
 
     const [formData, setFormData] = useState({
@@ -34,16 +33,12 @@ export function NewTaskForm({ clickedElement, onClose }) {
         guests: [],
         location: "",
         description: "",
-        color: color,
+        color: "#039be5",
         completed: false,
     });
 
     function startDrag(event) {
         dragControls.start(event);
-    }
-
-    function handleColor(e) {
-        setColor(e.target.value);
     }
 
     function handleGuestChange(list) {
@@ -90,24 +85,20 @@ export function NewTaskForm({ clickedElement, onClose }) {
             <form onSubmit={handleSubmit} className="form">
                 <FormDataContext.Provider value={formData}>
                     <FormDataChangeContext.Provider value={handleInputChange}>
-                        <div className="form-grid">
-                            <InputTitle handleInputChange={handleInputChange} formData={formData}/>
-                            <EventType setFormType={setFormType}/>
-                            {formType == true ? (
-                                <EventForm
-                                    formData={formData}
-                                    handleInputChange={handleInputChange}
-                                    handleGuestChange={handleGuestChange}
-                                    color={color}
-                                    handleColor={handleColor}
-                                />
-                            ) : (
-                                <TaskForm
-                                    formData={formData}
-                                    handleInputChange={handleInputChange}
-                                />
-                            )}
-                        </div>
+                        <FormDataGuestsContext.Provider value={handleGuestChange}>
+                            <div className="form-grid">
+                                <InputTitle handleInputChange={handleInputChange} formData={formData}/>
+                                <EventType setFormType={setFormType}/>
+                                {formType == true ? (
+                                    <EventForm/>
+                                ) : (
+                                    <TaskForm
+                                        formData={formData}
+                                        handleInputChange={handleInputChange}
+                                    />
+                                )}
+                            </div>
+                        </FormDataGuestsContext.Provider>
                     </FormDataChangeContext.Provider>
                 </FormDataContext.Provider>
                 <FormFooter/>

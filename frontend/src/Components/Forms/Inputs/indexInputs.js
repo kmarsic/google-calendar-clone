@@ -1,8 +1,8 @@
 export { InputDescription } from "./InputDescription";
 export { InputLocation } from "./InputLocation";
 export { InputUsername } from "./InputUsername";
-export { PlaceholderLocation } from "./PlaceholderLocation";
-export { PlaceholderTime } from "./PlaceholderTime";
-export { FormTitle } from "./FormTitle";
-export { InputTime } from "./InputTime";
-
+export { PlaceholderLocation } from "../Placeholders/PlaceholderLocation";
+export { PlaceholderTime } from "../Placeholders/PlaceholderTime";
+export { InputTitle } from "./InputTitle";
+export { InputTimeEnd, InputTimeStart } from "./InputTime";
+export { InputGuests } from "./InputGuests";

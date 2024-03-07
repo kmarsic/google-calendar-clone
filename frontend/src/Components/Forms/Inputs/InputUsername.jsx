@@ -2,11 +2,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons"
 import { ColorForm } from "../ColorForm"
+import { useContext } from "react"
+import { FormDataContext } from "../formContext"
 
-export function InputUsername({isColorVisible, handleButtonClick, color, handleColor, handleInputChange, colorRef}) {
+export function InputUsername({isColorVisible, handleButtonClick, colorRef}) {
+    const formData = useContext(FormDataContext);
     return(
         <div className="form-username">
-                <span className="text-input-placeholder" >Username</span>
+                <span className="text-input-grow0" >Username</span>
                 <div
                     className="color"
                     onClick={() => handleButtonClick()}
@@ -15,14 +18,10 @@ export function InputUsername({isColorVisible, handleButtonClick, color, handleC
                         <div
                             className="color-switch"
                             ref={colorRef}
-                            style={{ backgroundColor: color }}
+                            style={{ backgroundColor: formData.color }}
                         >
                             {isColorVisible ? (
-                                <ColorForm
-                                    setColor={handleColor}
-                                    handleInputChange={handleInputChange}
-                                    colors={color}
-                                />
+                                <ColorForm/>
                             ) : null}
                         </div>
                         <FontAwesomeIcon icon={faCaretDown} color="var(--text-body)" size="sm" style={{ cursor: "pointer" }}/>

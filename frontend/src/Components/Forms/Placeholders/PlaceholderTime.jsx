@@ -1,27 +1,38 @@
 /* eslint-disable react/prop-types */
+import { FormDataContext } from "../formContext";
+import { InputTimeStart, InputTimeEnd } from "./../Inputs/indexInputs";
+import { useState, useLayoutEffect, useRef, useContext } from "react";
 
-import { InputTimeStart, InputTimeEnd } from "../Inputs/InputTime";
+export function PlaceholderTime({ handleFormFields, activeFormField}) {
+    const formData = useContext(FormDataContext);
+    const [inputWidth, setInputWidth] = useState(0);
+    const ref = useRef(null);
+    useLayoutEffect(() => {
+        setInputWidth(ref.current.offsetWidth);
+    }, [])
 
-export function PlaceholderTime({handleFormFields, activeFormField, formData, handleInputChange}) {
     return (
         <div className="input-shell">
                 <div>
                     <div className="div-flex">
-                        {activeFormField.startTime == "input" ? <InputTimeStart handleInputChange={handleInputChange} formData={formData}/> :
-                        <span className="text-input-placeholder" data-name="startTime" style={{width: formData.startTime.length + "ch"}}
-                        onClick={(e) => handleFormFields(e)}>
-                            {formData.startTime}
+                        {activeFormField.startTime == "input" ? 
+                        <InputTimeStart inputWidth={inputWidth}/> 
+                        :
+                        <span className="text-input-placeholder" ref={ref} >
+                            <span className="placeholder-hover" data-name="startTime" onClick={(e) => handleFormFields(e)}>
+                                {formData.startTime}
+                            </span>
                         </span>}
 
                         <span>&#8212;</span>
 
-                        {activeFormField.endTime == "input" ? <InputTimeEnd handleInputChange={handleInputChange} formData={formData}/> :
-                        <span 
-                        className="text-input-placeholder"
-                        data-name="endTime"
-                        style={{width: formData.startTime.length + "ch"}}
-                        onClick={(e) => handleFormFields(e)}>
-                            {formData.endTime}
+                        {activeFormField.endTime == "input" ? 
+                        <InputTimeEnd inputWidth={inputWidth}/> 
+                        :
+                        <span className="text-input-placeholder">
+                            <span className="placeholder-hover" data-name="endTime" onClick={(e) => handleFormFields(e)}>
+                                {formData.endTime}
+                            </span>
                         </span>}
                         <button className="btn" 
                         onClick={(e) => e.preventDefault()}>Add time</button>

@@ -1,12 +1,14 @@
 import { InputLocation } from "../Inputs/InputLocation"
 
 /* eslint-disable react/prop-types */
-export function PlaceholderLocation({handleFormFields, activeFormField, formData, handleInputChange}) {
+export function PlaceholderLocation({handleFormFields, activeFormField}) {
     return (
-    activeFormField.location == "input" ? <InputLocation formData={formData} handleInputChange={handleInputChange} /> :
+    activeFormField.location == "input" ? <InputLocation/> :
     <div className="input-shell">
             <div className="div-flex">
-                <span className="text-input" data-name="location" onClick={(e) => handleFormFields(e)}>Location</span>
+                <span className="text-input-placeholder" data-name="location" onClick={(e) => handleFormFields(e)}>
+                    <span className="placeholder-hover" data-name="location" onClick={(e) => handleFormFields(e)}>Location</span>
+                </span>
             </div>
     </div>
     )

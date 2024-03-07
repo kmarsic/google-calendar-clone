@@ -1,14 +1,18 @@
 /* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock, faLocationDot, faComment, faCalendarXmark, faCaretDown, faBriefcase, faBell} from "@fortawesome/free-solid-svg-icons";
+import { faClock, faLocationDot, faComment, faCalendarXmark, faCaretDown, faBell, faUsers} from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
-import { PlaceholderLocation, PlaceholderTime,InputDescription, InputUsername } from "../Inputs/indexInputs";
+import { PlaceholderLocation, PlaceholderTime, InputUsername } from "../Inputs/indexInputs";
+import { PlaceholderDescription } from "../Placeholders/PlaceholderDescription";
+import { PlaceholderGuest } from "../Placeholders/PlaceholderGuest";
+import { PlaceholderNotification } from "../Placeholders/PlaceholderNotification";
 
-export function EventForm({ formData, handleInputChange, handleColor, color }) {
+export function EventForm() {
     const [isColorVisible, setIsColorVisible] = useState(false);
     
     const [activeFormField, setActiveFormField] = useState({
-        time: "placeholder",
+        timeStart: "placeholder",
+        timeEnd: "placeholder",
         guest: "placeholder",
         location: "placeholder",
         description: "placeholder",
@@ -19,7 +23,7 @@ export function EventForm({ formData, handleInputChange, handleColor, color }) {
         setActiveFormField({
             ...activeFormField,
             [e.target.dataset.name] : "input"
-        });
+        })
     }
     const colorRef = useRef(null);
 
@@ -45,53 +49,39 @@ export function EventForm({ formData, handleInputChange, handleColor, color }) {
             <div className="icons">
                 <FontAwesomeIcon icon={faClock} color="var(--text-body)" size="xl"/>
             </div>
-            <PlaceholderTime 
-            formData={formData} 
+            <PlaceholderTime
+            handleFormFields={handleFormFields} 
+            activeFormField={activeFormField} />
+            <div className="icons">
+                <FontAwesomeIcon icon={faUsers} color="var(--text-body)" size="xl"/>
+            </div>
+            <PlaceholderGuest
             handleFormFields={handleFormFields} 
             activeFormField={activeFormField} 
-            handleInputChange={handleInputChange}/>
+            />
             <div className="icons">
                 <FontAwesomeIcon icon={faLocationDot} color="var(--text-body)" size="xl"/>
             </div>
             <PlaceholderLocation 
-            formData={formData} 
             handleFormFields={handleFormFields} 
-            activeFormField={activeFormField} 
-            handleInputChange={handleInputChange}/>
+            activeFormField={activeFormField} />
             <div className="icons">
                 <FontAwesomeIcon icon={faComment} color="var(--text-body)" size="xl"/>
             </div>
-            <InputDescription formData={formData} handleInputChange={handleInputChange}/>
+            <PlaceholderDescription activeFormField={activeFormField} handleFormFields={handleFormFields}/>
             <div className="icons">
                 <FontAwesomeIcon icon={faCalendarXmark} color="var(--text-body)" size="xl"/>
             </div>
-            <InputUsername 
+            <InputUsername
                 isColorVisible={isColorVisible} 
-                color={color} 
-                handleColor={handleColor} 
                 handleButtonClick={handleButtonClick} 
-                handleInputChange={handleInputChange}
                 colorRef={colorRef}
-                style={{width : "12px"}}
             />
-            <div className="icons">
-                <FontAwesomeIcon icon={faBriefcase} color="var(--text-body" size="xl"
-                />
-            </div>
-            <div className="dropdown-input">
-                    <span className="text-input">Busy</span>
-                    <FontAwesomeIcon icon={faCaretDown} color="var(--text-body)" size="sm" style={{ cursor: "pointer" }}
-                    />
-            </div>
             <div className="icons">
                 <FontAwesomeIcon icon={faBell} color="var(--text-body" size="xl"
                 />
             </div>
-            <div className="dropdown-input">
-                <span className="text-input">30 mins before</span>
-                    <FontAwesomeIcon icon={faCaretDown} color="var(--text-body)" size="sm" style={{ cursor: "pointer" }}
-                    />
-            </div>
+            <PlaceholderNotification/>
         </>
     )
 }
