@@ -4,10 +4,23 @@ import { currentDate, switchView } from '../../../redux/features/dateSlicer';
 import { MonthDay } from './MonthDay';
 import { motion } from 'framer-motion';
 import { calendarVariant } from '../../../Fncs/framerVariants';
+import { useEffect, useState } from 'react';
 
 export function MonthView() {
   const mainDate = new Date(useSelector(currentDate));
   const switches = useSelector(switchView);
+
+  const [key, setKey] = useState(mainDate.getMonth());
+
+  const handleKeyChange = () => {
+    if (mainDate.getMonth() != key) {
+      setKey(mainDate.getMonth());
+    }
+  }
+
+  useEffect(() => {
+    handleKeyChange();
+  },[mainDate])
 
   const findMonthDays = (y, m) => {
     return new Date(y, m + 1, 0).getDate();
@@ -109,7 +122,7 @@ export function MonthView() {
   return (
       <motion.div 
       className="calendar-grid"
-      key={mainDate}
+      key={key}
       variants={calendarVariant}
       initial={switches == "prev" ? "hidden" : "hiddenNext"}
       animate={"visible"}
