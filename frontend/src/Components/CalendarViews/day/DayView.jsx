@@ -52,8 +52,7 @@ export function DayView() {
             <div className="week-cal-body">
                 <div className="time-frames">{showTimeFrames()}</div>
                 <div className="day-cal-grid">
-                    <DaytimeGrid iterator={0}/>
-                    <DaytimeGrid date={mainDate}/>
+                    <DaytimeGrid iterator={0} date={mainDate}/>
                 </div>
             </div>
         </motion.div>

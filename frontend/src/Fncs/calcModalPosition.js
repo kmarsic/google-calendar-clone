@@ -3,7 +3,6 @@ export const calcModalPosition = (clickedElement,setPosition) => {
     const viewportHeight = window.innerHeight;
     const modalWidth = 448;
     const modalHeight = 462;
-
     const desiredLeft = clickedElement.data.clientX;
     const desiredTop = clickedElement.data.clientY;
 

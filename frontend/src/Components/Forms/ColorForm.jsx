@@ -1,11 +1,14 @@
 /* eslint-disable react/prop-types */
 import { useContext } from 'react';
 import './../../styles/icons/White_check.svg';
-import { FormDataChangeContext, FormDataContext } from './formContext';
+import { EventChangeContext, EventDataContext } from './formContext';
 
 export function ColorForm () {
-    const formData = useContext(FormDataContext);
-    const handleInputChange = useContext(FormDataChangeContext);
+    const formData = useContext(EventDataContext);
+    const dispatchReducer = useContext(EventChangeContext);
+    const handleColorChange = (e) => {
+        dispatchReducer({type : "color", payload: e.target.value})
+    }
     const COLORS = {
         tomato : "#d50000",
         flamingo : "#e67c73",
@@ -31,8 +34,8 @@ export function ColorForm () {
                     <input
                         type="checkbox"
                         name="color"
-                        onClick={(e) => handleInputChange(e)}
                         value={colorValue}
+                        onClick={(e) => handleColorChange(e)}
                         id={colorName}
                         style={{ backgroundColor: colorValue }}
                     />

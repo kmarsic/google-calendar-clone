@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock, faLocationDot, faComment, faCalendarXmark, faCaretDown, faBell, faUsers} from "@fortawesome/free-solid-svg-icons";
+import { faClock, faLocationDot, faComment, faCalendarXmark, faBell, faUsers} from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
 import { PlaceholderLocation, PlaceholderTime, InputUsername } from "../Inputs/indexInputs";
 import { PlaceholderDescription } from "../Placeholders/PlaceholderDescription";

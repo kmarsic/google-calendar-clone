@@ -5,6 +5,7 @@ import { MiniMonthView } from "./MiniMonthView";
 import { useDispatch, useSelector } from "react-redux";
 import { miniDate, nextMonthMini, previousMonthMini } from "../../../../redux/features/dateSlicer";
 import { useRef } from "react";
+import { motion } from "framer-motion";
 
 export function MiniViewEmbed({embed}) {
     const date = new Date(useSelector(miniDate));
@@ -12,7 +13,13 @@ export function MiniViewEmbed({embed}) {
     const miniViewRef = useRef(null);
 
     return (
-    <div ref={miniViewRef} className={embed ? "embed" : null}>
+    <motion.div 
+    ref={miniViewRef}
+    className={embed ? "embed" : null}
+    initial={{scale : 0.8}}
+    animate={{scale : 1}}
+    exit={{scale: 0.8}}
+    >
                 <div className="mini-nav">
                     <div className='mini-date'>
                     {date.toLocaleString("default", {
@@ -30,6 +37,6 @@ export function MiniViewEmbed({embed}) {
                     </div>
                 </div>
                 <MiniMonthView/>
-    </div>
+    </motion.div>
     )
 }

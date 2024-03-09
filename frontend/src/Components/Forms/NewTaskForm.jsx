@@ -3,9 +3,9 @@
 import "./../../styles/_index.scss";
 //dependencies
 import { motion, useDragControls } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { useDispatch } from "react-redux";
-import { FormDataContext, FormDataChangeContext, FormDataGuestsContext } from "./formContext";
+import { EventDataContext, EventChangeContext } from "./formContext";
 //redux
 import postData from "../../redux/features/thunk/postData";
 import { addTask } from "../../redux/features/taskSlicer";
@@ -21,10 +21,8 @@ export function NewTaskForm({ clickedElement, onClose }) {
     const [formType, setFormType] = useState(true);
     const [modalPosition, setModalPosition] = useState({top: 0, left: 0});
 
-    const [formData, setFormData] = useState({
-        list: "Events",
+    const [eventData, dispatchReducer] = useReducer(reducer, {
         name: clickedElement.id,
-        type: "Event",
         title: "",
         updatedAt: "",
         createdAt: Date.parse(new Date()),
@@ -34,29 +32,17 @@ export function NewTaskForm({ clickedElement, onClose }) {
         location: "",
         description: "",
         color: "#039be5",
-        completed: false,
     });
 
     function startDrag(event) {
         dragControls.start(event);
     }
 
-    function handleGuestChange(list) {
-        setFormData({
-            ...formData,
-            guests: list
-        });
-    }
-
-    function handleInputChange(e) {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    }
-
     function handleSubmit(e) {
         e.preventDefault();
-        if (!formData.title) return;
-        dispatch(postData(formData));
-        dispatch(addTask(formData));
+        if (!eventData.title) return;
+        dispatch(postData(eventData));
+        dispatch(addTask(eventData));
         onClose();
     }
 
@@ -65,44 +51,90 @@ export function NewTaskForm({ clickedElement, onClose }) {
     }, [clickedElement])
 
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{opacity: 0}}
-            transition={{ duration: 0.1 }}
-            dragControls={dragControls}
-            drag
-            dragListener={false}
-            dragMomentum={false}
-            className="event-add"
-            style={{
-                top: `${modalPosition.top}px`,
-                left: `${modalPosition.left}px`,
-            }}>
-
-            <FormDock onClose={onClose} startDrag={startDrag}/>
-
-            <form onSubmit={handleSubmit} className="form">
-                <FormDataContext.Provider value={formData}>
-                    <FormDataChangeContext.Provider value={handleInputChange}>
-                        <FormDataGuestsContext.Provider value={handleGuestChange}>
-                            <div className="form-grid">
-                                <InputTitle handleInputChange={handleInputChange} formData={formData}/>
-                                <EventType setFormType={setFormType}/>
-                                {formType == true ? (
-                                    <EventForm/>
-                                ) : (
-                                    <TaskForm
-                                        formData={formData}
-                                        handleInputChange={handleInputChange}
-                                    />
-                                )}
-                            </div>
-                        </FormDataGuestsContext.Provider>
-                    </FormDataChangeContext.Provider>
-                </FormDataContext.Provider>
-                <FormFooter/>
-            </form>
-        </motion.div>
+        <EventDataContext.Provider value={eventData}>
+            <EventChangeContext.Provider value={dispatchReducer}>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{opacity: 0}}
+                    transition={{ duration: 0.1 }}
+                    dragControls={dragControls}
+                    drag
+                    dragListener={false}
+                    dragMomentum={false}
+                    className="event-add"
+                    style={{
+                        top: `${modalPosition.top}px`,
+                        left: `${modalPosition.left}px`,
+                    }}>
+                    <FormDock onClose={onClose} startDrag={startDrag}/>
+                    <form onSubmit={handleSubmit} className="form">
+                                    <div className="form-grid">
+                                        <InputTitle/>
+                                        <EventType setFormType={setFormType}/>
+                                        {formType == true ? (
+                                            <EventForm/>
+                                        ) : (
+                                            <TaskForm/>
+                                        )}
+                                    </div>
+                        <FormFooter/>
+                    </form>
+                </motion.div>
+            </EventChangeContext.Provider>
+        </EventDataContext.Provider>
     );
+}
+
+function reducer(state, action) {
+    switch (action.type) {
+        case 'title': {
+            return {
+                ...state,
+                title: action.payload
+            }
+        }
+        case 'type': {
+            return {
+                ...state,
+                type: action.payload
+            }
+        }
+        case 'startTime': {
+            return {
+                ...state,
+                startTime: action.payload
+            }
+        }
+        case 'endTime': {
+            return {
+                ...state,
+                endTime: action.payload
+            }
+        }
+        case 'guests': {
+            return {
+                ...state,
+                guests: action.payload
+            }
+        }
+        case 'location': {
+            return {
+                ...state,
+                location: action.payload
+            }
+        }
+        case 'description': {
+            return {
+                ...state,
+                description: action.payload
+            }
+        }
+        case 'color': {
+            return {
+                ...state,
+                color: action.payload
+            }
+        }
+    }
 }

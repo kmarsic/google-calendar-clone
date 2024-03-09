@@ -61,7 +61,7 @@ export function titleTimeFormat (view, date) {
     }
 }
 
-export function formTimeFormat(date) {
+export function inputTimeFormat(date) {
     const currYear = new Date().getFullYear();
     if (currYear != date.getFullYear()) {
     return (

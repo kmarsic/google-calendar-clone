@@ -1,10 +1,13 @@
 import { useContext } from "react"
-import { FormDataChangeContext, FormDataContext } from "../formContext"
+import { EventChangeContext, EventDataContext } from "../formContext"
 
 /* eslint-disable react/prop-types */
 export function InputDescription() {
-    const formData = useContext(FormDataContext);
-    const inputChange = useContext(FormDataChangeContext);
+    const formData = useContext(EventDataContext);
+    const dispatchReducer = useContext(EventChangeContext);
+    const handleDescriptionChange = (e) => {
+        dispatchReducer({type: "description", payload: e.target.value})
+    }
     return (
         <div className="input-shell">
                 <span className="bottom-border-animate">
@@ -16,7 +19,7 @@ export function InputDescription() {
                         placeholder="Add description or attachments"
                         autoComplete="off"
                         value={formData.description}
-                        onChange={(e) => inputChange(e)}
+                        onChange={(e) => handleDescriptionChange(e)}
                     />
                 </span>
         </div>

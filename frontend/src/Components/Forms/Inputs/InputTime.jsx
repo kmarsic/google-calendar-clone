@@ -1,13 +1,27 @@
 /* eslint-disable react/prop-types */
-import { useContext, useState } from "react";
-import { MiniViewEmbed } from "../../CalendarViews/MonthView/mini/MiniViewEmbed";
-import { FormDataContext } from "../formContext";
+import { useContext, useEffect, useRef, useState } from "react";
+import { MiniCalendarForm } from "../../CalendarViews/MonthView/mini/MiniCalendarForm";
+import { EventDataContext } from "../formContext";
 
 export function InputTimeStart({inputWidth}) {
-    const formData = useContext(FormDataContext);
+    const ref = useRef(null);
+    const formData = useContext(EventDataContext);
     const [calendarVisible, setCalendarvisible] = useState(false);
+
+    const handleClickOutside = (e) => {
+        if (!ref.current.contains(e.target)) {
+            setCalendarvisible(false);
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside)
+        return () => {
+            document.removeEventListener("mousedown",handleClickOutside)
+        }
+    }, [])
     return (
-        <span className="bottom-border-animate">
+        <span className="bottom-border-animate" ref={ref}>
             <input
                 className="text-input"
                 autoFocus
@@ -16,19 +30,32 @@ export function InputTimeStart({inputWidth}) {
                 value={formData.startTime}
                 name="startTime"
                 data-name="startTime"
-                onFocus={() => setCalendarvisible(true)}
-                onBlur={() => setCalendarvisible(false)}/>
-        {calendarVisible ? <MiniViewEmbed form={true} embed={true}/> : null}
+                onFocus={() => setCalendarvisible(true)}/>
+        {calendarVisible ? <MiniCalendarForm/> : null}
         </span>
     )
 
 }
 
 export function InputTimeEnd({inputWidth}) {
+    const ref = useRef(null);
     const [calendarVisible, setCalendarvisible] = useState(false);
-    const formData = useContext(FormDataContext);
+    const formData = useContext(EventDataContext);
+
+    const handleClickOutside = (e) => {
+        if (!ref.current.contains(e.target)) {
+            setCalendarvisible(false);
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside)
+        return () => {
+            document.removeEventListener("mousedown",handleClickOutside)
+        }
+    }, [])
     return (
-        <span className="bottom-border-animate">
+        <span className="bottom-border-animate" ref={ref}>
             <input
                 className="text-input"
                 autoFocus
@@ -37,9 +64,8 @@ export function InputTimeEnd({inputWidth}) {
                 value={formData.endTime}
                 name="endTime"
                 data-name="endTime"
-                onFocus={() => setCalendarvisible(true)}
-                onBlur={() => setCalendarvisible(false)}/>
-        {calendarVisible ? <MiniViewEmbed form={true} embed={true}/> : null}
+                onFocus={() => setCalendarvisible(true)}/>
+        {calendarVisible ? <MiniCalendarForm/> : null}
         </span>
     )
 }

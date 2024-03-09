@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setView } from "../redux/features/dateSlicer";
 import { motion } from 'framer-motion';
+import { clickVariant } from "../Fncs/framerVariants";
 
 export function ViewDropdown () {
     const dispatch = useDispatch();
@@ -16,7 +17,10 @@ export function ViewDropdown () {
         exit={{opacity: 0}}
         >
             <ul  className="dropdown">
-                    <motion.div>
+                    <motion.div
+                    variants={clickVariant}
+                    whileTap={"click"}
+                    >
                         <li onClick={() => dispatch(setView("Day"))}>
                             <Link to={"/Day"}>
                                 <div>Day</div>
@@ -24,7 +28,10 @@ export function ViewDropdown () {
                             </Link>
                         </li>
                     </motion.div>
-                    <motion.div>
+                    <motion.div
+                    variants={clickVariant}
+                    whileTap={"click"}
+                    >
                         <li onClick={() => dispatch(setView("Week"))}>
                             <Link to={"/Week"}>
                                 <div>Week</div>
@@ -32,7 +39,10 @@ export function ViewDropdown () {
                             </Link>
                         </li>
                     </motion.div>
-                    <motion.div>
+                    <motion.div
+                    variants={clickVariant}
+                    whileTap={"click"}
+                    >
                         <li onClick={() => dispatch(setView("Month"))}>
                             <Link to={"/Month"}>
                                 <div>Month</div>
@@ -40,7 +50,10 @@ export function ViewDropdown () {
                             </Link>
                         </li>
                     </motion.div>
-                    <motion.div>
+                    <motion.div
+                    variants={clickVariant}
+                    whileTap={"click"}
+                    >
                         <li onClick={() => dispatch(setView("Year"))}>
                             <Link to={"/Year"}>
                                 <div>Year</div>

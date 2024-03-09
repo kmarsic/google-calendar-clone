@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons"
 import { ColorForm } from "../ColorForm"
 import { useContext } from "react"
-import { FormDataContext } from "../formContext"
+import { EventDataContext } from "../formContext"
 
 export function InputUsername({isColorVisible, handleButtonClick, colorRef}) {
-    const formData = useContext(FormDataContext);
+    const formData = useContext(EventDataContext);
     return(
         <div className="form-username">
                 <span className="text-input-grow0" >Username</span>

@@ -271,10 +271,25 @@
     z-index: 1;
     flex-direction: column;
     background-color: white;
-    top: 14px;
-    left: 400px;
+    top:0;
+    left: -25%;
     padding: 0.25rem 1rem 1rem 1rem;
     border-radius: 8px;
+    width: 275px;
+    height: 245px;
+    box-shadow: 0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
+    font-size: 12px;
+  }
+
+.form-calendar {
+    position: absolute;
+    display: flex;
+    z-index: 1;
+    flex-direction: column;
+    background-color: white;
+    top: 42px;
+    left: 0;
+    padding: 0.25rem 1rem 1rem 1rem;
     width: 275px;
     height: 245px;
     box-shadow: 0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);

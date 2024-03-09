@@ -7,7 +7,7 @@ import { ViewDropdown } from '../ViewDropdown';
 import { AnimatePresence } from 'framer-motion';
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { previousMonth, nextMonth, currentDate, miniDate, currentView, previousWeek, previousDay, nextDay, nextWeek, setDate, nextYear, prevYear, setSwitch} from '../../redux/features/dateSlicer';
+import { previousMonth, nextMonth, currentDate, currentView, previousWeek, previousDay, nextDay, nextWeek, setDate, nextYear, prevYear, setSwitch} from '../../redux/features/dateSlicer';
 import { useState, useEffect, useRef } from 'react';
 //helpers
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -21,7 +21,6 @@ import { clickVariant } from '../../Fncs/framerVariants';
 export const Navigation = ({ burger, setBurger, setElement}) => {
   const view = useSelector(currentView);
   const date = new Date(useSelector(currentDate));
-  const minDate = new Date(useSelector(miniDate));
   const today = new Date().getDate();
 
   const [isCalVisible, setIsCalVisible] = useState(false);
@@ -135,7 +134,7 @@ export const Navigation = ({ burger, setBurger, setElement}) => {
                   {titleTimeFormat(view, date)}
                 {burger ? null : <FontAwesomeIcon icon={faCaretDown} size='2xs' style={{color: "rgba(0, 0, 0, 0.4)"}}/>}
                 {isCalVisible ? 
-                  <MiniViewEmbed embed={true} date={minDate}/> : null}
+                  <MiniViewEmbed embed={true}/> : null}
               </div>
             </div>
             <div className='menu-right'>

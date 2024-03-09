@@ -3,10 +3,13 @@
 import { useState, useEffect, useContext } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons"
-import { FormDataGuestsContext } from "../formContext";
+import { EventChangeContext } from "../formContext";
 
 export function InputGuests() {
-    const handleGuestChange = useContext(FormDataGuestsContext);
+    const dispatchReducer = useContext(EventChangeContext);
+    const handleGuestChange = (list) => {
+        dispatchReducer({type: "guests", payload: list})
+    }
 
     const [email, setEmail] = useState("");
     const [guestList, setGuestList] = useState([]);

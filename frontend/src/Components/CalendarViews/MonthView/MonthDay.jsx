@@ -21,7 +21,7 @@ export function MonthDay({date, iterator,isToday, previous, next}) {
             <> 
               {isToday ? null : date.toLocaleString("default", {month:"short"}) + " "}
               <Link to='/Day'>
-                <span onClick={() => {dispatch(setDate(parsedDate)); dispatch(setView("Day"))}} className={`dayIndex ${isToday ? "today" : ""}`}>
+                <span key={"ff" + iterator} onClick={() => {dispatch(setDate(parsedDate)); dispatch(setView("Day"))}} className={`dayIndex ${isToday ? "today" : ""}`}>
                   {iterator}
                 </span>
               </Link>
