@@ -103,13 +103,13 @@ function reducer(state, action) {
         case 'startTime': {
             return {
                 ...state,
-                startTime: action.payload
+                startTime: inputTimeFormat(action.payload)
             }
         }
         case 'endTime': {
             return {
                 ...state,
-                endTime: action.payload
+                endTime: inputTimeFormat(action.payload)
             }
         }
         case 'guests': {
