@@ -1,5 +1,6 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { EventChangeContext, EventDataContext } from "../formContext"
+import Editor from 'react-simple-wysiwyg'
 
 /* eslint-disable react/prop-types */
 export function InputDescription() {
@@ -11,16 +12,7 @@ export function InputDescription() {
     return (
         <div className="input-shell">
                 <span className="bottom-border-animate">
-                    <input
-                        className="text-input"
-                        autoFocus
-                        type="text"
-                        name="description"
-                        placeholder="Add description or attachments"
-                        autoComplete="off"
-                        value={formData.description}
-                        onChange={(e) => handleDescriptionChange(e)}
-                    />
+                    <Editor className="text-input" value={formData.description} onChange={handleDescriptionChange}/>
                 </span>
         </div>
     )
