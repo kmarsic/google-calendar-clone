@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
-import { useContext, useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { MiniCalendarForm } from "../../CalendarViews/MonthView/mini/MiniCalendarForm";
 import { EventDataContext } from "../formContext";
 
-export function InputTimeStart({inputWidth}) {
+export const FocusContext = createContext(null);
+
+export function InputTimeStart() {
     const ref = useRef(null);
     const formData = useContext(EventDataContext);
     const [calendarVisible, setCalendarvisible] = useState(false);
-
     const handleClickOutside = (e) => {
         if (!ref.current.contains(e.target)) {
             setCalendarvisible(false);
@@ -20,24 +21,25 @@ export function InputTimeStart({inputWidth}) {
             document.removeEventListener("mousedown",handleClickOutside)
         }
     }, [])
+
     return (
         <span className="bottom-border-animate" ref={ref}>
             <input
                 className="text-input"
                 autoFocus
+                style={{ width: formData.startTime.length + 1 + "ch"}}
                 data-type="time"
-                style={{width: inputWidth + "px"}}
                 value={formData.startTime}
                 name="startTime"
                 data-name="startTime"
                 onFocus={() => setCalendarvisible(true)}/>
-        {calendarVisible ? <MiniCalendarForm/> : null}
+        <FocusContext.Provider value={setCalendarvisible}>{calendarVisible ? <MiniCalendarForm/> : null}</FocusContext.Provider>
         </span>
     )
 
 }
 
-export function InputTimeEnd({inputWidth}) {
+export function InputTimeEnd() {
     const ref = useRef(null);
     const [calendarVisible, setCalendarvisible] = useState(false);
     const formData = useContext(EventDataContext);
@@ -60,12 +62,12 @@ export function InputTimeEnd({inputWidth}) {
                 className="text-input"
                 autoFocus
                 data-type="time"
-                style={{width: inputWidth + "px"}}
+                style={{width: formData.endTime.length + 1 + "ch"}}
                 value={formData.endTime}
                 name="endTime"
                 data-name="endTime"
                 onFocus={() => setCalendarvisible(true)}/>
-        {calendarVisible ? <MiniCalendarForm/> : null}
+        <FocusContext.Provider value={setCalendarvisible}>{calendarVisible ? <MiniCalendarForm/> : null}</FocusContext.Provider>
         </span>
     )
 }
