@@ -1,6 +1,6 @@
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { EventChangeContext, EventDataContext } from "../formContext"
-import Editor from 'react-simple-wysiwyg'
+import { BtnBold, BtnItalic, BtnClearFormatting, BtnLink, BtnNumberedList, BtnBulletList, BtnUnderline, Editor, EditorProvider, Toolbar, Separator} from 'react-simple-wysiwyg';
 
 /* eslint-disable react/prop-types */
 export function InputDescription() {
@@ -12,7 +12,21 @@ export function InputDescription() {
     return (
         <div className="input-shell">
                 <span className="bottom-border-animate">
-                    <Editor className="text-input" value={formData.description} onChange={handleDescriptionChange}/>
+                    <EditorProvider>
+                        <Editor className="text-input" value={formData.description} onChange={handleDescriptionChange}>
+                            <Toolbar>
+                                <BtnBold/>
+                                <BtnItalic/>
+                                <BtnUnderline/>
+                                <Separator/>
+                                <BtnNumberedList/>
+                                <BtnBulletList/>
+                                <Separator/>
+                                <BtnLink/>
+                                <BtnClearFormatting/>
+                            </Toolbar>
+                        </Editor>
+                    </EditorProvider>
                 </span>
         </div>
     )
