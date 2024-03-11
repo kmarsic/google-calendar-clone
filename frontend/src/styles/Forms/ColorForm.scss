@@ -1,5 +1,6 @@
 .color {
     display: flex;
+    position: relative;
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 0.5rem;
@@ -27,8 +28,8 @@
         justify-content: center;
         align-items: center;
     }
-    left:143px;
-    top:328px;
+    left:-2px;
+    top:3px;
     width: 64px;
     height: 170px;
     padding: 5px;
