@@ -1,17 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { MiniMonthViewForm } from "./MiniMonthViewForm";
 import { useDispatch, useSelector } from "react-redux";
-import { miniDate, nextMonthMini, previousMonthMini } from "../../../../redux/features/dateSlicer";
-import { useRef } from "react";
+import { miniDate, nextMonthMini, previousMonthMini, setMiniDate } from "../../../../redux/features/dateSlicer";
+import { useContext, useEffect, useRef } from "react";
+import { EventDataContext, TimeContext } from "../../../Forms/formContext";
 
 export function MiniCalendarForm() {
-    const dispatch = useDispatch();
-    const date = new Date(useSelector(miniDate));
-    const miniViewRef = useRef(null);
+  const dispatch = useDispatch();
+  const formData = useContext(EventDataContext);
+  const time = useContext(TimeContext);
 
-    return (
+  useEffect(() => {
+    dispatch(setMiniDate(formData[time]))
+  }, []);
+
+  const date = new Date(useSelector(miniDate));
+
+  const miniViewRef = useRef(null);
+
+  return (
     <div 
     ref={miniViewRef}
     className="form-calendar"

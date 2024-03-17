@@ -10,24 +10,25 @@ import { EventDataContext, EventChangeContext } from "./formContext";
 import postData from "../../redux/features/thunk/postData";
 import { addTask } from "../../redux/features/taskSlicer";
 //components
-import { calcModalPosition, inputTimeFormat } from "../../Fncs/indexFncs";
+import { calcModalPosition, startDateMatch, endDateMatch } from "../../Fncs/indexFncs";
 import { InputTitle } from "./Inputs/InputTitle";
 import { FormFooter, EventType, FormDock, TaskForm, EventForm } from "./FormModules/indexFormModules"
 
-export function NewTaskForm({ clickedElement, onClose }) {
+export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
     const dispatch = useDispatch();
     const dragControls = useDragControls();
 
     const [formType, setFormType] = useState(true);
     const [modalPosition, setModalPosition] = useState({top: 0, left: 0});
+    const [bottomBorder, setBottomBorder] = useState(false);
 
     const [eventData, dispatchReducer] = useReducer(reducer, {
         name: clickedElement.id,
         title: "",
         updatedAt: "",
         createdAt: Date.parse(new Date()),
-        startTime: inputTimeFormat(new Date(parseInt(clickedElement.id))),
-        endTime: inputTimeFormat(new Date(parseInt(clickedElement.id))),
+        startTime: parseInt(clickedElement.id),
+        endTime: parseInt(clickedElement.id),
         guests: [],
         location: "",
         description: "",
@@ -50,6 +51,12 @@ export function NewTaskForm({ clickedElement, onClose }) {
         calcModalPosition(clickedElement, setModalPosition);
     }, [clickedElement])
 
+    const handleScroll = (e) => {
+        if (e.target.scrollTop == 0) {
+            setBottomBorder(false);
+        } else setBottomBorder(true);
+    }
+
     return (
         <EventDataContext.Provider value={eventData}>
             <EventChangeContext.Provider value={dispatchReducer}>
@@ -59,6 +66,8 @@ export function NewTaskForm({ clickedElement, onClose }) {
                     exit={{opacity: 0}}
                     transition={{ duration: 0.1 }}
                     dragControls={dragControls}
+                    dragConstraints={dragBorder}
+                    dragElastic={0}
                     drag
                     dragListener={false}
                     dragMomentum={false}
@@ -68,7 +77,7 @@ export function NewTaskForm({ clickedElement, onClose }) {
                         left: `${modalPosition.left}px`,
                     }}>
                     <FormDock onClose={onClose} startDrag={startDrag}/>
-                    <form onSubmit={handleSubmit} className="form">
+                    <form onSubmit={handleSubmit} className="form" onScroll={(e) => handleScroll(e)}>
                                     <div className="form-grid">
                                         <InputTitle/>
                                         <EventType setFormType={setFormType}/>
@@ -78,8 +87,8 @@ export function NewTaskForm({ clickedElement, onClose }) {
                                             <TaskForm/>
                                         )}
                                     </div>
-                        <FormFooter/>
                     </form>
+                    <FormFooter bottomBorder={bottomBorder}/>
                 </motion.div>
             </EventChangeContext.Provider>
         </EventDataContext.Provider>
@@ -103,13 +112,15 @@ function reducer(state, action) {
         case 'startTime': {
             return {
                 ...state,
-                startTime: inputTimeFormat(action.payload)
+                startTime: Date.parse(action.payload),
+                endTime: Date.parse(startDateMatch(action.payload, state.endTime))
             }
         }
         case 'endTime': {
             return {
                 ...state,
-                endTime: inputTimeFormat(action.payload)
+                startTime: Date.parse(endDateMatch(action.payload, state.startTime)),
+                endTime: Date.parse(action.payload)
             }
         }
         case 'guests': {
