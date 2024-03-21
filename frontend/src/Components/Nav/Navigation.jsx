@@ -86,10 +86,10 @@ export const Navigation = ({ burger, setBurger, setElement}) => {
                     <span>Today</span>
                 </motion.div>
                 <div className="switches">
-                  <div className="menu-item" onClick={() => dispatch(handleViewChange("prev"))}>
+                  <div className="menu-item btn-effect" onClick={() => dispatch(handleViewChange("prev"))}>
                       <FontAwesomeIcon icon={faAngleLeft} style={{color : "#3c4043"}} size='xl'></FontAwesomeIcon>
                   </div>
-                  <div className="menu-item" onClick={() => dispatch(handleViewChange("next"))}>
+                  <div className="menu-item btn-effect" onClick={() => dispatch(handleViewChange("next"))}>
                       <FontAwesomeIcon icon={faAngleRight} style={{color: "#3c4043"}} size='xl'></FontAwesomeIcon>
                   </div>
                 </div>

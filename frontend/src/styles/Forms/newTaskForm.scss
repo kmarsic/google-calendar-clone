@@ -46,6 +46,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    min-height: 41px;
     .text-input {
         &:hover {
             background-color: var(--hover-main);

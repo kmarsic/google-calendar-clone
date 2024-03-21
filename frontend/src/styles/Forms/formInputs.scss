@@ -101,12 +101,33 @@
 .attachment-grid {
     display: grid;
     grid-template-columns: 130px 130px;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr;
     gap: 0.5rem;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    place-content: center;
+    cursor: pointer;
+    width: 110px;
+    height: 41px;
+    font-size: 13px;
+    color: var(--text-body);
+    border-radius: 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &:hover {
+        background-color: var(--hover-main);
+    }
 }
 
 .attachment {
     place-content: center;
+    position: relative;
     padding: 0.5rem;
     font-size: 14px;
     border-radius: 0.25rem;
@@ -114,4 +135,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    &:hover {
+        .full-name-hover {
+            top: 40px;
+            opacity: 1;
+            z-index: 1;
+        }
+    }
 }
