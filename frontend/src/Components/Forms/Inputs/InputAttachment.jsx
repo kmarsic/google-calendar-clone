@@ -2,17 +2,22 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPaperclip, faXmark } from "@fortawesome/free-solid-svg-icons"
 import { useState } from "react"
+import { fileTypeImg } from "../../../Fncs/fileTypeImg";
 import icon from './../../../styles/icons/document.png';
 
 export function InputAttachment () {
-    const [files, setFiles] = useState(0);
     const [uploadedFiles, setUploadedFiles] = useState([]);
 
     function handleMultipleChange(e) {
         const filesArray = Array.from(e.target.files)
-        setFiles(filesArray);
         setUploadedFiles(prevFiles => [...prevFiles, ...filesArray])
     }
+
+    function handleFileRemove(file) {
+        const newList = uploadedFiles.filter((uploaded) => uploaded.name != file.name)
+        setUploadedFiles(newList)
+    }
+    console.log(uploadedFiles)
 
     return (
         <>
@@ -20,18 +25,22 @@ export function InputAttachment () {
                 <FontAwesomeIcon icon={faPaperclip} color="var(--text-body)" size="xl"/>
             </div>
             <div className="input-shell">
-                <input className="text-input" type="file" multiple onChange={(e) => handleMultipleChange(e)}/>
                 <div className="attachment-grid">
                     {uploadedFiles.map((file, index) => {
                         return (
                             <div key={index} className="attachment">
-                                <img src={icon} width="14px"/>
-                                <span>{file.name.substring(0,10)}</span>
-                                <FontAwesomeIcon icon={faXmark} size="xl"/>
+                                <img src={fileTypeImg(file.type)} width="14px"/>
+                                <span>{file.name.length > 10 ? file.name.substring(0,9) + "..." : file.name}</span>
+                                <FontAwesomeIcon onClick={() => handleFileRemove(file)} icon={faXmark} size="lg" color="var(--text-body)" style={{cursor: "pointer"}}/>
+                                <span className="full-name-hover">{file.name}</span>
                             </div>
                         )
                     })}
                 </div>
+                <label htmlFor="file-upload" className="custom-file-upload">
+                    <span style={{padding: "0.5rem"}}>Add attachment</span>
+                    <input id="file-upload" className="text-input" type="file" multiple onChange={(e) => handleMultipleChange(e)}/>
+                </label>
             </div>
         </>        
     )
