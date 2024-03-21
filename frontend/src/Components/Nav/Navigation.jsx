@@ -7,7 +7,7 @@ import { ViewDropdown } from '../ViewDropdown';
 import { AnimatePresence } from 'framer-motion';
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { previousMonth, nextMonth, currentDate, currentView, previousWeek, previousDay, nextDay, nextWeek, setDate, nextYear, prevYear, setSwitch} from '../../redux/features/dateSlicer';
+import { currentDate, currentView, setDate, handleViewChange} from '../../redux/features/dateSlicer';
 import { useState, useEffect, useRef } from 'react';
 //helpers
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -65,43 +65,7 @@ export const Navigation = ({ burger, setBurger, setElement}) => {
   useEffect(() => {
     navigate(`/${view}`)
   }, [view]);
-
-  const handleViewChange = (view, time) => {
-    dispatch(setSwitch(time))
-    if (time == "prev") {
-      switch(view) {
-        case "Year":
-          dispatch(prevYear());
-          
-          break;
-        case "Month":
-          dispatch(previousMonth());
-          break;
-        case "Week":
-          dispatch(previousWeek());
-          break;
-        case "Day":
   
-        dispatch(previousDay());
-          break;
-      }
-    } else if (time == "next") {
-      switch(view) {
-        case "Year":
-          dispatch(nextYear());
-          break;
-        case "Month":
-          dispatch(nextMonth());
-          break;
-        case "Week":
-          dispatch(nextWeek());
-          break;
-        case "Day":
-          dispatch(nextDay());
-          break;
-      }
-    }
-  }
     return (
         <div className="calendar-header" onClick={() => setElement()}>
           <div className='burger-title'>
@@ -122,10 +86,10 @@ export const Navigation = ({ burger, setBurger, setElement}) => {
                     <span>Today</span>
                 </motion.div>
                 <div className="switches">
-                  <div className="menu-item" onClick={() => handleViewChange(view, "prev")}>
+                  <div className="menu-item" onClick={() => dispatch(handleViewChange("prev"))}>
                       <FontAwesomeIcon icon={faAngleLeft} style={{color : "#3c4043"}} size='xl'></FontAwesomeIcon>
                   </div>
-                  <div className="menu-item" onClick={() => handleViewChange(view, "next")}>
+                  <div className="menu-item" onClick={() => dispatch(handleViewChange("next"))}>
                       <FontAwesomeIcon icon={faAngleRight} style={{color: "#3c4043"}} size='xl'></FontAwesomeIcon>
                   </div>
                 </div>
