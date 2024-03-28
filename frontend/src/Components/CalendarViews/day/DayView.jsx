@@ -1,14 +1,23 @@
 /* eslint-disable react/prop-types */
-import { useSelector } from "react-redux";
-import { currentDate, switchView } from "../../../redux/features/dateSlicer";
+import { useDispatch, useSelector } from "react-redux";
+import { currentDate, setView, switchView } from "../../../redux/features/dateSlicer";
 import { DaytimeGrid } from "../DaytimeGrid";
 import { WeekDays } from "../week/WeekDays";
 import { motion } from "framer-motion";
 import { calendarVariant } from "../../../Fncs/framerVariants";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 export function DayView() {
     const switches = useSelector(switchView);
     const mainDate = new Date(useSelector(currentDate));
+    const dispatch = useDispatch();
+    const location = useLocation();
+
+    useEffect(() => {
+        dispatch(setView(location.pathname.substring(1)))
+    }, []);
+
     const day = mainDate.getDay();
     const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     const today = new Date();
