@@ -17,10 +17,11 @@ export const dateManager = createSlice({
                 switch(state.currentView) {
                     case "Year":  
                     {
-                        const nextYear = date.getFullYear() + -1;
-                        const newDate = new Date(nextYear, date.getMonth());
+                        const prevYear = date.getFullYear() + -1;
+                        const newDate = new Date(prevYear, date.getMonth());
                         state.miniDate = Date.parse(newDate);
                         state.mainDate = Date.parse(newDate);
+                        state.focusDate = Date.parse(newDate);
                     }
                       break;
                     case "Month": 
@@ -30,6 +31,7 @@ export const dateManager = createSlice({
                         const newDate= new Date(prevYear, prevMonth);
                         state.miniDate = Date.parse(newDate);
                         state.mainDate = Date.parse(newDate);
+                        state.focusDate = Date.parse(newDate);
                     }
                       break;
                     case "Week":
@@ -38,6 +40,7 @@ export const dateManager = createSlice({
                         const newDate = new Date(date.getFullYear(), date.getMonth(), day - 7);
                         state.miniDate = Date.parse(newDate);
                         state.mainDate = Date.parse(newDate);
+                        state.focusDate = Date.parse(newDate);
                       }
                       break;
                     case "Day":
@@ -46,6 +49,7 @@ export const dateManager = createSlice({
                             const newDate = new Date(date.getFullYear(), date.getMonth(), day - 1);
                             state.miniDate = Date.parse(newDate);
                             state.mainDate = Date.parse(newDate);
+                            state.focusDate = Date.parse(newDate);
                         }
                       break;
                   } 
@@ -57,6 +61,7 @@ export const dateManager = createSlice({
                         const newDate = new Date(nextYear, date.getMonth());
                         state.miniDate = Date.parse(newDate);
                         state.mainDate = Date.parse(newDate);
+                        state.focusDate = Date.parse(newDate);
                       }
                       break;
                     case "Month":
@@ -66,6 +71,7 @@ export const dateManager = createSlice({
                         const newDate = new Date(nextYear, nextMonth);
                         state.miniDate = Date.parse(newDate);
                         state.mainDate = Date.parse(newDate);
+                        state.focusDate = Date.parse(newDate);
                       }
                       break;
                     case "Week":
@@ -74,6 +80,7 @@ export const dateManager = createSlice({
                         const newDate = new Date(date.getFullYear(), date.getMonth(), day + 7);
                         state.miniDate = Date.parse(newDate);
                         state.mainDate = Date.parse(newDate);
+                        state.focusDate = Date.parse(newDate);
                       }
                       break;
                     case "Day":
@@ -82,6 +89,7 @@ export const dateManager = createSlice({
                         const newDate = new Date(date.getFullYear(), date.getMonth(), day + 1);
                         state.miniDate = Date.parse(newDate);
                         state.mainDate = Date.parse(newDate);
+                        state.focusDate = Date.parse(newDate);
                       }
                       break;
                   }
