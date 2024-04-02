@@ -14,7 +14,7 @@ import { calcModalPosition, startDateMatch, endDateMatch } from "../../Fncs/inde
 import { InputTitle } from "./Inputs/InputTitle";
 import { FormFooter, EventType, FormDock, TaskForm, EventForm } from "./FormModules/indexFormModules"
 
-export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
+export function NewTaskForm({ clickedElement, onClose, dragBorder, setClickedElement }) {
     const dispatch = useDispatch();
     const dragControls = useDragControls();
 
@@ -32,6 +32,7 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
         guests: [],
         location: "",
         description: "",
+        attachment: "",
         color: "#039be5",
     });
 
@@ -56,42 +57,45 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
             setBottomBorder(false);
         } else setBottomBorder(true);
     }
-
+    if (!clickedElement) return;
     return (
-        <EventDataContext.Provider value={eventData}>
-            <EventChangeContext.Provider value={dispatchReducer}>
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{opacity: 0}}
-                    transition={{ duration: 0.1 }}
-                    dragControls={dragControls}
-                    dragConstraints={dragBorder}
-                    dragElastic={0}
-                    drag
-                    dragListener={false}
-                    dragMomentum={false}
-                    className="event-add"
-                    style={{
-                        top: `${modalPosition.top}px`,
-                        left: `${modalPosition.left}px`,
-                    }}>
-                    <FormDock onClose={onClose} startDrag={startDrag}/>
-                    <form onSubmit={handleSubmit} className="form" onScroll={(e) => handleScroll(e)}>
-                                    <div className="form-grid">
-                                        <InputTitle/>
-                                        <EventType setFormType={setFormType}/>
-                                        {formType == true ? (
-                                            <EventForm/>
-                                        ) : (
-                                            <TaskForm/>
-                                        )}
-                                    </div>
-                    </form>
-                    <FormFooter bottomBorder={bottomBorder}/>
-                </motion.div>
-            </EventChangeContext.Provider>
-        </EventDataContext.Provider>
+        <>
+            <div className="overlay" onClick={() => setClickedElement(null)}></div>
+            <EventDataContext.Provider value={eventData}>
+                <EventChangeContext.Provider value={dispatchReducer}>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{opacity: 0}}
+                        transition={{ duration: 0.1 }}
+                        dragControls={dragControls}
+                        dragConstraints={dragBorder}
+                        dragElastic={0}
+                        drag
+                        dragListener={false}
+                        dragMomentum={false}
+                        className="event-add"
+                        style={{
+                            top: `${modalPosition.top}px`,
+                            left: `${modalPosition.left}px`,
+                        }}>
+                        <FormDock onClose={onClose} startDrag={startDrag}/>
+                        <form onSubmit={handleSubmit} className="form" onScroll={(e) => handleScroll(e)}>
+                                        <div className="form-grid">
+                                            <InputTitle/>
+                                            <EventType setFormType={setFormType}/>
+                                            {formType == true ? (
+                                                <EventForm/>
+                                            ) : (
+                                                <TaskForm/>
+                                            )}
+                                        </div>
+                            <FormFooter bottomBorder={bottomBorder}/>
+                        </form>
+                    </motion.div>
+                </EventChangeContext.Provider>
+            </EventDataContext.Provider>
+        </>
     );
 }
 
