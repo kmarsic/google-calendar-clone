@@ -1,22 +1,5 @@
 /* eslint-disable react/prop-types */
 export function DaytimeGrid({ iterator, date }) {
-    const hours = (date) => {
-        const newDate = new Date(date);
-        const hoursGrid = [];
-        for (let i = 0; i < 60; i += 15) {
-            newDate.setMinutes(i);
-            newDate.setSeconds(0);
-            hoursGrid.push(
-                <div
-                    className="hours"
-                    key={"hr" + i}
-                    id={Date.parse(newDate)}
-                ></div>
-            );
-        }
-        return hoursGrid;
-    };
-
     const hairlineGrid = () => {
         const hairlinesGrid = [];
         for (let i = 0; i < 24; i++) {
@@ -42,7 +25,6 @@ export function DaytimeGrid({ iterator, date }) {
                     id={Date.parse(newDate)}
                     className="time-slot"
                 >
-                    {hours(newDate)}
                 </div>
             );
         }
