@@ -3,21 +3,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPaperclip, faXmark } from "@fortawesome/free-solid-svg-icons"
 import { useState } from "react"
 import { fileTypeImg } from "../../../Fncs/fileTypeImg";
-import icon from './../../../styles/icons/document.png';
 
 export function InputAttachment () {
     const [uploadedFiles, setUploadedFiles] = useState([]);
 
-    function handleMultipleChange(e) {
+    function handleMultipleFiles(e) {
         const filesArray = Array.from(e.target.files)
         setUploadedFiles(prevFiles => [...prevFiles, ...filesArray])
     }
-
     function handleFileRemove(file) {
         const newList = uploadedFiles.filter((uploaded) => uploaded.name != file.name)
         setUploadedFiles(newList)
     }
-    console.log(uploadedFiles)
 
     return (
         <>
@@ -30,7 +27,7 @@ export function InputAttachment () {
                         return (
                             <div key={index} className="attachment">
                                 <img src={fileTypeImg(file.type)} width="14px"/>
-                                <span>{file.name.length > 10 ? file.name.substring(0,9) + "..." : file.name}</span>
+                                <span>{file.name.length > 10 ? file.name.substring(0,8) + "..." : file.name}</span>
                                 <FontAwesomeIcon onClick={() => handleFileRemove(file)} icon={faXmark} size="lg" color="var(--text-body)" style={{cursor: "pointer"}}/>
                                 <span className="full-name-hover">{file.name}</span>
                             </div>
@@ -39,7 +36,7 @@ export function InputAttachment () {
                 </div>
                 <label htmlFor="file-upload" className="custom-file-upload">
                     <span style={{padding: "0.5rem"}}>Add attachment</span>
-                    <input id="file-upload" className="text-input" type="file" multiple onChange={(e) => handleMultipleChange(e)}/>
+                    <input id="file-upload" className="text-input" type="file" multiple onChange={(e) => handleMultipleFiles(e)}/>
                 </label>
             </div>
         </>        

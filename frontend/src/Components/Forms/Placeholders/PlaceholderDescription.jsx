@@ -1,9 +1,16 @@
 /* eslint-disable react/prop-types */
+import { InputAttachment } from "../Inputs/InputAttachment";
 import { InputDescription } from "../Inputs/InputDescription";
 
 export function PlaceholderDescription({handleFormFields, activeFormField}) {
     return (
-    activeFormField.description == "input" ? <InputDescription /> :
+    activeFormField.description == "input" ? 
+    (
+    <>
+        <InputDescription />
+        <InputAttachment/>
+    </>
+    ) :
     <div className="input-shell">
             <div className="div-flex">
                 <span className="text-input-placeholder" data-name="description" onClick={(e) => handleFormFields(e)}>
