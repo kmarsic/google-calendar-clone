@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { useContext } from 'react';
-import './../../styles/icons/White_check.svg';
 import { EventChangeContext, EventDataContext } from './formContext';
 
 export function ColorForm () {
