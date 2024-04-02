@@ -1,6 +1,7 @@
-export function FormFooter() {
+/* eslint-disable react/prop-types */
+export function FormFooter({bottomBorder}) {
     return (
-        <div className="div-flex form-footer">
+        <div className={bottomBorder ? "div-flex form-footer form-border" : "div-flex form-footer"}>
             <button className="btn-big" onClick={(e) => e.preventDefault()}>
                 <span>More options</span>
             </button>
