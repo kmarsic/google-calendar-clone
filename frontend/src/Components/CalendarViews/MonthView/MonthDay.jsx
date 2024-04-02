@@ -1,14 +1,13 @@
 /* eslint-disable react/prop-types */
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Assignment } from "./../../Forms/Assignment"
-import { allTasks } from "../../../redux/features/taskSlicer";
 import { setDate, setView } from "../../../redux/features/dateSlicer";
 import { Link } from "react-router-dom";
 
 export function MonthDay({date, iterator,isToday, previous, next}) {
     const parsedDate = Date.parse(date);
-    const assignments = useSelector(allTasks);
     const dispatch = useDispatch();
+
     return (
         <div 
         id={parsedDate} 
@@ -33,11 +32,7 @@ export function MonthDay({date, iterator,isToday, previous, next}) {
               </span>
             </Link>
             }
-          {assignments.map(task => {
-            if(task.name == parsedDate) {
-                return <Assignment key={task.title + task.id} title={task.title} task={task} color={task.color}/>
-            }
-          })}
+          <Assignment date={parsedDate}/>
         </div>
     )
 }
