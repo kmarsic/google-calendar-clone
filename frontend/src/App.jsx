@@ -4,7 +4,7 @@ import "./styles/_index.scss";
 // components
 import { Navigation } from "./Components/Nav/Navigation";
 import { Sidebar } from "./Components/Sidebar/Sidebar";
-import { Helmet } from "react-helmet";
+
 import { SiteRouter } from "./SiteRouter";
 import { NewTaskForm } from "./Components/Forms/NewTaskForm";
 //deps
@@ -13,6 +13,7 @@ import getData from "./redux/features/thunk/getData";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence } from "framer-motion";
+import { TitleTab } from "./TitleTab";
 
 function App() {
     const [burger, setBurgerOpen] = useState(false);
@@ -49,24 +50,8 @@ function App() {
 
     return (
         <>
-            <Helmet>
-                <title>
-                    Google Calendar -{" "}
-                    {date.toLocaleString("default", {
-                        month: "long",
-                        year: "numeric",
-                    })}
-                </title>
-                <link
-                    rel="icon"
-                    type="image/x-icon"
-                    href={faviconHref(today)}
-                ></link>
-            </Helmet>
-            <Navigation
-                burger={burger}
-                setBurger={setBurgerOpen}
-            />
+            <TitleTab/>
+            <Navigation burger={burger} setBurger={setBurgerOpen}/>
             <AnimatePresence>
                 <div className="calendar-main" ref={calendarRef}>
                     <AnimatePresence>
