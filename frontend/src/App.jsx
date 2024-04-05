@@ -8,12 +8,13 @@ import { Sidebar } from "./Components/Sidebar/Sidebar";
 import { SiteRouter } from "./SiteRouter";
 import { NewTaskForm } from "./Components/Forms/NewTaskForm";
 //deps
-import { currentDate, setFocusDate } from "./redux/features/dateSlicer";
+import { setFocusDate } from "./redux/features/dateSlicer";
 import getData from "./redux/features/thunk/getData";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence } from "framer-motion";
 import { TitleTab } from "./TitleTab";
+import { FloatingForm } from "./Components/Forms/FloatingForm";
 
 function App() {
     const [burger, setBurgerOpen] = useState(false);
@@ -22,14 +23,10 @@ function App() {
 
     const dispatch = useDispatch();
 
-    const date = new Date(useSelector(currentDate));
-    const today = new Date().getDate();
-
     useEffect(() => {
         dispatch(getData());
     }, []);
     
-    const faviconHref = (num) => `https://calendar.google.com/googlecalendar/images/favicons_2020q4/calendar_${num}.ico`;
 
     const handleClick = (e) => {
         if (
@@ -73,6 +70,7 @@ function App() {
                     <SiteRouter />
                 </div>
             </AnimatePresence>
+            <FloatingForm burger={burger}/>
         </>
     );
 }
