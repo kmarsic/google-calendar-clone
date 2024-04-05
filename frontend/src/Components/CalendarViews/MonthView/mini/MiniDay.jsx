@@ -27,7 +27,6 @@ export function MiniDay({date, iterator, previous, next, isToday}) {
                 break;
             case 'Week':
                 if (newDate.getDate() < weekRangeStart || newDate.getDate() > weekRangeStart + 6) {
-                    console.log("x")
                     dispatch(setDate(date));
                     dispatch(setFocusDate(date));
                 } else dispatch(setFocusDate(date))
