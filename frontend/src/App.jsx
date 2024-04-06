@@ -8,7 +8,7 @@ import { Sidebar } from "./Components/Sidebar/Sidebar";
 import { SiteRouter } from "./SiteRouter";
 import { NewTaskForm } from "./Components/Forms/NewTaskForm";
 //deps
-import { setFocusDate } from "./redux/features/dateSlicer";
+import { currentDate, setFocusDate } from "./redux/features/dateSlicer";
 import getData from "./redux/features/thunk/getData";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
@@ -19,6 +19,8 @@ import { FloatingForm } from "./Components/Forms/FloatingForm";
 function App() {
     const [burger, setBurgerOpen] = useState(false);
     const [clickedElement, setClickedElement] = useState(null);
+
+    const date = useSelector(currentDate);
     const calendarRef = useRef(null);
 
     const dispatch = useDispatch();
@@ -39,6 +41,12 @@ function App() {
                 data: e,
             });
             return;
+        } else if (e.target.id === "form-event" || e.target.id === "form-task") {
+            setClickedElement({
+                id: date,
+                data: e,
+                type: e.target.id
+            })
         }
     };
     useEffect(() => {
@@ -55,7 +63,7 @@ function App() {
                     <SiteRouter />
                 </div>
             </AnimatePresence>
-            <FloatingForm burger={burger}/>
+            <FloatingForm handleClick={handleClick} burger={burger} />
             {clickedElement &&(<AnimatePresence>
                 <NewTaskForm clickedElement={clickedElement} dragBorder={calendarRef} onClose={() => setClickedElement(null)}/>
             </AnimatePresence>)}
