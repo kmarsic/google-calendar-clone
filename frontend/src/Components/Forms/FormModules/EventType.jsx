@@ -14,15 +14,15 @@ export function EventType() {
     return (
     <>
         <div className="event-type">
-            <button id="event" value="event" onClick={(e) => {e.preventDefault(); handleEventTypeChange("event")}}>
+            <button id="event" value="event" onClick={(e) => {e.preventDefault(); handleEventTypeChange("form-event")}}>
                 <span>Event</span>
             </button>
-            <button id="task" onClick={(e) => {e.preventDefault();handleEventTypeChange("task")}}>    
+            <button id="task" onClick={(e) => {e.preventDefault(); handleEventTypeChange("form-task")}}>    
                 <span>Task</span>
             </button>            
             <button style={{ display: "none" }}></button>
         </div>
-        {formData.type === "event" ? <EventForm/> : <TaskForm/>}
+        {formData.type === "form-task" ? <TaskForm/> : <EventForm/>}
     </>
         
 
