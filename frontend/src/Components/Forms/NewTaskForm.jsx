@@ -13,6 +13,7 @@ import { addTask } from "../../redux/features/taskSlicer";
 import { calcModalPosition, startDateMatch, endDateMatch } from "../../Fncs/indexFncs";
 import { InputTitle } from "./Inputs/InputTitle";
 import { FormFooter, EventType, FormDock, TaskForm, EventForm } from "./FormModules/indexFormModules"
+import { createPortal } from "react-dom";
 
 export function NewTaskForm({ clickedElement, onClose, dragBorder, setClickedElement }) {
     const dispatch = useDispatch();
@@ -25,6 +26,7 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder, setClickedEle
     const [eventData, dispatchReducer] = useReducer(reducer, {
         name: clickedElement.id,
         title: "",
+        type: "event",
         updatedAt: "",
         createdAt: Date.parse(new Date()),
         startTime: parseInt(clickedElement.id),
@@ -32,7 +34,7 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder, setClickedEle
         guests: [],
         location: "",
         description: "",
-        attachment: "",
+        attachment: [],
         color: "#039be5",
     });
 
@@ -57,10 +59,9 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder, setClickedEle
             setBottomBorder(false);
         } else setBottomBorder(true);
     }
-    if (!clickedElement) return;
     return (
         <>
-            <div className="overlay" onClick={() => setClickedElement(null)}></div>
+            {createPortal(<div className="overlay" onClick={onClose}></div>,document.body)}
             <EventDataContext.Provider value={eventData}>
                 <EventChangeContext.Provider value={dispatchReducer}>
                     <motion.div
@@ -83,12 +84,7 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder, setClickedEle
                         <form onSubmit={handleSubmit} className="form" onScroll={(e) => handleScroll(e)}>
                                         <div className="form-grid">
                                             <InputTitle/>
-                                            <EventType setFormType={setFormType}/>
-                                            {formType == true ? (
-                                                <EventForm/>
-                                            ) : (
-                                                <TaskForm/>
-                                            )}
+                                            <EventType/>
                                         </div>
                             <FormFooter bottomBorder={bottomBorder}/>
                         </form>
@@ -96,7 +92,7 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder, setClickedEle
                 </EventChangeContext.Provider>
             </EventDataContext.Provider>
         </>
-    );
+    )
 }
 
 function reducer(state, action) {
