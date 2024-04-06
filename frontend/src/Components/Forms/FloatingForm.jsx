@@ -1,10 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons"
+import { useState } from "react"
+import { FormDropdown } from "./FormDropdown";
+import { createPortal } from "react-dom";
 
-export function FloatingForm({ burger }) {
-    
+export function FloatingForm({ burger, handleClick }) {
+    const [visible, setVisible] = useState(false);
+    console.log(handleClick)
     return (
-        <div className="floating-form">
+        <>
+        <div className="floating-form" onClick={() => setVisible(true)}>
             <div>
                 <svg width="36" height="36" viewBox="0 0 36 36">
                     <path fill="#34A853" d="M16 16v14h4V20z"></path>
@@ -25,5 +30,7 @@ export function FloatingForm({ burger }) {
             </>
             : null}
         </div>
+        <FormDropdown handleClick={handleClick} isOpen={visible} onClose={() => setVisible(null)}/>
+        </>
     )
 }

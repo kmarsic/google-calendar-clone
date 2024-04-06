@@ -15,18 +15,17 @@ import { InputTitle } from "./Inputs/InputTitle";
 import { FormFooter, EventType, FormDock, TaskForm, EventForm } from "./FormModules/indexFormModules"
 import { createPortal } from "react-dom";
 
-export function NewTaskForm({ clickedElement, onClose, dragBorder, setClickedElement }) {
+export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
     const dispatch = useDispatch();
     const dragControls = useDragControls();
 
-    const [formType, setFormType] = useState(true);
     const [modalPosition, setModalPosition] = useState({top: 0, left: 0});
     const [bottomBorder, setBottomBorder] = useState(false);
 
     const [eventData, dispatchReducer] = useReducer(reducer, {
         name: clickedElement.id,
         title: "",
-        type: "event",
+        type: clickedElement.type ? clickedElement.type : "form-event",
         updatedAt: "",
         createdAt: Date.parse(new Date()),
         startTime: parseInt(clickedElement.id),
