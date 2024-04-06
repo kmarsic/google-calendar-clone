@@ -51,26 +51,14 @@ function App() {
             <Navigation burger={burger} setBurger={setBurgerOpen}/>
             <AnimatePresence>
                 <div className="calendar-main" ref={calendarRef}>
-                    <AnimatePresence>
-                        {clickedElement && (
-                            <>
-                                <NewTaskForm
-                                    clickedElement={clickedElement}
-                                    dragBorder={calendarRef}
-                                    onClose={() => setClickedElement(null)}
-                                />
-                                <div
-                                    className="overlay"
-                                    onClick={() => setClickedElement(null)}
-                                ></div>
-                            </>
-                        )}
-                    </AnimatePresence>
                     <Sidebar burgerOpen={burger} />
                     <SiteRouter />
                 </div>
             </AnimatePresence>
             <FloatingForm burger={burger}/>
+            {clickedElement &&(<AnimatePresence>
+                <NewTaskForm clickedElement={clickedElement} dragBorder={calendarRef} onClose={() => setClickedElement(null)}/>
+            </AnimatePresence>)}
         </>
     );
 }
