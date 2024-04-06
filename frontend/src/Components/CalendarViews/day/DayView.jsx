@@ -51,10 +51,8 @@ export function DayView() {
                 <div></div>
                 <div className="nav-grid-day">
                     <div className="gmt">GMT+01</div>
-                    <div className="single-day">
-                        <WeekDays day={dayNames[day]} date={mainDate} today={today}/>
-                        <div className="nav-border-div"></div>
-                    </div>
+                    <WeekDays day={dayNames[day]} date={mainDate} today={today}/>
+                    <div className="nav-border-div"></div>
                     
                 </div>
             </div>
