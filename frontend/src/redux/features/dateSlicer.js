@@ -18,7 +18,7 @@ export const dateManager = createSlice({
                     case "Year":  
                     {
                         const prevYear = date.getFullYear() + -1;
-                        const newDate = new Date(prevYear, date.getMonth());
+                        const newDate = new Date(prevYear, date.getMonth(), date.getDate());
                         state.miniDate = Date.parse(newDate);
                         state.mainDate = Date.parse(newDate);
                         state.focusDate = Date.parse(newDate);
@@ -28,7 +28,7 @@ export const dateManager = createSlice({
                     {
                         const prevMonth = date.getMonth() - 1;
                         const prevYear = date.getFullYear();
-                        const newDate= new Date(prevYear, prevMonth);
+                        const newDate= new Date(prevYear, prevMonth, date.getDate());
                         state.miniDate = Date.parse(newDate);
                         state.mainDate = Date.parse(newDate);
                         state.focusDate = Date.parse(newDate);
@@ -58,7 +58,7 @@ export const dateManager = createSlice({
                     case "Year":
                       {
                         const nextYear = date.getFullYear() + 1;
-                        const newDate = new Date(nextYear, date.getMonth());
+                        const newDate = new Date(nextYear, date.getMonth(), date.getDate());
                         state.miniDate = Date.parse(newDate);
                         state.mainDate = Date.parse(newDate);
                         state.focusDate = Date.parse(newDate);
@@ -68,7 +68,7 @@ export const dateManager = createSlice({
                       {
                         const nextMonth = date.getMonth() + 1;
                         const nextYear = date.getFullYear();
-                        const newDate = new Date(nextYear, nextMonth);
+                        const newDate = new Date(nextYear, nextMonth, date.getDate());
                         state.miniDate = Date.parse(newDate);
                         state.mainDate = Date.parse(newDate);
                         state.focusDate = Date.parse(newDate);
@@ -99,14 +99,14 @@ export const dateManager = createSlice({
             const date = new Date(state.miniDate)
             const nextMonth = date.getMonth() + 1;
             const nextYear = date.getFullYear();
-            const newDate = new Date(nextYear, nextMonth);
+            const newDate = new Date(nextYear, nextMonth, date.getDate());
             state.miniDate = Date.parse(newDate);
         },
         previousMonthMini(state) {
             const date = new Date(state.miniDate)
             const prevMonth = date.getMonth() - 1;
             const prevYear = date.getFullYear();
-            const newDate= new Date(prevYear, prevMonth);
+            const newDate= new Date(prevYear, prevMonth, date.getDate());
             state.miniDate = Date.parse(newDate)
         },
         setDate(state, action) {
