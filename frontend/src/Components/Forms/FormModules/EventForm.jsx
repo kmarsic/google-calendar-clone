@@ -11,8 +11,7 @@ export function EventForm() {
     const [isColorVisible, setIsColorVisible] = useState(false);
     
     const [activeFormField, setActiveFormField] = useState({
-        timeStart: "placeholder",
-        timeEnd: "placeholder",
+        time: "placeholder",
         guest: "placeholder",
         location: "placeholder",
         description: "placeholder",
@@ -49,37 +48,30 @@ export function EventForm() {
             <div className="icons">
                 <FontAwesomeIcon icon={faClock} color="var(--text-body)" size="xl"/>
             </div>
-            <PlaceholderTime
-            handleFormFields={handleFormFields} 
-            activeFormField={activeFormField} />
+            <PlaceholderTime handleFormFields={handleFormFields} activeFormField={activeFormField} />
+
             <div className="icons">
                 <FontAwesomeIcon icon={faUsers} color="var(--text-body)" size="xl"/>
             </div>
-            <PlaceholderGuest
-            handleFormFields={handleFormFields} 
-            activeFormField={activeFormField} 
-            />
+            <PlaceholderGuest handleFormFields={handleFormFields} activeFormField={activeFormField}/>
+
             <div className="icons">
                 <FontAwesomeIcon icon={faLocationDot} color="var(--text-body)" size="xl"/>
             </div>
-            <PlaceholderLocation 
-            handleFormFields={handleFormFields} 
-            activeFormField={activeFormField} />
+            <PlaceholderLocation  handleFormFields={handleFormFields} activeFormField={activeFormField} />
+
             <div className="icons">
                 <FontAwesomeIcon icon={faComment} color="var(--text-body)" size="xl"/>
             </div>
             <PlaceholderDescription activeFormField={activeFormField} handleFormFields={handleFormFields}/>
+            
             <div className="icons">
                 <FontAwesomeIcon icon={faCalendarXmark} color="var(--text-body)" size="xl"/>
             </div>
-            <InputUsername
-                isColorVisible={isColorVisible} 
-                handleButtonClick={handleButtonClick} 
-                colorRef={colorRef}
-            />
+            <InputUsername isColorVisible={isColorVisible}  handleButtonClick={handleButtonClick} colorRef={colorRef}/>
+
             <div className="icons">
-                <FontAwesomeIcon icon={faBell} color="var(--text-body" size="xl"
-                />
+                <FontAwesomeIcon icon={faBell} color="var(--text-body" size="xl"/>
             </div>
             <PlaceholderNotification/>
         </>
