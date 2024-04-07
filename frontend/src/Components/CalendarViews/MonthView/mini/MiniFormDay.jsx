@@ -2,8 +2,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { focusDate, setDate, setFocusDate } from "../../../../redux/features/dateSlicer";
 import { useContext } from "react";
-import { EventChangeContext, TimeContext } from "../../../Forms/formContext";
-import { FocusContext } from "../../../Forms/Inputs/InputTime";
+import { EventChangeContext, TimeContext, FocusContext } from "../../../Forms/formContext";
 
 export function MiniFormDay({date, iterator, previous, next, isToday}) {
     const focus = useSelector(focusDate);
