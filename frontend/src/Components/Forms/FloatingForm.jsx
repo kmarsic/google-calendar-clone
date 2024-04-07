@@ -6,7 +6,7 @@ import { createPortal } from "react-dom";
 
 export function FloatingForm({ burger, handleClick }) {
     const [visible, setVisible] = useState(false);
-    console.log(handleClick)
+
     return (
         <>
         <div className="floating-form" onClick={() => setVisible(true)}>
