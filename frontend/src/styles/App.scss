@@ -108,9 +108,9 @@ a {
 }
 
 .full-name-hover {
+  cursor: default;
   position: absolute;
   color: white;
-  line-break: anywhere;
   line-height: 16px;
   font-weight: 500;
   padding: 0.25rem 0.5rem;
