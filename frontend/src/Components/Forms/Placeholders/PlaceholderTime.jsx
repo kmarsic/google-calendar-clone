@@ -10,24 +10,27 @@ export function PlaceholderTime({ handleFormFields, activeFormField}) {
         return <InputTime/>
     } else return (
         <div className="input-shell">
-                <div>
+
                     <div className="div-flex">
-                            <span className="text-input-placeholder" >
+                        <span className="placeholder-container" data-name="time" onClick={(e) => handleFormFields(e)}>
+                        <span className="div-flex">
+                            <span className="placeholder-time" >
                                 <span style={{width: formData.startTime.length + 1 + "ch"}} className="placeholder-hover" data-name="time" onClick={(e) => handleFormFields(e)}>
                                     {inputTimeFormat(formData.startTime)}
                                 </span>
                             </span>
-                        <span>&#8212;</span>
+                            <span style={{userSelect: "none"}}>&#8212;</span>
 
-                            <span className="text-input-placeholder">
+                            <span className="placeholder-time">
                                 <span style={{width: formData.endTime.length + 1 + "ch"}} className="placeholder-hover" data-name="time" onClick={(e) => handleFormFields(e)}>
                                     {inputTimeFormat(formData.endTime)}
                                 </span>
                             </span>
-                        <button className="btn" 
-                        onClick={(e) => e.preventDefault()}>Add time</button>
+                        </span>
+                        <div data-name="time" onClick={(e) => handleFormFields(e)}>Does not repeat</div>
+                        </span>
+                        <button className="btn" onClick={(e) => e.preventDefault()}>Add time</button>
                     </div>
-                </div>
             </div>
     )
 }
