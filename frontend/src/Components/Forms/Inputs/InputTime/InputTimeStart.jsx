@@ -26,14 +26,14 @@ export function InputTimeStart() {
                 className="text-input input-time"
                 autoFocus
                 readOnly
-                style={{ width: inputTimeFormat(formData.startTime).length + 1 + "ch"}}
+                style={{ width: inputTimeFormat(formData.startDate).length + 1 + "ch"}}
                 data-type="time"
-                value={inputTimeFormat(formData.startTime)}
-                name="startTime"
-                data-name="startTime"
+                value={inputTimeFormat(formData.startDate)}
+                name="startDate"
+                data-name="startDate"
                 onFocus={() => setCalendarvisible(true)}/>
         <FocusContext.Provider value={setCalendarvisible}>
-            <TimeContext.Provider value="startTime">
+            <TimeContext.Provider value="startDate">
                 {calendarVisible ? <MiniCalendarForm/> : null}
             </TimeContext.Provider>
         </FocusContext.Provider>

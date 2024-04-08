@@ -25,13 +25,13 @@ export function InputTimeEnd() {
                 className="text-input input-time"
                 readOnly
                 data-type="time"
-                style={{width: inputTimeFormat(formData.endTime).length + 1 + "ch"}}
-                value={inputTimeFormat(formData.endTime)}
-                name="endTime"
-                data-name="endTime"
+                style={{width: inputTimeFormat(formData.endDate).length + 1 + "ch"}}
+                value={inputTimeFormat(formData.endDate)}
+                name="endDate"
+                data-name="endDate"
                 onFocus={() => setCalendarvisible(true)}/>
         <FocusContext.Provider value={setCalendarvisible}>
-            <TimeContext.Provider value="endTime">
+            <TimeContext.Provider value="endDate">
                 {calendarVisible ? <MiniCalendarForm/> : null}
             </TimeContext.Provider>
         </FocusContext.Provider>
