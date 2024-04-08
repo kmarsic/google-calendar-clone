@@ -26,10 +26,10 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
         name: clickedElement.id,
         title: "",
         type: clickedElement.type ? clickedElement.type : "form-event",
-        updatedAt: "",
-        createdAt: Date.parse(new Date()),
-        startTime: parseInt(clickedElement.id),
-        endTime: parseInt(clickedElement.id),
+        startTime: "",
+        endTime: "",
+        startDate: parseInt(clickedElement.id),
+        endDate: parseInt(clickedElement.id),
         guests: [],
         location: "",
         description: "",
@@ -108,18 +108,18 @@ function reducer(state, action) {
                 type: action.payload
             }
         }
-        case 'startTime': {
+        case 'startDate': {
             return {
                 ...state,
-                startTime: Date.parse(action.payload),
-                endTime: Date.parse(startDateMatch(action.payload, state.endTime))
+                startDate: Date.parse(action.payload),
+                endDate: Date.parse(startDateMatch(action.payload, state.endDate))
             }
         }
-        case 'endTime': {
+        case 'endDate': {
             return {
                 ...state,
-                startTime: Date.parse(endDateMatch(action.payload, state.startTime)),
-                endTime: Date.parse(action.payload)
+                startDate: Date.parse(endDateMatch(action.payload, state.startDate)),
+                endDate: Date.parse(action.payload)
             }
         }
         case 'guests': {

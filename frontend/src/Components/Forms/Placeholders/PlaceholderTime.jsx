@@ -15,21 +15,21 @@ export function PlaceholderTime({ handleFormFields, activeFormField}) {
                         <span className="placeholder-container" data-name="time" onClick={(e) => handleFormFields(e)}>
                         <span className="div-flex">
                             <span className="placeholder-time" >
-                                <span style={{width: formData.startTime.length + 1 + "ch"}} className="placeholder-hover" data-name="time" onClick={(e) => handleFormFields(e)}>
-                                    {inputTimeFormat(formData.startTime)}
+                                <span className="placeholder-hover" data-name="time" onClick={(e) => handleFormFields(e)}>
+                                    {inputTimeFormat(formData.startDate)}
                                 </span>
                             </span>
                             <span style={{userSelect: "none"}}>&#8212;</span>
 
                             <span className="placeholder-time">
-                                <span style={{width: formData.endTime.length + 1 + "ch"}} className="placeholder-hover" data-name="time" onClick={(e) => handleFormFields(e)}>
-                                    {inputTimeFormat(formData.endTime)}
+                                <span className="placeholder-hover" data-name="time" onClick={(e) => handleFormFields(e)}>
+                                    {inputTimeFormat(formData.endDate)}
                                 </span>
                             </span>
                         </span>
                         <div data-name="time" onClick={(e) => handleFormFields(e)}>Does not repeat</div>
                         </span>
-                        <button className="btn" onClick={(e) => e.preventDefault()}>Add time</button>
+                        <button className="btn" data-name="time" onClick={(e) => {handleFormFields(e); e.preventDefault()}}>Add time</button>
                     </div>
             </div>
     )
