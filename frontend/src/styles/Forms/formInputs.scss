@@ -20,6 +20,7 @@
     cursor: pointer;
     font-size: 14px;
     flex-grow: 1;
+    color: var(--text-body);
     padding: 0.75rem 0.5rem;
     border-radius: 0.25rem;
     position: relative;
@@ -28,6 +29,33 @@
         background-color: var(--hover-main);
         cursor: pointer;
     }
+}
+
+.placeholder-container {
+    padding: 0.75rem 0.5rem;
+    border-radius: 0.25rem;
+    align-items: center;
+    gap: 0.25rem;
+    &:hover {
+        background-color: var(--hover-main);
+    }
+    .div-flex {
+        gap: 0.5rem;
+    }
+    div {
+        margin-top: 0.25rem;
+        color: var(--text-body);
+        user-select: none;
+    }
+}
+
+.placeholder-time {
+    cursor: pointer;
+    font-size: 14px;
+    flex-grow: 1;
+    border-radius: 0.25rem;
+    position: relative;
+    user-select: none;
 }
 
 .placeholder-hover {
@@ -66,26 +94,12 @@
     }
     &::placeholder {
         color: var(--text-body);
+        letter-spacing: 0.35px;
     }
 }
 
 .input-time {
     text-align: center;
-}
-
-.text-input-grow0 {
-    font-size: 14px;
-    padding: 0.75rem 0.5rem;
-    font-family: 'Roboto';
-    border: none;
-    border-radius: 0.25rem;
-    position: relative;
-    &:focus {
-        outline: none;
-    }
-    &::placeholder {
-        color: var(--text-body);
-    }
 }
 
 .form-username {
@@ -112,7 +126,7 @@ input[type="file"] {
 .custom-file-upload {
     place-content: center;
     cursor: pointer;
-    width: 110px;
+    width: 120px;
     height: 41px;
     font-size: 13px;
     color: var(--text-body);
