@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export function RepeatDropdown({ repeat, setRepeat, setDropdown }) {
     const formData = useContext(EventDataContext);
-    const day = new Date(formData.startDate).getDay();
+    const day = new Date(formData.startDate).toLocaleDateString(undefined, {weekday: "long"});
     const repeatOptions = ["Does not repeat", "Daily", `Weekly on ${day}`, `Monthly on the second ${day}`, `Annually on ${day}`, "Every weekday (Monday to Friday)", "Custom..."]
     return (
         <motion.ul 
