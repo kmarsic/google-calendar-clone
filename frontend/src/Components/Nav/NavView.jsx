@@ -13,7 +13,7 @@ export function NavView() {
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
     const handleButtonClick = (e) => {
-        if (e.target.closest(".view-dropdown")) {
+        if (e.target.closest(".view-dropdown-container")) {
             setIsDropdownVisible(!isDropdownVisible);
         }
     };
@@ -39,17 +39,15 @@ export function NavView() {
             </div>
             <motion.div
                 onClick={(e) => handleButtonClick(e)}
-                className="view-dropdown"
+                className="view-dropdown-container"
                 ref={dropdownRef}
                 variants={clickVariant}
                 whileTap={"one"}
             >
-                <div>
-                    {view}
+                <span>{view}</span>
                     <AnimatePresence>
                         {isDropdownVisible && <ViewDropdown/>}
                     </AnimatePresence>
-                </div>
                 <FontAwesomeIcon icon={faCaretDown} size="2xs" />
             </motion.div>
         </div>

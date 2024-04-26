@@ -8,60 +8,39 @@ export function ViewDropdown () {
     const dispatch = useDispatch();
 
     return (
-    <motion.div
-        style={{x: "-172px", y: "15px", originX:"250px", originY: 0}}
+    <motion.ul
+        style={{x: "-172px", y: "110px", originX:"250px", originY: 0}}
         initial={{opacity: 0, scale: 0.8}}
         animate={{opacity: 1, scale: 1}}
         transition={{duration: 0.1}}
         exit={{opacity: 0}}
+        className="view-dropdown"
         >
-            <ul  className="dropdown">
-                    <motion.div
-                    variants={clickVariant}
-                    whileTap={"click"}
-                    >
                         <li onClick={() => dispatch(setView("Day"))}>
                             <Link to={"/Day"}>
                                 <div>Day</div>
                                 <div>D</div>
                             </Link>
                         </li>
-                    </motion.div>
-                    <motion.div
-                    variants={clickVariant}
-                    whileTap={"click"}
-                    >
                         <li onClick={() => dispatch(setView("Week"))}>
                             <Link to={"/Week"}>
                                 <div>Week</div>
                                 <div>W</div>
                             </Link>
                         </li>
-                    </motion.div>
-                    <motion.div
-                    variants={clickVariant}
-                    whileTap={"click"}
-                    >
                         <li onClick={() => dispatch(setView("Month"))}>
                             <Link to={"/Month"}>
                                 <div>Month</div>
                                 <div>M</div>
                             </Link>
                         </li>
-                    </motion.div>
-                    <motion.div
-                    variants={clickVariant}
-                    whileTap={"click"}
-                    >
                         <li onClick={() => dispatch(setView("Year"))}>
                             <Link to={"/Year"}>
                                 <div>Year</div>
                                 <div>Y</div>
                             </Link>
                         </li>
-                    </motion.div>
-            </ul>
-        </motion.div>
+        </motion.ul>
 
     )
 }
