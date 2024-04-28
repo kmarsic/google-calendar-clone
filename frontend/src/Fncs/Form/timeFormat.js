@@ -112,3 +112,7 @@ export function endDateMatch(endDate, startDate) {
         return newEndDate;
     } else return newStartDate;
 }
+
+export function hourTimeFormat(x){
+    return x.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})
+}
