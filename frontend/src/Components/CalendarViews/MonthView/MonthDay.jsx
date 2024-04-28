@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useDispatch } from "react-redux";
-import { Assignment } from "./../../Forms/Assignment"
-import { setDate, setView } from "../../../redux/features/dateSlicer";
+import { setDate } from "../../../redux/features/dateSlicer";
 import { Link } from "react-router-dom";
+import { Assignment } from "../../Forms/Assignment";
 
 export function MonthDay({date, iterator,isToday, previous, next}) {
     const parsedDate = Date.parse(date);
@@ -19,6 +19,7 @@ export function MonthDay({date, iterator,isToday, previous, next}) {
                 {iterator}
             </span>
           </Link>
+          <Assignment date={parsedDate}/>
         </div>
     )
 }
