@@ -41,7 +41,6 @@ export function MiniDay({date, iterator, previous, next, isToday}) {
     }
     return (
         <div 
-        id={parsedDate}
         onClick={() => handleDateChange(view, parsedDate)}
         className="mini-box">
             <div className={`${isToday ? "day-index-mini mini-today" : "day-index-mini"} ${parsedDate == focus ? "focused-date" : null} ${previous || next ? "empty" : null}`}><span>{iterator}</span></div>

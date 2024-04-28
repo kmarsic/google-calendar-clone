@@ -80,7 +80,7 @@ export function MonthView() {
             const prevMonth = month - 1;
             const prevMonthDays = findMonthDays(year, prevMonth);
             const day = prevMonthDays - i;
-            const date = new Date(year, prevMonth, day);
+            const date = new Date(year, prevMonth, day, 0, 0, 0, 0);
             count = count + 1;
             allDays.unshift(
                 <MonthDay
@@ -93,7 +93,7 @@ export function MonthView() {
         }
         //show days of current month
         for (let j = 1; j <= monthDays; j++) {
-            const date = new Date(year, month, j);
+            const date = new Date(year, month, j, 0 , 0, 0, 0);
             const isToday =
                 j === new Date().getDate() &&
                 month === new Date().getMonth() &&
@@ -110,7 +110,7 @@ export function MonthView() {
         }
         //show days of next month
         for (let i = 1; i <= 7; i++) {
-            const date = new Date(year, month + 1, i);
+            const date = new Date(year, month + 1, i, 0, 0, 0, 0,);
             if (date.getDay() == 0 && count >= 35) {
                 const Container = (
                     <div

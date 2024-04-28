@@ -19,7 +19,7 @@ export function MiniFormDay({date, iterator, previous, next, isToday}) {
 
     const parsedDate = Date.parse(date);
     return (
-        <div 
+        <div
         id={parsedDate}
         name={formTime}
         onClick={() => {handleDateChange(formTime, date); dispatch(setFocusDate(parsedDate)); dispatch(setDate(parsedDate)); resetFocus(false) }}
