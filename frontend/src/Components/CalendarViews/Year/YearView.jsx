@@ -12,8 +12,6 @@ export function YearView() {
     const dispatch = useDispatch();
     const location = useLocation();
 
-    console.log(location.pathname)
-
     useEffect(() => {
       dispatch(setView(location.pathname.substring(1)))
     }, [])
@@ -114,7 +112,7 @@ export function YearView() {
       const dateMonth = date.getMonth();
       const dateYear = date.getFullYear();
         year.push(
-        <div key={"yd" + i} style={{display: "grid"}}>
+        <div key={"yd" + i} className={(date.getMonth() == currDate.getMonth() && date.getFullYear() == currDate.getFullYear())  ? "current-month-year-view" : null} style={{display: "grid"}}>
           <div className={(dateYear < currentYear) || (dateMonth < currentMonth && dateYear == currentYear) ? "year-month prevm" : "year-month"}>{months[i]}</div>
           <div className="mini-calendar-grid-year">
               {showWeekDays()}
