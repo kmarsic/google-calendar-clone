@@ -12,7 +12,7 @@ import { addTask } from "../../redux/features/taskSlicer";
 //components
 import { calcModalPosition, startDateMatch, endDateMatch } from "../../Fncs/indexFncs";
 import { InputTitle } from "./Inputs/InputTitle";
-import { FormFooter, EventType, FormDock, TaskForm, EventForm } from "./FormModules/indexFormModules"
+import { FormFooter, EventType, FormDock } from "./FormModules/indexFormModules"
 import { createPortal } from "react-dom";
 
 export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
@@ -23,11 +23,10 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
     const [bottomBorder, setBottomBorder] = useState(false);
 
     const [eventData, dispatchReducer] = useReducer(reducer, {
-        name: clickedElement.id,
         title: "",
         type: clickedElement.type ? clickedElement.type : "form-event",
-        startTime: "",
-        endTime: "",
+        startTime: parseInt(clickedElement.id),
+        endTime: parseInt(clickedElement.id),
         startDate: parseInt(clickedElement.id),
         endDate: parseInt(clickedElement.id),
         guests: [],
@@ -58,12 +57,13 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
             setBottomBorder(false);
         } else setBottomBorder(true);
     }
+
     return (
         <>
             {createPortal(<div className="overlay" onClick={onClose}></div>,document.body)}
             <EventDataContext.Provider value={eventData}>
                 <EventChangeContext.Provider value={dispatchReducer}>
-                    <motion.div
+                    {createPortal(<motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{opacity: 0}}
@@ -87,7 +87,7 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
                                         </div>
                             <FormFooter bottomBorder={bottomBorder}/>
                         </form>
-                    </motion.div>
+                    </motion.div>, document.body)}
                 </EventChangeContext.Provider>
             </EventDataContext.Provider>
         </>
@@ -106,6 +106,18 @@ function reducer(state, action) {
             return {
                 ...state,
                 type: action.payload
+            }
+        }
+        case 'startTime': {
+            return {
+                ...state,
+                startTime: action.payload
+            }
+        }
+        case 'endTime': {
+            return {
+                ...state,
+                endTime: action.payload
             }
         }
         case 'startDate': {

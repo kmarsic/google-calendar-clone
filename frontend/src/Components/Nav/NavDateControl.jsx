@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { currentDate, currentView, handleViewChange, setDate } from "../../redux/features/dateSlicer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight, faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import { titleTimeFormat } from "../../Fncs/timeFormat";
+import { titleTimeFormat } from "../../Fncs/Form/timeFormat";
 import { useRef, useState, useEffect } from "react";
 import { MiniViewEmbed } from "../CalendarViews/MonthView/mini/MiniViewEmbed";
 

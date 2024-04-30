@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons"
 import { useState } from "react"
 import { FormDropdown } from "./FormDropdown";
-import { createPortal } from "react-dom";
 
 export function FloatingForm({ burger, handleClick }) {
     const [visible, setVisible] = useState(false);

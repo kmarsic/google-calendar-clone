@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { inputTimeFormat } from "../../../Fncs/timeFormat";
+import { inputTimeFormat } from "../../../Fncs/Form/timeFormat";
 import { EventDataContext, TimeContext } from "../formContext";
 import { InputTime } from "./../Inputs/indexInputs";
 import { useContext } from "react";

@@ -7,7 +7,7 @@ export const Sidebar = ({burgerOpen}) => {
     return (
         <div className={burgerOpen ? 'open sidebar' : 'closed sidebar'}>
             <div style={{height: "65px"}}></div>
-            <MiniViewEmbed/>
+            {burgerOpen ? <MiniViewEmbed/> : null}
         </div>
     )
 }

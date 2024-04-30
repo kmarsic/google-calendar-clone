@@ -2,7 +2,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPaperclip, faXmark } from "@fortawesome/free-solid-svg-icons"
 import { useState } from "react"
-import { fileTypeImg } from "../../../Fncs/fileTypeImg";
+import { fileTypeImg } from "../../../Fncs/indexFncs";
 
 export function InputAttachment () {
     const [uploadedFiles, setUploadedFiles] = useState([]);

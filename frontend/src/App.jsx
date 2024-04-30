@@ -19,7 +19,8 @@ function App() {
     const [burger, setBurgerOpen] = useState(false);
     const [clickedElement, setClickedElement] = useState(null);
 
-    const date = useSelector(currentDate);
+    const date = new Date(useSelector(currentDate));
+    const correctedDate = Date.parse(new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0));
     const calendarRef = useRef(null);
 
     const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function App() {
     useEffect(() => {
         dispatch(getData());
     }, []);
+
     
 
     const handleClick = (e) => {
@@ -42,7 +44,7 @@ function App() {
             return;
         } else if (e.target.id === "form-event" || e.target.id === "form-task") {
             setClickedElement({
-                id: date,
+                id: correctedDate,
                 data: e,
                 type: e.target.id
             })

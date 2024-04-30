@@ -20,11 +20,10 @@ export function MiniFormDay({date, iterator, previous, next, isToday}) {
     const parsedDate = Date.parse(date);
     return (
         <div
-        id={parsedDate}
         name={formTime}
         onClick={() => {handleDateChange(formTime, date); dispatch(setFocusDate(parsedDate)); dispatch(setDate(parsedDate)); resetFocus(false) }}
         className="mini-box">
-            <div className={`${isToday ? "day-index-mini mini-today" : "day-index-mini"} ${parsedDate == focus ? "focused-date" : null} ${previous || next ? "empty" : null}`}><span>{iterator}</span></div>
+            <div className={`${isToday ? "day-index-mini mini-today" : "day-index-mini"} ${parsedDate == focus ? "focused-date" : ""} ${previous || next ? "empty" : ""}`}><span>{iterator}</span></div>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { MiniCalendarForm } from "../../../CalendarViews/MonthView/mini/MiniCalendarForm";
 import { EventDataContext, TimeContext, FocusContext } from "../../formContext";
-import { inputTimeFormat } from "../../../../Fncs/timeFormat";
+import { inputTimeFormat } from "../../../../Fncs/Form/timeFormat";
 
 export function InputTimeEnd() {
     const ref = useRef(null);
@@ -20,6 +20,8 @@ export function InputTimeEnd() {
         }
     }, [])
     return (
+        <>
+        <span>&#8212;</span>
         <span className="bottom-border-animate" ref={ref}>
             <input
                 className="text-input input-time"
@@ -36,5 +38,6 @@ export function InputTimeEnd() {
             </TimeContext.Provider>
         </FocusContext.Provider>
         </span>
+        </>
     )
 }

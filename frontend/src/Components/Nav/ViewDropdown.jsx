@@ -1,12 +1,8 @@
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { motion } from 'framer-motion';
-import { clickVariant } from "../../Fncs/framerVariants";
-import { setView } from "../../redux/features/dateSlicer";
 
 export function ViewDropdown () {
-    const dispatch = useDispatch();
-
     return (
     <motion.ul
         style={{x: "-172px", y: "110px", originX:"250px", originY: 0}}
@@ -16,25 +12,25 @@ export function ViewDropdown () {
         exit={{opacity: 0}}
         className="view-dropdown"
         >
-                        <li onClick={() => dispatch(setView("Day"))}>
+                        <li>
                             <Link to={"/Day"}>
                                 <div>Day</div>
                                 <div>D</div>
                             </Link>
                         </li>
-                        <li onClick={() => dispatch(setView("Week"))}>
+                        <li>
                             <Link to={"/Week"}>
                                 <div>Week</div>
                                 <div>W</div>
                             </Link>
                         </li>
-                        <li onClick={() => dispatch(setView("Month"))}>
+                        <li>
                             <Link to={"/Month"}>
                                 <div>Month</div>
                                 <div>M</div>
                             </Link>
                         </li>
-                        <li onClick={() => dispatch(setView("Year"))}>
+                        <li>
                             <Link to={"/Year"}>
                                 <div>Year</div>
                                 <div>Y</div>

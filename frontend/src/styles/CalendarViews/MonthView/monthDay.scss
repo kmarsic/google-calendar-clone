@@ -1,6 +1,7 @@
 .box {   
     border-bottom: 1px solid var(--border);
     border-left: 1px solid var(--border);
+    max-height: 165px;
     text-align: center;
     overflow-y: hidden;
     padding: 0.25rem 0rem;

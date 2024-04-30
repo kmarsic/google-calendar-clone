@@ -8,6 +8,7 @@ import { allTasks } from "../../redux/features/taskSlicer";
 import { removeTask } from "../../redux/features/taskSlicer";
 import { setDate, setView } from "../../redux/features/dateSlicer";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export function Assignment({date}) {
     const dispatch = useDispatch()
@@ -25,7 +26,7 @@ export function Assignment({date}) {
 
     function mapAssignments(list) {
         const filtered = list.filter((task) => {
-            return task.name == date
+            return task.startDate == date
         })
         const mapped = filtered.map((task, index) => {
             return <Task key={index} handleSubmit={handleSubmit} task={task}/>
@@ -35,7 +36,7 @@ export function Assignment({date}) {
 
     useEffect(() => {
         const filtered = assignments.filter((task) => {
-            return task.name == date
+            return task.startDate == date
         })
         if (filtered.length < 4) {
             setOverflowVisible(false);
@@ -67,7 +68,7 @@ function Task({handleSubmit, task}) {
 
 function Overflow({list, date, handleSubmit, setModalVisible}) {
     const filtered = list.filter((task) => {
-        return task.name == date
+        return task.startDate == date
     })
     const mappedList = filtered.map((task,index) => {
         if (index > 3) {
@@ -87,7 +88,7 @@ function OverflowModal({list, setModalVisible, handleSubmit, date}) {
     const day = new Date(date).toLocaleString("default", {weekday: "short"}).toUpperCase();
     const newDate = new Date(date).getDate();
     const filtered = list.filter((task) => {
-        return task.name == date
+        return task.startDate == date
     })
     const mapped = filtered.map((task, index) => {
         return <Task key={index} handleSubmit={handleSubmit} task={task}/>
@@ -99,7 +100,7 @@ function OverflowModal({list, setModalVisible, handleSubmit, date}) {
                 <div className="modal-div">
                     <div>{day}</div>
                     <div>
-                        <span onClick={() => {dispatch(setDate(date)); dispatch(setView("Day"))}}>{newDate}</span>
+                        <Link to={"/Day"}><span onClick={() => dispatch(setDate(date))}>{newDate}</span></Link>
                     </div>
                     <FontAwesomeIcon className="modal-exit" icon={faXmark} onClick={() => setModalVisible(false)}/>
                 </div>

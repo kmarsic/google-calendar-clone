@@ -68,7 +68,7 @@ export function MiniMonthViewForm() {
 
     //show days of next month
     for (let i = 1; i <= 14; i++) {
-      const date = new Date(year, month + 1, i);
+      const date = new Date(year, month + 1, i, 0,0,0,0);
       const isToday =
       date.getDate() === new Date().getDate() && 
       date.getMonth() === new Date().getMonth() && 

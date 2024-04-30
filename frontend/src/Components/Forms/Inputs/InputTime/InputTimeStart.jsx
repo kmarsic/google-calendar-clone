@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { MiniCalendarForm } from "../../../CalendarViews/MonthView/mini/MiniCalendarForm";
 import { EventDataContext, TimeContext, FocusContext } from "../../formContext";
-import { inputTimeFormat } from "../../../../Fncs/timeFormat";
+import { inputTimeFormat } from "../../../../Fncs/Form/timeFormat";
 
 export function InputTimeStart() {
     const ref = useRef(null);
@@ -24,7 +24,6 @@ export function InputTimeStart() {
         <span className="bottom-border-animate" ref={ref}>
             <input
                 className="text-input input-time"
-                autoFocus
                 readOnly
                 style={{ width: inputTimeFormat(formData.startDate).length + 1 + "ch"}}
                 data-type="time"

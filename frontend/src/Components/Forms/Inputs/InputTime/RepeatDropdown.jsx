@@ -8,7 +8,7 @@ export function RepeatDropdown({ repeat, setRepeat, setDropdown }) {
     const repeatOptions = ["Does not repeat", "Daily", `Weekly on ${day}`, `Monthly on the second ${day}`, `Annually on ${day}`, "Every weekday (Monday to Friday)", "Custom..."]
     return (
         <motion.ul 
-        className="repeat-dropdown"
+        className="dropdown repeat-dropdown"
         style={{originX:0 , originY: 0}}
         initial={{opacity: 0, scale: 0.8}}
         animate={{opacity: 1, scale: 1}}
