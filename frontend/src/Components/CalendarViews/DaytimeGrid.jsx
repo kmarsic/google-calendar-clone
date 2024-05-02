@@ -35,7 +35,7 @@ export function DrawGrid({parsedDate}) {
 
     return (
         <canvas className="canvas" id={parsedDate} height={1152}>
-                        <Assignment date={parsedDate}/>
+            <Assignment date={parsedDate}/>
         </canvas>
     )
 }
