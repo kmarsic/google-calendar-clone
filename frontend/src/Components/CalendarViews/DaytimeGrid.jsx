@@ -1,43 +1,41 @@
+import { useEffect, useRef } from "react";
+import { Assignment } from './../Forms/Assignment'
+
 /* eslint-disable react/prop-types */
-export function DaytimeGrid({ iterator, date }) {
-    const hairlineGrid = () => {
-        const hairlinesGrid = [];
-        for (let i = 0; i < 24; i++) {
-            hairlinesGrid.push(
-                <div
-                    key={"hg" + i}
-                    className="hairline-border" 
-                >
-                </div>
-            );
-        }
-        return hairlinesGrid
-    }
+export function DaytimeGrid({ date }) {
+    const parsedDate = Date.parse(date);
+    const columnRef = useRef(null);
     
-    const dayGrid = () => {
-        const daysGrid = [];
-        for (let i = 0; i < 24; i++) {
-            const newDate = new Date(date);
-            newDate.setHours(i);
-            daysGrid.push(
-                <div
-                    key={"ts" + i}
-                    id={Date.parse(newDate)}
-                    className="time-slot"
-                >
-                </div>
-            );
-        }
-
-        return daysGrid;
-    };
-
     return (
         <>
-        {iterator == 0 ? <div className="hairline"> {hairlineGrid()}</div> : null}
-        <div className="week-column">
-            {iterator == 7 ? null : dayGrid()}
+        <div className="week-column" ref={columnRef}>
+            <DrawGrid parsedDate={parsedDate}/>
         </div>
         </>
     );
+}
+
+export function DrawGrid({parsedDate}) {
+
+    useEffect(() => {
+            drawHorizontalLines(parsedDate);
+    } ,[])
+
+    function drawHorizontalLines(canvasId) {
+        const canvas = document.getElementById(canvasId)
+        const ctx = canvas.getContext('2d');
+        ctx.lineWidth = 0.1;
+        for (let i = 0; i < 1152; i += 48) {
+            ctx.beginPath();
+            ctx.moveTo(0, i);
+            ctx.lineTo(canvas.width, i);
+            ctx.stroke();
+        }
+    }
+
+    return (
+        <canvas className="canvas" id={parsedDate} height={1152}>
+                        <Assignment date={parsedDate}/>
+        </canvas>
+    )
 }
