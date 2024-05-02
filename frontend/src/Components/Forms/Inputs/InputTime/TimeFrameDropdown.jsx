@@ -7,7 +7,6 @@ export function TimeFrameDropdown({times, setVisible, time}) {
     const dispatchReducer = useContext(EventChangeContext);
     const formData = useContext(EventDataContext);
     const duration = formData.endTime - formData.startTime;
-    console.log(duration)
 
     const mappedTimes = times.map((option, index) => 
     <li key={index} onClick={(e) => {dispatchReducer({type: time, payload: option});setVisible(false) }}>{hourTimeFormat(option)}</li>)

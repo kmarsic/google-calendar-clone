@@ -34,7 +34,7 @@ function App() {
     const handleClick = (e) => {
         if (
             e.target.classList.contains("box") ||
-            e.target.classList.contains("time-slot")
+            e.target.classList.contains("canvas")
         ) {
             dispatch(setFocusDate(e.target.id));
             setClickedElement({
