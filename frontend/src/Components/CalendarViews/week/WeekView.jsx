@@ -6,6 +6,7 @@ import { DaytimeGrid } from "../DaytimeGrid";
 import { motion } from "framer-motion";
 import { calendarVariant } from "../../../Fncs/framerVariants";
 import { useLocation } from "react-router-dom";
+import { TimeLegend} from "../TimeLegend";
 
 export function WeekView() {
     const mainDate = new Date(useSelector(currentDate));
@@ -21,10 +22,10 @@ export function WeekView() {
 
     const showWeekGrid = () => {
         const grid = [];
-        for (let i = 0; i <= 7; i++) {
+        for (let i = 0; i <= 6; i++) {
             const newDate = new Date(mainDate.getFullYear(), mainDate.getMonth(), mainDate.getDate() - mainDate.getDay() + i);
             grid.push(
-                <DaytimeGrid date={newDate} key={"dgr" + i} iterator={i} />
+                <DaytimeGrid date={newDate} key={"dgr" + i} />
             );
         }
         return grid;
@@ -59,25 +60,6 @@ export function WeekView() {
         return borders;
     };
 
-    const showTimeFrames = () => {
-        const times = [];
-        for (let i = 1; i <= 12; i++) {
-            times.push(
-                <div key={"ta" + i} className="time-frame">
-                    <span className="time">{i} {i == 12 ? "PM" : "AM"}</span>
-                </div>
-            );
-        }
-        for (let i = 1; i <= 11; i++) {
-            times.push(
-                <div key={"tp" + i} className="time-frame">
-                    <span className="time">{i} PM</span>
-                </div>
-            );
-        }
-        return times;
-    };
-
     const handleScroll = (e) => {
         if (e.target.scrollTop == 0) {
             setNavBorder(false);
@@ -102,8 +84,11 @@ export function WeekView() {
                 </div>
             </div>
             <motion.div className="week-cal-body" onScroll={(e) => handleScroll(e)}>
-                <div className="time-frames">{showTimeFrames()}</div>
-                <div className="week-cal-grid">{showWeekGrid()}</div>
+                <div className="time-frames"><TimeLegend/></div>
+                <div className="week-cal-grid">
+                    <div className="hairline"></div>
+                    {showWeekGrid()}
+                </div>
             </motion.div>
         </motion.div>
     );

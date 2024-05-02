@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { calendarVariant } from "../../../Fncs/framerVariants";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { TimeLegend } from "../TimeLegend";
 
 export function DayView() {
     const switches = useSelector(switchView);
@@ -21,24 +22,7 @@ export function DayView() {
     const day = mainDate.getDay();
     const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     const today = new Date();
-    const showTimeFrames = () => {
-        const times = [];
-        for (let i = 1; i <= 12; i++) {
-            times.push(
-                <div key={"ta" + i} className="time-frame">
-                    <span className="time">{i} AM</span>
-                </div>
-            )
-        }
-        for (let i = 1; i <= 11; i++) {
-            times.push(
-                <div key={"tp" + i} className="time-frame">
-                    <span className="time">{i} PM</span>
-                </div>
-            )
-        }
-        return times;
-    }
+
     return (
         <motion.div 
         className="week-view"
@@ -57,9 +41,10 @@ export function DayView() {
                 </div>
             </div>
             <div className="week-cal-body">
-                <div className="time-frames">{showTimeFrames()}</div>
+                <div className="time-frames"><TimeLegend/></div>
                 <div className="day-cal-grid">
-                    <DaytimeGrid iterator={0} date={mainDate}/>
+                    <div className="hairline"></div>
+                    <DaytimeGrid date={mainDate}/>
                 </div>
             </div>
         </motion.div>
