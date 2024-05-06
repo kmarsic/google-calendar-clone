@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Assignment } from './../Forms/Assignment'
+import { WeekAssignment } from "../Forms/WeekAssignment";
 
 /* eslint-disable react/prop-types */
 export function DaytimeGrid({ date }) {
@@ -10,6 +10,7 @@ export function DaytimeGrid({ date }) {
         <>
         <div className="week-column" ref={columnRef}>
             <DrawGrid parsedDate={parsedDate}/>
+            <WeekAssignment date={parsedDate}/>
         </div>
         </>
     );
@@ -34,8 +35,6 @@ export function DrawGrid({parsedDate}) {
     }
 
     return (
-        <canvas className="canvas" id={parsedDate} height={1152}>
-            <Assignment date={parsedDate}/>
-        </canvas>
+        <canvas className="canvas" id={parsedDate} height={1152}></canvas>
     )
 }
