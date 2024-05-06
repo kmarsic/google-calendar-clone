@@ -10,7 +10,7 @@ import { EventDataContext, EventChangeContext } from "./formContext";
 import postData from "../../redux/features/thunk/postData";
 import { addTask } from "../../redux/features/taskSlicer";
 //components
-import { calcModalPosition, startDateMatch, endDateMatch } from "../../Fncs/indexFncs";
+import { calcModalPosition, startDateMatch, endDateMatch, timeMatch } from "../../Fncs/indexFncs";
 import { InputTitle } from "./Inputs/InputTitle";
 import { FormFooter, EventType, FormDock } from "./FormModules/indexFormModules"
 import { createPortal } from "react-dom";
@@ -25,6 +25,7 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
     const [eventData, dispatchReducer] = useReducer(reducer, {
         title: "",
         type: clickedElement.type ? clickedElement.type : "form-event",
+        createdAt: parseInt(Date.parse(new Date())),
         startTime: parseInt(clickedElement.id),
         endTime: parseInt(clickedElement.id),
         startDate: parseInt(clickedElement.id),
@@ -109,15 +110,17 @@ function reducer(state, action) {
             }
         }
         case 'startTime': {
+            console.log(state.endTime)
             return {
                 ...state,
-                startTime: action.payload
+                startTime: Date.parse(action.payload),
+                endTime: timeMatch(action.payload, state.endTime)
             }
         }
         case 'endTime': {
             return {
                 ...state,
-                endTime: action.payload
+                endTime: Date.parse(action.payload)
             }
         }
         case 'startDate': {

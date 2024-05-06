@@ -116,3 +116,12 @@ export function endDateMatch(endDate, startDate) {
 export function hourTimeFormat(x){
     return x.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})
 }
+
+export function timeMatch(startTime, endTime) {
+    const hour = 60 * 60 * 1000;
+    const start = Date.parse(startTime);
+    if (start > endTime) {
+        return start + hour
+    } else return endTime
+
+}
