@@ -58,7 +58,6 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
             setBottomBorder(false);
         } else setBottomBorder(true);
     }
-
     return (
         <>
             {createPortal(<div className="overlay" onClick={onClose}></div>,document.body)}
