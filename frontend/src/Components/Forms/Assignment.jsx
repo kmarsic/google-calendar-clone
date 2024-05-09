@@ -6,7 +6,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { allTasks } from "../../redux/features/taskSlicer";
 import { removeTask } from "../../redux/features/taskSlicer";
-import { setDate, setView } from "../../redux/features/dateSlicer";
+import { setDate } from "../../redux/features/dateSlicer";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -26,7 +26,9 @@ export function Assignment({date}) {
 
     function mapAssignments(list) {
         const filtered = list.filter((task) => {
-            return task.startDate == date
+            return (
+                task.startDate == date || task.endDate == date
+            )
         })
         const mapped = filtered.map((task, index) => {
             return <Task key={index} handleSubmit={handleSubmit} task={task}/>
@@ -59,6 +61,8 @@ export function Assignment({date}) {
 }
 
 function Task({handleSubmit, task}) {
+    const duration = task.endTime - task.startTime;
+    console.log(duration)
     return (
         <form onSubmit={(e) => handleSubmit(e, task)} className='assignment' style={{backgroundColor: task.color}}>
                 <p>{task.title}</p>

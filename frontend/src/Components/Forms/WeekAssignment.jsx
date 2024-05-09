@@ -25,6 +25,7 @@ export function WeekAssignment({date}) {
 
 function Task({task}) {
 
+    const stack = stackingContext();
     const startTime = task.startTime;
     const endTime = task.endTime
     const pixels = timePosition(startTime);
@@ -32,7 +33,7 @@ function Task({task}) {
     return (
         <motion.div 
         className='week-assignment' 
-        style={{backgroundColor: task.color, top: pixels, height: height}}
+        style={{backgroundColor: task.color, top: pixels, height: height, zIndex: stack}}
         >
                 <span>{task.title}</span>
                 <span>{hourTimeFormat(new Date(startTime))} - {hourTimeFormat(new Date(endTime))}</span>
@@ -42,6 +43,7 @@ function Task({task}) {
 
 function stackingContext( list ) {
     const timeline = 0;
+    
     return timeline
 }
 
@@ -54,8 +56,7 @@ function timePosition( startTime ) {
 }
 
 function determineHeight( startTime, endTime) {
-    const difference = (endTime - startTime) / 60000 / 15;
-    console.log(difference)
-    const height = 10 * difference + difference * 2 - 2;
+    const margin = (endTime - startTime) / 60000 / 15;
+    const height = 10 * margin + margin * 2 - 2;
     return height;
 }

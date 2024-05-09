@@ -4,16 +4,16 @@ import "./../../styles/_index.scss";
 //dependencies
 import { motion, useDragControls } from "framer-motion";
 import { useState, useEffect, useReducer } from "react";
+import { createPortal } from "react-dom";
 import { useDispatch } from "react-redux";
 import { EventDataContext, EventChangeContext } from "./formContext";
 //redux
 import postData from "../../redux/features/thunk/postData";
 import { addTask } from "../../redux/features/taskSlicer";
-//components
+//components and functions
 import { calcModalPosition, startDateMatch, endDateMatch, timeMatch } from "../../Fncs/indexFncs";
 import { InputTitle } from "./Inputs/InputTitle";
 import { FormFooter, EventType, FormDock } from "./FormModules/indexFormModules"
-import { createPortal } from "react-dom";
 
 export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
     const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
         type: clickedElement.type ? clickedElement.type : "form-event",
         createdAt: parseInt(Date.parse(new Date())),
         startTime: parseInt(clickedElement.id),
-        endTime: parseInt(clickedElement.id),
+        endTime: parseInt(clickedElement.id) + 3600000,
         startDate: parseInt(clickedElement.id),
         endDate: parseInt(clickedElement.id),
         guests: [],
@@ -35,6 +35,7 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
         description: "",
         attachment: [],
         color: "#039be5",
+        notifications: []
     });
 
     function startDrag(event) {
@@ -158,6 +159,12 @@ function reducer(state, action) {
             return {
                 ...state,
                 color: action.payload
+            }
+        }
+        case 'notifications': {
+            return {
+                ...state,
+                notifications: action.payload
             }
         }
     }
