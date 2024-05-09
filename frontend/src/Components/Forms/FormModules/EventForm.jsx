@@ -6,6 +6,7 @@ import { PlaceholderLocation, PlaceholderTime, InputUsername } from "../Inputs/i
 import { PlaceholderDescription } from "../Placeholders/PlaceholderDescription";
 import { PlaceholderGuest } from "../Placeholders/PlaceholderGuest";
 import { PlaceholderNotification } from "../Placeholders/PlaceholderNotification";
+import { InputNotification } from "../Inputs/InputNotification/InputNotification";
 
 export function EventForm() {
     const [isColorVisible, setIsColorVisible] = useState(false);
@@ -73,7 +74,7 @@ export function EventForm() {
             <div className="icons">
                 <FontAwesomeIcon icon={faBell} color="var(--text-body" size="xl"/>
             </div>
-            <PlaceholderNotification/>
+            <InputNotification/>
         </>
     )
 }
