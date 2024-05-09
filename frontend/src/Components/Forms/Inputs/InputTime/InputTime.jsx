@@ -1,16 +1,13 @@
 /* eslint-disable react/prop-types */
 import { InputTimeStart } from "./InputTimeStart";
 import { InputTimeEnd } from "./InputTimeEnd";
-import { useRef, useState, useEffect, useContext } from "react";
+import { useRef, useState, useEffect } from "react";
 import { RepeatDropdown } from "./RepeatDropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { TimeFrame } from "./TimeFrame";
-import { EventDataContext } from "../../formContext";
-import { createPortal } from "react-dom";
 
 export const InputTime = () => {
-    const formData = useContext(EventDataContext);
     const [repeat, setRepeat] = useState("Does not repeat");
     const [dropdown, setDropdown] = useState(false);
     const [allDay, setAllDay] = useState(false);
