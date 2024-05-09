@@ -13,7 +13,7 @@ export const InputTime = () => {
     const formData = useContext(EventDataContext);
     const [repeat, setRepeat] = useState("Does not repeat");
     const [dropdown, setDropdown] = useState(false);
-    const [allDay, setAllDay] = useState(true);
+    const [allDay, setAllDay] = useState(false);
 
     const dropdownRef = useRef(null);
 
@@ -46,7 +46,7 @@ export const InputTime = () => {
                     </div>
                     <div>
                         <div className="all-day">
-                            <input type="checkbox" onChange={() => setAllDay(!allDay)}/>
+                            <input type="checkbox" defaultChecked onChange={() => setAllDay(!allDay)}/>
                             <span>All Day</span>
                         </div>
                         <span className="repeat-dropdown-container" ref={dropdownRef} onClick={() => setDropdown(!dropdown)}>
