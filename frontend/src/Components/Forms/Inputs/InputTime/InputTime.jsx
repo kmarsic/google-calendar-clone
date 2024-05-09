@@ -7,10 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { TimeFrame } from "./TimeFrame";
 
-export const InputTime = () => {
+export const InputTime = ({activeTime}) => {
     const [repeat, setRepeat] = useState("Does not repeat");
     const [dropdown, setDropdown] = useState(false);
-    const [allDay, setAllDay] = useState(false);
+    const [allDay, setAllDay] = useState(activeTime);
 
     const dropdownRef = useRef(null);
 
@@ -34,16 +34,23 @@ export const InputTime = () => {
         };
     }, []);
 
+    useEffect(() => {
+        const checkbox = document.getElementById("time-checkbox");
+        if (allDay === true) {
+            checkbox.checked = true;
+        } else checkbox.checked = false;
+    }, [allDay])
+
         return (
         <div className="input-shell">
             <div>
                     <div className="div-flex">
                             <InputTimeStart/>
-                            {!allDay ? <InputTimeEnd/> : <TimeFrame/>}
+                            {allDay ? <InputTimeEnd/> : <TimeFrame/>}
                     </div>
                     <div>
                         <div className="all-day">
-                            <input type="checkbox" defaultChecked onChange={() => setAllDay(!allDay)}/>
+                            <input type="checkbox" id="time-checkbox" onChange={() => setAllDay(!allDay)}/>
                             <span>All Day</span>
                         </div>
                         <span className="repeat-dropdown-container" ref={dropdownRef} onClick={() => setDropdown(!dropdown)}>

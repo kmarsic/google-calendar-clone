@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
 import { inputTimeFormat } from "../../../Fncs/Form/timeFormat";
-import { EventDataContext, TimeContext } from "../formContext";
+import { EventDataContext } from "../formContext";
 import { InputTime } from "./../Inputs/indexInputs";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 export function PlaceholderTime({ handleFormFields, activeFormField}) {
     const formData = useContext(EventDataContext);
+    const [time, setTime] = useState(true);
     if (activeFormField.time === "input") {
-        return <InputTime/>
+        return <InputTime activeTime={time}/>
     } else return (
         <div className="input-shell">
 
@@ -29,7 +30,7 @@ export function PlaceholderTime({ handleFormFields, activeFormField}) {
                         </span>
                         <div data-name="time" onClick={(e) => handleFormFields(e)}>Does not repeat</div>
                         </span>
-                        <button className="btn" data-name="time" onClick={(e) => {handleFormFields(e); e.preventDefault()}}>Add time</button>
+                        <button className="btn" data-name="time" onClick={(e) => {handleFormFields(e); e.preventDefault(); setTime(false)}}>Add time</button>
                     </div>
             </div>
     )
