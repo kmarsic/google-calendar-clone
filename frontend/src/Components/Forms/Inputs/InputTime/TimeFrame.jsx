@@ -19,8 +19,8 @@ export function StartTimeFrame() {
     const dropdownRef = useRef(null);
 
     const time = new Date(formData.startTime);
-
     const date = new Date(formData.startDate)
+    
     const times = [];
     for (let i = 0; i < 24; i++) {
         for (let j = 0; j <= 3; j++) {
@@ -41,7 +41,7 @@ export function StartTimeFrame() {
 
     return (
         <span className="bottom-border-animate">
-            <span className="text-input" onClick={() => setVisible(true)}>{hourTimeFormat(time)}</span>
+            <input style={{width: "10ch", textAlign: "center"}} className="text-input" onClick={() => setVisible(true)} value={hourTimeFormat(time)}/>
             <span ref={dropdownRef}>{visible ? <TimeFrameDropdown time="startTime" setVisible={setVisible} times={times}/> : null}</span>
         </span>
     )
@@ -79,7 +79,7 @@ export function EndTimeFrame() {
         <>
         <span>&#8212;</span>
         <span className="bottom-border-animate">
-            <span className="text-input" onClick={() => setVisible(true)}>{hourTimeFormat(endTime)}</span>
+        <input style={{width: "10ch", textAlign: "center"}} className="text-input" onClick={() => setVisible(true)} value={hourTimeFormat(endTime)}/>
             <span ref={dropdownRef}>{visible ? <TimeFrameDropdown time="endTime" setVisible={setVisible} times={times}/> : null}</span>
         </span>
         </>
