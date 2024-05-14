@@ -1,14 +1,19 @@
 /* eslint-disable react/prop-types */
 import { inputTimeFormat } from "../../../Fncs/Form/timeFormat";
-import { EventDataContext } from "../formContext";
+import { EventChangeContext, EventDataContext } from "../formContext";
 import { InputTime } from "./../Inputs/indexInputs";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 export function PlaceholderTime({ handleFormFields, activeFormField}) {
     const formData = useContext(EventDataContext);
-    const [time, setTime] = useState(true);
+    const dispatchReducer = useContext(EventChangeContext);
+
+    const handleTimeChange = (value) => {
+        dispatchReducer({type: "allDay", payload: value})
+    }
+
     if (activeFormField.time === "input") {
-        return <InputTime activeTime={time}/>
+        return <InputTime/>
     } else return (
         <div className="input-shell">
 
@@ -30,7 +35,7 @@ export function PlaceholderTime({ handleFormFields, activeFormField}) {
                         </span>
                         <div data-name="time" onClick={(e) => handleFormFields(e)}>Does not repeat</div>
                         </span>
-                        <button className="btn" data-name="time" onClick={(e) => {handleFormFields(e); e.preventDefault(); setTime(false)}}>Add time</button>
+                        <button className="btn" data-name="time" onClick={(e) => {handleFormFields(e); e.preventDefault();handleTimeChange(false)}}>Add time</button>
                     </div>
             </div>
     )

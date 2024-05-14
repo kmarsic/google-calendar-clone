@@ -5,7 +5,7 @@ import "./../../styles/_index.scss";
 import { motion, useDragControls } from "framer-motion";
 import { useState, useEffect, useReducer } from "react";
 import { createPortal } from "react-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { EventDataContext, EventChangeContext } from "./formContext";
 //redux
 import postData from "../../redux/features/thunk/postData";
@@ -14,9 +14,11 @@ import { addTask } from "../../redux/features/taskSlicer";
 import { calcModalPosition, startDateMatch, endDateMatch, timeMatch } from "../../Fncs/indexFncs";
 import { InputTitle } from "./Inputs/InputTitle";
 import { FormFooter, EventType, FormDock } from "./FormModules/indexFormModules"
+import { currentView } from "../../redux/features/dateSlicer";
 
 export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
     const dispatch = useDispatch();
+    const view = useSelector(currentView);
     const dragControls = useDragControls();
 
     const [modalPosition, setModalPosition] = useState({top: 0, left: 0});
@@ -28,6 +30,7 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
         createdAt: parseInt(Date.parse(new Date())),
         startTime: parseInt(clickedElement.id),
         endTime: parseInt(clickedElement.id) + 3600000,
+        allDay: view === "Month" ? true : false,
         startDate: parseInt(clickedElement.id),
         endDate: parseInt(clickedElement.id),
         guests: [],
@@ -110,7 +113,6 @@ function reducer(state, action) {
             }
         }
         case 'startTime': {
-            console.log(state.endTime)
             return {
                 ...state,
                 startTime: Date.parse(action.payload),
@@ -121,6 +123,12 @@ function reducer(state, action) {
             return {
                 ...state,
                 endTime: Date.parse(action.payload)
+            }
+        }
+        case 'allDay': {
+            return {
+                ...state,
+                allDay: action.payload
             }
         }
         case 'startDate': {
