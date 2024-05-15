@@ -1,5 +1,5 @@
 import { useContext, useRef, useState, useEffect } from "react"
-import { EventDataContext } from "../../formContext";
+import { EventChangeContext, EventDataContext } from "../../formContext";
 import { TimeFrameDropdown } from "./TimeFrameDropdown";
 import { quarterRound } from "../../../../Fncs/Form/quarterRound";
 import { hourTimeFormat } from "../../../../Fncs/Form/timeFormat";
@@ -15,6 +15,7 @@ export function TimeFrame() {
 
 export function StartTimeFrame() {
     const formData = useContext(EventDataContext);
+    const dispatchReducer = useContext(EventChangeContext);
     const [visible, setVisible] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -42,13 +43,14 @@ export function StartTimeFrame() {
     return (
         <span className="bottom-border-animate">
             <input style={{width: "10ch", textAlign: "center"}} className="text-input" onClick={() => setVisible(true)} value={hourTimeFormat(time)}/>
-            <span ref={dropdownRef}>{visible ? <TimeFrameDropdown time="startTime" setVisible={setVisible} times={times}/> : null}</span>
+            <span ref={dropdownRef}>{visible ? <TimeFrameDropdown time="startTime" setVisible={setVisible} times={times} reducer={dispatchReducer}/> : null}</span>
         </span>
     )
 }
 
 export function EndTimeFrame() {
     const formData = useContext(EventDataContext);
+    const dispatchReducer = useContext(EventChangeContext);
     const [visible, setVisible] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -80,7 +82,7 @@ export function EndTimeFrame() {
         <span>&#8212;</span>
         <span className="bottom-border-animate">
         <input style={{width: "10ch", textAlign: "center"}} className="text-input" onClick={() => setVisible(true)} value={hourTimeFormat(endTime)}/>
-            <span ref={dropdownRef}>{visible ? <TimeFrameDropdown time="endTime" setVisible={setVisible} times={times}/> : null}</span>
+            <span ref={dropdownRef}>{visible ? <TimeFrameDropdown time="endTime" setVisible={setVisible} times={times} reducer={dispatchReducer}/> : null}</span>
         </span>
         </>
     )
