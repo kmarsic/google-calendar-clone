@@ -97,7 +97,7 @@ export function MiniMonthView() {
       list.push(
         <div key = {`day-${i}`} className='mini-box mwd'>
           <span>{weekDays[i]}</span>
-          <span className='full-name-hover'>{longDays[i]}</span>
+          <span className='box-hover'>{longDays[i]}</span>
         </div>
 
       )
