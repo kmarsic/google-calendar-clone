@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { NotificationDropdown } from "./NotificationDropdown";
+import { NotificationModal } from "./NotificationModal";
 
 export function InputNotification() {
     const [dropdown, setDropdown] = useState(false);
@@ -45,27 +46,5 @@ export function InputNotification() {
             </div>
         {modal ? createPortal(<NotificationModal onClose={handleModal}/>, document.body) : null}
         </div>
-    )
-}
-
-function NotificationModal({onClose}) {
-    return (
-        <>
-        <div className="overlay dark" onClick={onClose}></div>
-        <div className="notification-modal-container">
-             <div className="modal-title">Custom Notification</div>
-             <div className="div-flex">
-                <div className="modal-option"></div>
-                <div className="modal-option"></div>
-                <div className="modal-option"></div>
-                <div className="modal-option"></div>
-                <div className="modal-option"></div>
-             </div>
-             <div className="div-flex">
-                <div>Cancel</div>
-                <div>Done</div>
-             </div>
-        </div>, document.body
-        </>
     )
 }
