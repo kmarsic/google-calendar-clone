@@ -1,0 +1,60 @@
+.notification-modal-container {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left:0;
+    right:0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    background-color: var(--background-primary);
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    width: fit-content;
+    height: 100px;
+}
+
+.notification-modal-title {
+    letter-spacing: 0.3px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.notification-select {
+    display: flex;
+    gap: 10px;
+}
+
+.notification-modal-option {
+    display: flex;
+    position: relative;
+    cursor: pointer;
+    flex-grow: 1;
+    background-color: rgb(241, 243, 244);
+    border-radius: 0.25rem;
+    font-size: 14px;
+    .padding {
+        padding:0.5rem;
+    }
+    .box-hover {
+        left: -50px;
+        top: 35px;
+        width: 150px;
+    }
+}
+
+.notification-modal-option:hover {
+    .box-hover {
+        opacity: 1;
+        z-index: 10;
+    }
+}
+
+#notification-number {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    width: 48px;
+}
