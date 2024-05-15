@@ -1,15 +1,12 @@
 import { motion } from 'framer-motion';
 import { useContext } from 'react';
-import { EventChangeContext, EventDataContext } from '../../formContext';
+import { EventChangeContext } from '../../formContext';
 import { hourTimeFormat } from '../../../../Fncs/Form/timeFormat';
 
-export function TimeFrameDropdown({times, setVisible, time}) {
-    const dispatchReducer = useContext(EventChangeContext);
-    const formData = useContext(EventDataContext);
-    const duration = formData.endTime - formData.startTime;
+export function TimeFrameDropdown({times, setVisible, time, reducer}) {
 
     const mappedTimes = times.map((option, index) => 
-    <li key={index} onClick={(e) => {dispatchReducer({type: time, payload: option});setVisible(false) }}>{hourTimeFormat(option)}</li>)
+    <li key={index} onClick={() => {reducer({type: time, payload: option});setVisible(false)}}>{hourTimeFormat(option)}</li>)
 
     return (
         <motion.ul 
