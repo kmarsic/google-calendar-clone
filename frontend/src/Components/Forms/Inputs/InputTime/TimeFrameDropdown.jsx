@@ -1,6 +1,4 @@
 import { motion } from 'framer-motion';
-import { useContext } from 'react';
-import { EventChangeContext } from '../../formContext';
 import { hourTimeFormat } from '../../../../Fncs/Form/timeFormat';
 
 export function TimeFrameDropdown({times, setVisible, time, reducer}) {
