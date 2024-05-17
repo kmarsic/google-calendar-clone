@@ -5,7 +5,6 @@
     position:relative;
     z-index: 1;
     padding: 0.5rem 0.75rem;
-    font-family: 'Open Sans', sans-serif;
     gap: 2rem;
     user-select: none;
     border-bottom: 1px solid var(--border);
@@ -20,7 +19,6 @@
 
 #title {
   font-size: 22px;
-  text-shadow: 0px 0px 1px var(--text-body);
 }
 
 .btn-header {
@@ -92,7 +90,6 @@
   padding-left: 4px;
   padding-right: 12px;
   gap: 1rem;
-  text-shadow: 0px 0px 1px var(--text-body);
   border-radius: 4px;
   cursor: pointer;
   &:hover {
