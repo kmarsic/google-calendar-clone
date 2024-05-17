@@ -3,11 +3,11 @@
 *::after {
   box-sizing: border-box;
   margin: 0;
+  font-family: 'Google Sans';
 }
 
 body {
   background-color: var(--background-primary);
-  font-family: 'Roboto', sans-serif;
   color: var(--text-main);
   height: 100vh;
   font-size: 12px;
