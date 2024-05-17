@@ -29,7 +29,7 @@ export function InputAttachment () {
                                 <img src={fileTypeImg(file.type)} width="14px"/>
                                 <span>{file.name.length > 10 ? file.name.substring(0,8) + "..." : file.name}</span>
                                 <FontAwesomeIcon onClick={() => handleFileRemove(file)} icon={faXmark} size="lg" color="var(--text-body)" style={{cursor: "pointer"}}/>
-                                <span className="full-name-hover">{file.name}</span>
+                                <span className="box-hover">{file.name}</span>
                             </div>
                         )
                     })}
