@@ -1,19 +1,13 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { EventDataContext, NotificationChangeContext, NotificationContext } from "../../formContext";
+import { NotificationContext } from "../../../formContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
-import { hourTimeFormat } from "../../../../Fncs/Form/timeFormat";
-import { TimeFrameDropdown } from "../InputTime/TimeFrameDropdown";
+import { TypeDropdown } from "./TypeDropdown";
 
-export function NotificationTimeSelect() {
+export function NotificationTypeSelect() {
     const [visible, setVisible] = useState(false);
-
     const context = useContext(NotificationContext);
-    const dispatchReducer = useContext(NotificationChangeContext);
-    const formData = useContext(EventDataContext);
-
-    const date = new Date(formData.startDate);
-    const time = new Date(context.time)
+    const notificationType = context.type;
 
     const dropdownRef = useRef(null);
 
@@ -27,22 +21,15 @@ export function NotificationTimeSelect() {
         };
     }, []);
 
-    const times = [];
-    for (let i = 0; i < 24; i++) {
-        for (let j = 0; j <= 3; j++) {
-            const newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), i, j*15)
-            times.push(newDate)
-        }
-    }
-
+    const list = ["Email", "Notification"];
     return(
         <>
         <div ref={dropdownRef} className="notification-modal-option">
             <div className="div-flex padding" style={{gap: "1rem"}} onClick={() => setVisible(!visible)} >
-                <div>{hourTimeFormat(time)}</div>
+                <div>{notificationType}</div>
                 {visible ? <FontAwesomeIcon icon={faCaretUp} color="var(--text-body)"/> : <FontAwesomeIcon icon={faCaretDown} color="var(--text-body)"/>}
             </div>
-            <span>{visible ? <TimeFrameDropdown times={times} setVisible={setVisible} time={context.unit} reducer={dispatchReducer}/> : null}</span>
+            <span>{visible ? <TypeDropdown setVisible={setVisible} list={list} variable="type"/> : null}</span>
         </div>
         </>
     )

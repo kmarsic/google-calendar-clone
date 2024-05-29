@@ -1,6 +1,5 @@
 .dropdown {
     position: absolute;
-    top: 45px;
     left: 0;
     padding: 10px 0;
     font-size: 14px;
@@ -50,6 +49,7 @@
 
 .repeat-dropdown {
     width: 250px;
+    top: 45px;
 }
 
 .timeframe-dropdown {
@@ -120,8 +120,7 @@
 }
 
 .notification-dropdown {
-    width: 120px;
-    top:34px;
+    width: 160px;
     li {
         padding: 9px 0.5rem;
     }

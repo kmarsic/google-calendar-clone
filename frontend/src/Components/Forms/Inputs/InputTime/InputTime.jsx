@@ -61,7 +61,7 @@ export const InputTime = () => {
                             <input type="checkbox" id="time-checkbox" onChange={() => handleTimeChange(!time)}/>
                             <span>All Day</span>
                         </div>
-                        <span className="dropdown-container" ref={dropdownRef} onClick={() => setDropdown(!dropdown)}>
+                        <span className="dropdown-container repeat-dropdown-container" ref={dropdownRef} onClick={() => setDropdown(!dropdown)}>
                             <span>{repeat}</span>
                             <FontAwesomeIcon icon={faCaretDown} color="var(--text-body)"/>
                             {dropdown ? <RepeatDropdown repeat={repeat} setRepeat={setRepeat} setDropdown={handleButtonClick}/> : null}

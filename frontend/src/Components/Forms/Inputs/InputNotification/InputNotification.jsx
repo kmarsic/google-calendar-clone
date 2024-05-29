@@ -1,50 +1,54 @@
-import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import { NotificationDropdown } from "./NotificationDropdown";
-import { NotificationModal } from "./NotificationModal";
+import { useContext, useEffect, useState } from "react"
+import { FormNotification } from "./FormNotification";
+import { EventChangeContext } from "../../formContext";
 
 export function InputNotification() {
-    const [dropdown, setDropdown] = useState(false);
-    const [notification, setNotification] = useState("30 minutes before");
-    const [modal, setModal] = useState(false);
-    const dropdownRef = useRef(null);
+    const [notifications, setNotifications] = useState([]);
+    const [notificationArray, setNotificationArray] = useState([]);
 
-    const handleModal = () => {
-        setModal(false);
-    }
-
-    const handleButtonClick = (e) => {
-        if (e.target.closest(".repeat-dropdown")) {
-            setDropdown(!dropdown);
-        }
-    };
-
-    const handleClickOutside = (e) => {
-        if (!dropdownRef.current.contains(e.target)) {
-            setDropdown(false);
-        }
-    };
+    const dispatchReducer = useContext(EventChangeContext);
 
     useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
+        dispatchReducer({type: "notifications", payload: notificationArray})
+    }, [notificationArray]);
 
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
+    // Check for notification support and request permission
+    useEffect(() => {
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notifications");
+        } else if (Notification.permission === "default") {
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") {
+                    console.log("Notification permission granted.");
+                }
+            });
+        }
     }, []);
+
+    const showNotification = (title, options) => {
+        if (Notification.permission === "granted") {
+            new Notification(title, options);
+        }
+    };
+
+    const handleNotifications = () => {
+        if (notifications.length > 4) {
+            return;
+        } else {
+            setNotifications([...notifications, <FormNotification key={notifications.length} list={notificationArray} updateArray={setNotificationArray}/>]);
+            
+            // Show browser notification when a new notification is added
+            showNotification("New Notification Added", {
+                body: `You have added notification number ${notifications.length + 1}`,
+                icon: "path/to/icon.png" // Replace with a valid icon path if needed
+            });
+        }
+    };
 
     return (
         <div className="input-shell">
-            <div>
-                        <span className="dropdown-container" ref={dropdownRef} onClick={() => setDropdown(!dropdown)}>
-                            <span>{notification}</span>
-                            <FontAwesomeIcon icon={faCaretDown} color="var(--text-body)"/>
-                            {dropdown ? <NotificationDropdown setModal={setModal} notification={notification} setNotification={setNotification} setDropdown={handleButtonClick}/> : null}
-                        </span>
-            </div>
-        {modal ? createPortal(<NotificationModal onClose={handleModal}/>, document.body) : null}
+            <div>{notifications.map(option => option)}</div>
+            <div onClick={() => handleNotifications()}><span className="dropdown-container">Add notification</span></div>
         </div>
     )
 }

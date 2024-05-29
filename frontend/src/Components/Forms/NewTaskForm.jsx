@@ -89,8 +89,8 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
                                             <InputTitle/>
                                             <EventType/>
                                         </div>
-                            <FormFooter bottomBorder={bottomBorder}/>
                         </form>
+                        <FormFooter bottomBorder={bottomBorder}/>
                     </motion.div>, document.body)}
                 </EventChangeContext.Provider>
             </EventDataContext.Provider>
