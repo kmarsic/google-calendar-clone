@@ -1,15 +1,13 @@
 /* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faLocationDot, faComment, faCalendarXmark, faBell, faUsers} from "@fortawesome/free-solid-svg-icons";
-import { useState, useRef, useEffect } from "react";
+import { useState} from "react";
 import { PlaceholderLocation, PlaceholderTime, InputUsername } from "../Inputs/indexInputs";
 import { PlaceholderDescription } from "../Placeholders/PlaceholderDescription";
 import { PlaceholderGuest } from "../Placeholders/PlaceholderGuest";
-import { PlaceholderNotification } from "../Placeholders/PlaceholderNotification";
 import { InputNotification } from "../Inputs/InputNotification/InputNotification";
 
 export function EventForm() {
-    const [isColorVisible, setIsColorVisible] = useState(false);
     
     const [activeFormField, setActiveFormField] = useState({
         time: "placeholder",
@@ -25,24 +23,6 @@ export function EventForm() {
             [e.target.dataset.name] : "input"
         })
     }
-    const colorRef = useRef(null);
-
-    const handleButtonClick = () => {
-        setIsColorVisible(!isColorVisible);
-    };
-    const handleClickOutside = (e) => {
-        if (colorRef.current && !colorRef.current.contains(e.target)) {
-            setIsColorVisible(false);
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
 
     return (
         <>
@@ -69,7 +49,7 @@ export function EventForm() {
             <div className="icons">
                 <FontAwesomeIcon icon={faCalendarXmark} color="var(--text-body)" size="xl"/>
             </div>
-            <InputUsername isColorVisible={isColorVisible}  handleButtonClick={handleButtonClick} colorRef={colorRef}/>
+            <InputUsername/>
 
             <div className="icons">
                 <FontAwesomeIcon icon={faBell} color="var(--text-body" size="xl"/>
