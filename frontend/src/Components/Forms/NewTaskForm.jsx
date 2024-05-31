@@ -84,7 +84,7 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
                             left: `${modalPosition.left}px`,
                         }}>
                         <FormDock onClose={onClose} startDrag={startDrag}/>
-                        <form onSubmit={handleSubmit} className="form" onScroll={(e) => handleScroll(e)}>
+                        <form onSubmit={handleSubmit} className="form" id="my-form" onScroll={(e) => handleScroll(e)}>
                                         <div className="form-grid">
                                             <InputTitle/>
                                             <EventType/>
