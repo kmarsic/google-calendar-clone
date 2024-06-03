@@ -1,11 +1,10 @@
 import { motion } from 'framer-motion';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { EventDataContext, NotificationChangeContext, NotificationContext } from '../../formContext';
 import { createPortal } from 'react-dom';
 
-export function NotificationDropdown({ container, setDropdown, format, setNotification, currentNotification }) {
+export function NotificationDropdown({ container, setDropdown, format, setNotification, currentNotification, list }) {
     const dispatchReducer = useContext(NotificationChangeContext);
-    const notification = useContext(NotificationContext);
     const formData = useContext(EventDataContext);
 
     const position = container.current.getBoundingClientRect();
@@ -33,69 +32,24 @@ export function NotificationDropdown({ container, setDropdown, format, setNotifi
         }))
     }
 
-    const [options, setOptions] = useState([
-        { unit: "minutes", duration: "5"},
-        { unit: "minutes", duration: "10" },
-        { unit: "minutes", duration: "15" },
-        { unit: "minutes", duration: "30" },
-        { unit: "hours", duration: "1" },
-        { unit: "days", duration: "1" },
-        { unit: notification.unit, duration: notification.duration, visible: notification.visible },
-        "Custom..."
-    ]);
-
-    const [allDayOptions, setAllDayOptions] = useState([
-        { unit: "days", duration: "0", time: formData.startDate + 60000 * 60 * 9 },
-        { unit: "days", duration: "1", time: formData.startDate + 60000 * 60 * 9 },
-        { unit: "days", duration: "2", time: formData.startDate + 60000 * 60 * 9 },
-        { unit: "weeks", duration: "1", time: formData.startDate + 60000 * 60 * 9 },
-        { unit: notification.unit, duration: notification.duration, time: notification.time, visible: notification.visible },
-        "Custom..."
-    ]);
-
-    const mappedList = () => {
-        if (formData.allDay) {
-            return allDayOptions;
-        } else return options;
-    }
 
     function setArrayOrder() {
-        const list = mappedList();
         const baseMinuteUnit = 60000;
-        let multiplierA = 1;
-        let multiplierB = 1;
-        list.sort((a,b) => {
-            switch(a.unit) {
-                case "minutes": multiplierA = 1;
-                break;
-                case "hours": multiplierA = 60;
-                break;
-                case "days": multiplierA = 60*24;
-                break;
-                case "weeks": multiplierA = 60*24*7;
-                break;
-            }
-            switch(b.unit) {
-                case "minutes": multiplierB = 1;
-                break;
-                case "hours": multiplierB = 60;
-                break;
-                case "days": multiplierB = 60*24;
-                break;
-                case "weeks": multiplierB = 60*24*7;
-                break;
-            }
-
-            const sizeA = multiplierA * baseMinuteUnit * a.duration + a.time;
-            const sizeB = multiplierB * baseMinuteUnit * b.duration + b.time;
+        list.sort((a, b) => {
+            if (a === "Custom" || b === "Custom") return;
+            console.log(a,b)
+            const hoursA = new Date(a.time).getHours() * baseMinuteUnit * 60;
+            const minutesA = new Date(a.time).getMinutes() * baseMinuteUnit;
+            const hoursB = new Date(b.time).getHours() * baseMinuteUnit * 60;
+            const minutesB = new Date(b.time).getMinutes() * baseMinuteUnit;
+            const multiplierA = getMultiplier(a.unit);
+            const multiplierB = getMultiplier(b.unit);
+            const sizeA = multiplierA * baseMinuteUnit * a.duration + hoursA + minutesA
+            const sizeB = multiplierB * baseMinuteUnit * b.duration + hoursB + minutesB
             return sizeA - sizeB;
         });
-        return list
+        return list;
     }
-
-    useEffect(() => {
-        
-    }, [])
 
     return createPortal(
         <motion.ul 
@@ -116,8 +70,8 @@ export function NotificationDropdown({ container, setDropdown, format, setNotifi
                                 handleNotificationChange(option);
                                 setDropdown(e); 
                                 option === "Custom..." ? dispatchReducer({type: "modal", payload: true}) : dispatchReducer({type: "modal", payload: false})}} 
-                            className={format(currentNotification) === format(option) ? "dropdown-highlight" : null}>
-                            {option === "Custom..." ? "Custom..." : format(option)}
+                            className={format(currentNotification, formData) === format(option, formData) ? "dropdown-highlight" : null}>
+                            {option === "Custom..." ? "Custom..." : format(option, formData)}
                     </li>
                 )
             }
@@ -125,4 +79,14 @@ export function NotificationDropdown({ container, setDropdown, format, setNotifi
             )}
         </motion.ul>, document.body
     )
+}
+
+function getMultiplier(unit) {
+    switch (unit) {
+        case "minutes": return 1;
+        case "hours": return 60;
+        case "days": return 60 * 24;
+        case "weeks": return 60 * 24 * 7;
+        default: return 1;
+    }
 }
