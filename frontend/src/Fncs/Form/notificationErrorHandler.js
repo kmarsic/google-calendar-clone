@@ -1,7 +1,6 @@
 import _ from "lodash";
 
 export const notificationErrorHandler = (duration, unit) => {
-    console.log(duration)
     if (duration === "") {
       return true;
     }
