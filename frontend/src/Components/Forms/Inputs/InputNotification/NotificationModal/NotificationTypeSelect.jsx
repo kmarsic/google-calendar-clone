@@ -1,13 +1,10 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { NotificationContext } from "../../../formContext";
+import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { TypeDropdown } from "./TypeDropdown";
 
-export function NotificationTypeSelect() {
+export function NotificationTypeSelect({setState, state}) {
     const [visible, setVisible] = useState(false);
-    const context = useContext(NotificationContext);
-    const notificationType = context.type;
 
     const dropdownRef = useRef(null);
 
@@ -26,10 +23,10 @@ export function NotificationTypeSelect() {
         <>
         <div ref={dropdownRef} className="notification-modal-option">
             <div className="div-flex padding" style={{gap: "1rem"}} onClick={() => setVisible(!visible)} >
-                <div>{notificationType}</div>
+                <div>{state.type}</div>
                 {visible ? <FontAwesomeIcon icon={faCaretUp} color="var(--text-body)"/> : <FontAwesomeIcon icon={faCaretDown} color="var(--text-body)"/>}
             </div>
-            <span>{visible ? <TypeDropdown setVisible={setVisible} list={list} variable="type"/> : null}</span>
+            <span>{visible ? <TypeDropdown setVisible={setVisible} list={list} variable="type" setState={setState}/> : null}</span>
         </div>
         </>
     )

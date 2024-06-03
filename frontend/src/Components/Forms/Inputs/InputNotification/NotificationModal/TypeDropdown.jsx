@@ -1,10 +1,6 @@
-import { useContext } from "react";
-import { NotificationChangeContext } from "../../../formContext";
 import { motion } from 'framer-motion';
 
-export function TypeDropdown( { setVisible, variable, list } ) {
-    const dispatchReducer = useContext(NotificationChangeContext);
-
+export function TypeDropdown( { setVisible, variable, list, setState } ) {
     return (
         <motion.ul 
         className="dropdown notification-dropdown"
@@ -14,7 +10,7 @@ export function TypeDropdown( { setVisible, variable, list } ) {
         transition={{duration: 0.1}}
         exit={{opacity: 0}}
         >
-            {list.map((option, index) => <li key={index} onClick={() => {dispatchReducer({type: variable, payload: option}); setVisible(false); dispatchReducer({type: "error"})}}> {option} </li>)}
+            {list.map((option, index) => <li key={index} onClick={() => { setState({type: variable, payload: option}); setVisible(false); setState({type: "error"})}}> {option} </li>)}
         </motion.ul>
     )
 }

@@ -1,14 +1,13 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { EventDataContext, NotificationContext } from "../../../formContext";
+import { EventDataContext } from "../../../formContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { TypeDropdown } from "./TypeDropdown";
 
-export function NotificationUnitSelect() {
+export function NotificationUnitSelect({setState, state}) {
     const [visible, setVisible] = useState(false);
-    const context = useContext(NotificationContext);
     const formData = useContext(EventDataContext);
-    const notificationUnit = context.unit;
+    const notificationUnit = state.unit;
 
     const dropdownRef = useRef(null);
 
@@ -38,7 +37,7 @@ export function NotificationUnitSelect() {
                 <div>{notificationUnit}</div>
                 {visible ? <FontAwesomeIcon icon={faCaretUp} color="var(--text-body)"/> : <FontAwesomeIcon icon={faCaretDown} color="var(--text-body)"/>}
             </div>
-            <span>{visible ? <TypeDropdown setVisible={setVisible} list={list()} variable="unit"/> : null}</span>
+            <span>{visible ? <TypeDropdown setVisible={setVisible} list={list()} setState={setState} variable="unit"/> : null}</span>
         </div>
         </>
     )

@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState, useReducer, useContext } from "react";
+import { useEffect, useRef, useReducer, useContext, useState } from "react";
 import { createPortal } from "react-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown, faSliders } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { NotificationDropdown } from "./NotificationDropdown";
 import { NotificationModal } from "./NotificationModal/NotificationModal";
 import {
@@ -9,20 +9,24 @@ import {
   NotificationChangeContext,
   NotificationContext,
 } from "../../formContext";
-import {
-  hourTimeFormat,
-  notificationErrorHandler,
-} from "../../../../Fncs/indexFncs";
+import { hourTimeFormat } from "../../../../Fncs/indexFncs";
 
-export function FormNotification({ list, updateArray }) {
+export function FormNotification({ list, updateArray, uuid}) {
   const formData = useContext(EventDataContext);
   const portaledDiv = document.getElementById("root");
-
   const dropdownRef = useRef(null);
 
-  const [notificationData, dispatchReducer] = useReducer(reducer, {
+  const [currentNotification, setCurrentNotification] = useState({
+    type: "Notification",
+    duration: "1",
+    unit: "days",
+    time: formData.startDate + 60000 * 60 * 9,
+  })
+
+  const [customNotificationData, dispatchReducer] = useReducer(reducer, {
     dropdown: false,
     modal: false,
+    unique: uuid,
     id: new Date().getTime(),
     type: "Notification",
     duration: "1",
@@ -78,21 +82,21 @@ export function FormNotification({ list, updateArray }) {
   }, []);
 
   useEffect(() => {
-    updateArray([...list, notificationData]);
+    updateArray([...list, customNotificationData]);
   }, []);
 
   useEffect(() => {
     updateArray((prevList) =>
       prevList.map((notification) =>
-        notification.id === notificationData.id
-          ? notificationData
+        notification.id === customNotificationData.id
+          ? customNotificationData
           : notification
       )
     );
-  }, [notificationData]);
+  }, [customNotificationData]);
 
   return (
-    <NotificationContext.Provider value={notificationData}>
+    <NotificationContext.Provider value={customNotificationData}>
       <NotificationChangeContext.Provider value={dispatchReducer}>
         <div className="input-shell">
           <div>
@@ -102,23 +106,25 @@ export function FormNotification({ list, updateArray }) {
               onClick={() =>
                 dispatchReducer({
                   type: "dropdown",
-                  payload: !notificationData.dropdown,
+                  payload: !customNotificationData.dropdown,
                 })
               }
             >
-              <span>{formatOutput(notificationData)}</span>
+              <span>{formatOutput(currentNotification)}</span>
               <FontAwesomeIcon icon={faCaretDown} color="var(--text-body)" />
-              {notificationData.dropdown ? (
+              {customNotificationData.dropdown ? (
                 <NotificationDropdown
                   setDropdown={handleButtonClick}
                   format={formatOutput}
                   container={dropdownRef}
+                  setNotification={setCurrentNotification}
+                  currentNotification={currentNotification}
                 />
               ) : null}
             </span>
           </div>
-          {notificationData.modal
-            ? createPortal(<NotificationModal />, portaledDiv)
+          {customNotificationData.modal
+            ? createPortal(<NotificationModal setCurrentNotification={setCurrentNotification} />, portaledDiv)
             : null}
         </div>
       </NotificationChangeContext.Provider>
@@ -141,9 +147,7 @@ function reducer(state, action) {
     case "time":
       return { ...state, time: action.payload };
     case "visible":
-      return { ...state, visible: true };
-    case "error":
-      return { ...state, error: notificationErrorHandler(state.duration, state.unit) };
+      return { ...state, visible: action.payload };
     default:
       return state;
   }

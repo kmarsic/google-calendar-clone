@@ -1,19 +1,17 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { EventDataContext, NotificationChangeContext, NotificationContext } from "../../../formContext";
+import { EventDataContext, NotificationContext } from "../../../formContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { hourTimeFormat } from "../../../../../Fncs/Form/timeFormat";
 import { TimeFrameDropdown } from "../../InputTime/TimeFrameDropdown";
 
-export function NotificationTimeSelect() {
+export function NotificationTimeSelect({dispatchReducer, state}) {
     const [visible, setVisible] = useState(false);
 
-    const context = useContext(NotificationContext);
-    const dispatchReducer = useContext(NotificationChangeContext);
     const formData = useContext(EventDataContext);
 
     const date = new Date(formData.startDate);
-    const time = new Date(context.time)
+    const time = new Date(state.time)
 
     const dropdownRef = useRef(null);
 

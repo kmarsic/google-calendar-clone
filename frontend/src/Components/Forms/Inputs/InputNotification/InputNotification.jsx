@@ -1,54 +1,86 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react";
 import { FormNotification } from "./FormNotification";
 import { EventChangeContext } from "../../formContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 export function InputNotification() {
-    const [notifications, setNotifications] = useState([]);
-    const [notificationArray, setNotificationArray] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+  const [notificationArray, setNotificationArray] = useState([]);
 
-    const dispatchReducer = useContext(EventChangeContext);
+  const handleRemoveNotification = (rmnotification) => {
+    const id = rmnotification.props.uuid
+    const newNotifications = notifications.filter(
+      (notification) => notification !== rmnotification
+    );
+    setNotifications(newNotifications);
 
-    useEffect(() => {
-        dispatchReducer({type: "notifications", payload: notificationArray})
-    }, [notificationArray]);
+    const newNotificationArray = notificationArray.filter(notification => {
+      return notification.unique !== id
+    });
+    setNotificationArray(newNotificationArray);
+  };
 
-    // Check for notification support and request permission
-    useEffect(() => {
-        if (!("Notification" in window)) {
-            alert("This browser does not support desktop notifications");
-        } else if (Notification.permission === "default") {
-            Notification.requestPermission().then(permission => {
-                if (permission === "granted") {
-                    console.log("Notification permission granted.");
-                }
-            });
+  const dispatchReducer = useContext(EventChangeContext);
+
+  useEffect(() => {
+    dispatchReducer({ type: "notifications", payload: notificationArray });
+  }, [notificationArray]);
+
+  function getNotificationPermission() {
+    if (!("Notification" in window)) {
+      // Check if the browser supports notifications
+      
+      alert("This browser does not support desktop notification");
+    } else if (Notification.permission === "granted") return
+    else if (Notification.permission !== "denied") {
+      // We need to ask the user for permission
+      Notification.requestPermission().then((permission) => {
+        
+        if (permission === "granted") {
+          const notification = new Notification(
+            "This is how your notifications will appear"
+          );
+          // …
         }
-    }, []);
+      });
+    }
+  }
 
-    const showNotification = (title, options) => {
-        if (Notification.permission === "granted") {
-            new Notification(title, options);
-        }
-    };
+  const handleNotifications = () => {
+    if (notifications.length > 4) {
+      return;
+    } else {
+      setNotifications([
+        ...notifications,
+        <FormNotification
+          key={notifications.length}
+          uuid={notifications.length}
+          list={notificationArray}
+          updateArray={setNotificationArray}
+        />,
+      ]);
+    }
+  };
 
-    const handleNotifications = () => {
-        if (notifications.length > 4) {
-            return;
-        } else {
-            setNotifications([...notifications, <FormNotification key={notifications.length} list={notificationArray} updateArray={setNotificationArray}/>]);
-            
-            // Show browser notification when a new notification is added
-            showNotification("New Notification Added", {
-                body: `You have added notification number ${notifications.length + 1}`,
-                icon: "path/to/icon.png" // Replace with a valid icon path if needed
-            });
-        }
-    };
-
-    return (
-        <div className="input-shell">
-            <div>{notifications.map(option => option)}</div>
-            <div onClick={() => handleNotifications()}><span className="dropdown-container">Add notification</span></div>
-        </div>
-    )
+  return (
+    <div className="input-shell">
+      <div>{notifications.map((option) => {
+              return (
+                <div className="div-flex">
+                {option}
+                <FontAwesomeIcon
+                  className="btn-round"
+                  icon={faXmark}
+                  color="var(--text-body)"
+                  onClick={() => handleRemoveNotification(option)}
+                />
+                </div>
+              )
+        })}</div>
+      <div onClick={() => {handleNotifications(); getNotificationPermission()}}>
+        <span className="dropdown-container">Add notification</span>
+      </div>
+    </div>
+  );
 }

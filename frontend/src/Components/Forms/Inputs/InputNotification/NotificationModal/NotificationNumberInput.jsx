@@ -1,13 +1,4 @@
-import { useContext } from "react";
-import {
-  NotificationChangeContext,
-  NotificationContext,
-} from "../../../formContext";
-
-export function NumberInput() {
-  const notificationData = useContext(NotificationContext);
-  const dispatchReducer = useContext(NotificationChangeContext);
-
+export function NumberInput({setState, state}) {
   const errorMessages = {
     days: "Must be between 0 and 28 days",
     weeks: "Must be between 0 and 4 weeks",
@@ -19,7 +10,7 @@ export function NumberInput() {
     <div className="notification-modal-option">
       <span
         className={
-          notificationData.error
+          state.error
             ? "bottom-border-error padding"
             : "bottom-border-animate padding"
         }
@@ -28,16 +19,16 @@ export function NumberInput() {
           id="notification-number"
           min={0}
           type="number"
-          value={notificationData.duration}
+          value={state.duration}
           onChange={(e) => {
-            dispatchReducer({ type: "duration", payload: e.target.value });
-            dispatchReducer({type: "error"})
+            setState({type: "duration", payload: e.target.value });
+            setState({type: "error"})
           }}
         />
       </span>
-      {notificationData.error ? (
+      {state.error ? (
         <span className="box-hover">
-          {errorMessages[notificationData.unit]}
+          {errorMessages[state.unit]}
         </span>
       ) : null}
     </div>
