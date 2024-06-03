@@ -37,7 +37,6 @@ export function NotificationDropdown({ container, setDropdown, format, setNotifi
         const baseMinuteUnit = 60000;
         list.sort((a, b) => {
             if (a === "Custom" || b === "Custom") return;
-            console.log(a,b)
             const hoursA = new Date(a.time).getHours() * baseMinuteUnit * 60;
             const minutesA = new Date(a.time).getMinutes() * baseMinuteUnit;
             const hoursB = new Date(b.time).getHours() * baseMinuteUnit * 60;
