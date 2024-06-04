@@ -14,6 +14,7 @@ import getData from "./redux/features/thunk/getData";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence } from "framer-motion";
+import { Popup } from "./Components/Popup";
 
 function App() {
     const [burger, setBurgerOpen] = useState(false);
@@ -68,6 +69,7 @@ function App() {
             {clickedElement &&(<AnimatePresence>
                 <NewTaskForm clickedElement={clickedElement} dragBorder={calendarRef} onClose={() => setClickedElement(null)}/>
             </AnimatePresence>)}
+            <Popup/>
         </>
     );
 }
