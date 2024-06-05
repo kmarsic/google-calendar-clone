@@ -2,7 +2,7 @@
 import { useDispatch } from "react-redux";
 import { setDate } from "../../../redux/features/dateSlicer";
 import { Link } from "react-router-dom";
-import { Assignment } from "../../Forms/Assignment";
+import { Assignment } from "../../Assignments/Assignment";
 
 export function MonthDay({date, iterator,isToday, previous, next}) {
     const parsedDate = Date.parse(date);
