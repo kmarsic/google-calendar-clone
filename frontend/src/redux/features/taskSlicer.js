@@ -15,7 +15,17 @@ export const taskManager = createSlice({
         },
         
         removeTask(state,action) {
+            console.log(state.data)
             state.data = state.data.filter(task => task.uuid !== action.payload)
+       },
+       setTaskColor(state, action) {
+        const uuid = action.payload[0].uuid;
+        const taskColor = action.payload[1];
+        state.data.map(task => {
+            if (task.uuid === uuid) {
+                task.color = taskColor
+            }
+        })
        },
 
         clearCompletedTasks(state) { 
@@ -64,7 +74,7 @@ export const taskManager = createSlice({
         }
     },
 })
-export const {addTask, removeTask, clearCompletedTasks, toggleCompletedTasks, modifyTasks} = taskManager.actions;
+export const {addTask, removeTask, clearCompletedTasks, toggleCompletedTasks, modifyTasks, setTaskColor} = taskManager.actions;
 
 export const allTasks = (state) => state.taskList.data;
 
