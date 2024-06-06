@@ -15,8 +15,7 @@ export const taskManager = createSlice({
         },
         
         removeTask(state,action) {
-            console.log(action)
-            state.data = state.data.filter(task => task.uuid != action.payload)
+            state.data = state.data.filter(task => task.uuid !== action.payload)
        },
 
         clearCompletedTasks(state) { 
