@@ -2,6 +2,7 @@
     display:flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
     font-size: 12px;
     font-weight: 500;
     margin-bottom: 0.25rem;
@@ -94,5 +95,26 @@
   cursor: pointer;
   &:hover {
     opacity: 0.9;
+  }
+}
+
+.assignment-edit {
+  background-color: white;
+  box-shadow: 0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
+  position: absolute;
+  border-radius: 0.25rem;
+  width:200px;
+  z-index: 4;
+  .delete {
+    padding: 0.5rem;
+    cursor: pointer;
+    font-family: 'Roboto';
+    font-size: 14px;
+    &:hover {
+      background-color: var(--hover-main);
+    }
+    span {
+      margin-left: 1rem;
+    }
   }
 }
