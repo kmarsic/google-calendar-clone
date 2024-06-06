@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock, faLocationDot, faComment, faCalendarXmark, faBell, faUsers} from "@fortawesome/free-solid-svg-icons";
+import { faClock, faLocationDot, faComment, faCalendarDay, faBell, faUsers} from "@fortawesome/free-solid-svg-icons";
 import { useState} from "react";
 import { PlaceholderLocation, PlaceholderTime, InputUsername } from "../Inputs/indexInputs";
 import { PlaceholderDescription } from "../Placeholders/PlaceholderDescription";
@@ -47,7 +47,7 @@ export function EventForm() {
             <PlaceholderDescription activeFormField={activeFormField} handleFormFields={handleFormFields}/>
             
             <div className="icons">
-                <FontAwesomeIcon icon={faCalendarXmark} color="var(--text-body)" size="xl"/>
+                <FontAwesomeIcon icon={faCalendarDay} color="var(--text-body)" size="xl"/>
             </div>
             <InputUsername/>
 
