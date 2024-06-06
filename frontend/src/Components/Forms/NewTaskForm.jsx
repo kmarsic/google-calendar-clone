@@ -16,6 +16,7 @@ import { InputTitle } from "./Inputs/InputTitle";
 import { FormFooter, EventType, FormDock } from "./FormModules/indexFormModules"
 import { currentView } from "../../redux/features/dateSlicer";
 
+
 export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
     const dispatch = useDispatch();
     const view = useSelector(currentView);
@@ -25,6 +26,7 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
     const [bottomBorder, setBottomBorder] = useState(false);
 
     const [eventData, dispatchReducer] = useReducer(reducer, {
+        uuid: 'id' + new Date().getTime(),
         title: "",
         type: clickedElement.type ? clickedElement.type : "form-event",
         createdAt: parseInt(Date.parse(new Date())),
@@ -62,6 +64,7 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
             setBottomBorder(false);
         } else setBottomBorder(true);
     }
+    
     return (
         <>
             {createPortal(<div className="overlay" onClick={onClose}></div>,document.body)}
