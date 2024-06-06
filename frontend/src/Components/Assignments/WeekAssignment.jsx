@@ -4,6 +4,7 @@ import { allTasks } from "../../redux/features/taskSlicer";
 import { calcEditPosition, hourTimeFormat } from "../../Fncs/indexFncs";
 import { useRef, useState } from "react";
 import { AssignmentEdit } from "./AssignmentEdit";
+import { AssignmentModal } from "./AssignmentModal";
 
 export function WeekAssignment({date}) {
     const assignments = useSelector(allTasks);
@@ -28,6 +29,7 @@ export function WeekAssignment({date}) {
 function Task({task}) {
     const [modalPosition, setModalPosition] = useState({top: 0, left: 0});
     const [editModal, setEditModal] = useState(false);
+    const [previewModal, setPreviewModal] = useState(false);
 
     const editRef = useRef(null)
 
@@ -45,11 +47,13 @@ function Task({task}) {
         className='week-assignment' 
         ref={editRef}
         onContextMenu={(e) => {e.preventDefault();calcEditPosition(e, setModalPosition, editRef);handleEditModal()}}
+        onClick={(e) => setPreviewModal(!previewModal)}
         style={{backgroundColor: task.color, top: pixels, height: height, zIndex: stack}}
         >
                 <span>{task.title}</span>
                 <span>{hourTimeFormat(new Date(startTime))} - {hourTimeFormat(new Date(endTime))}</span>
                 {editModal && <AssignmentEdit task={task} modalPosition={modalPosition} setEditModal={setEditModal}/>}
+                {previewModal && <AssignmentModal task={task} container={editRef} setPreviewModal={setPreviewModal}/>}
         </motion.div>
     )
 }

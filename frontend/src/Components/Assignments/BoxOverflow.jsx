@@ -8,7 +8,7 @@ export function BoxOverflow({date, setModalVisible}) {
         return task.startDate == date
     })
     const mappedList = filtered.map((task,index) => {
-        if (index > 2) {
+        if (index >= 3) {
             return
         } else return <Task key={index} task={task}/>
     })

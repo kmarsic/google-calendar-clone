@@ -7,33 +7,28 @@ import { useDispatch } from "react-redux";
 import { removeTask, setTaskColor } from "../../redux/features/taskSlicer";
 import removeData from "../../redux/features/thunk/removeData";
 
-
-export function AssignmentEdit({
-  task,
-  modalPosition,
-  setEditModal,
-}) {
-    const dispatch = useDispatch();
+export function AssignmentEdit({ task, modalPosition, setEditModal }) {
+  const dispatch = useDispatch();
   const editRef = useRef(null);
 
   const handleClickOutside = (e) => {
     if (!editRef.current.contains(e.target)) {
-        setEditModal(false);
+      setEditModal(false);
     }
   };
 
   const handleSubmit = (task) => {
     dispatch(removeData(task));
     dispatch(removeTask(task.uuid));
-};
+  };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-}, []);
+  }, []);
   return createPortal(
     <motion.div
       style={{
@@ -43,16 +38,18 @@ export function AssignmentEdit({
       ref={editRef}
       className="assignment-edit"
     >
-      <div className="delete">
+      <div className="delete" onClick={() => {
+            handleSubmit(task);
+            setEditModal(false);
+          }}>
         <FontAwesomeIcon
           icon={faTrashCan}
           color="var(--text-body)"
-          onClick={() => {handleSubmit(task); setEditModal(false)}}
           size="lg"
           style={{ cursor: "pointer", marginLeft: "5px" }}
         />
         <span>Delete</span>
-        <br className="break"/>
+        <br className="break" />
       </div>
       <ColorFormModal assignment={task} setEditModal={setEditModal} />
     </motion.div>,
@@ -61,9 +58,9 @@ export function AssignmentEdit({
 }
 
 export function ColorFormModal({ assignment, setEditModal }) {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const handleColorChange = (e) => {
-    dispatch(setTaskColor([assignment, e.target.value]))
+    dispatch(setTaskColor([assignment, e.target.value]));
     setEditModal(false);
   };
   const COLORS = {

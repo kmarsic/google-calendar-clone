@@ -29,9 +29,9 @@ export function Assignment({date}) {
         const filtered = assignments.filter((task) => {
             return task.startDate == date
         })
-        if (filtered.length < 4) {
+        if (filtered.length < 3) {
             setOverflowVisible(false);
-        } else if (filtered.length > 4) {
+        } else if (filtered.length > 3) {
             setOverflowVisible(true)
         }
     }, [assignments])
