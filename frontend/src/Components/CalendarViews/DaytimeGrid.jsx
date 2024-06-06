@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { WeekAssignment } from "../Forms/WeekAssignment";
+import { WeekAssignment } from "../Assignments/WeekAssignment";
 
 /* eslint-disable react/prop-types */
 export function DaytimeGrid({ date }) {
