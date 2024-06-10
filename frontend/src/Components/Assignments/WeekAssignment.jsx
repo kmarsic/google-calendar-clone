@@ -40,21 +40,25 @@ function Task({task}) {
     const height = determineHeight(startTime, endTime);
 
     const handleEditModal = () => {
+        console.log(previewModal)
+        if (previewModal) return;
         setEditModal(true);
     }
     return (
+        <>
         <motion.div 
         className='week-assignment' 
         ref={editRef}
         onContextMenu={(e) => {e.preventDefault();calcEditPosition(e, setModalPosition, editRef);handleEditModal()}}
-        onClick={(e) => setPreviewModal(!previewModal)}
+        onClick={() => setPreviewModal(!previewModal)}
         style={{backgroundColor: task.color, top: pixels, height: height, zIndex: stack}}
         >
                 <span>{task.title}</span>
                 <span>{hourTimeFormat(new Date(startTime))} - {hourTimeFormat(new Date(endTime))}</span>
                 {editModal && <AssignmentEdit task={task} modalPosition={modalPosition} setEditModal={setEditModal}/>}
-                {previewModal && <AssignmentModal task={task} container={editRef} setPreviewModal={setPreviewModal}/>}
         </motion.div>
+        {previewModal && <AssignmentModal task={task} container={editRef} setPreviewModal={setPreviewModal}/>}
+        </>
     )
 }
 

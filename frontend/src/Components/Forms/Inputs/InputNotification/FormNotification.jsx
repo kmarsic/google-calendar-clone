@@ -95,26 +95,6 @@ export function FormNotification({ list, updateArray, uuid }) {
     checkVisible();
   }, [customNotificationData]);
 
-  const handleButtonClick = (e) => {
-    if (e.target.closest(".repeat-dropdown")) {
-      dispatchReducer({ type: "dropdown", payload: !state.dropdown });
-    }
-  };
-
-  const handleClickOutside = (e) => {
-    if (e.target.tagName !== "LI" || dropdownRef.current.contains(e.target)) {
-      dispatchReducer({ type: "dropdown", payload: false });
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   useEffect(() => {
     updateArray([...list, customNotificationData]);
   }, []);
@@ -128,6 +108,7 @@ export function FormNotification({ list, updateArray, uuid }) {
       )
     );
   }, [customNotificationData]);
+  console.log(customNotificationData.dropdown)
 
   return (
     <NotificationContext.Provider value={customNotificationData}>
@@ -137,7 +118,7 @@ export function FormNotification({ list, updateArray, uuid }) {
             <span
               className="dropdown-container"
               ref={dropdownRef}
-              onClick={() =>
+              onMouseDown={() =>
                 dispatchReducer({
                   type: "dropdown",
                   payload: !customNotificationData.dropdown,
@@ -148,9 +129,9 @@ export function FormNotification({ list, updateArray, uuid }) {
                 {formatNotificationOutput(currentNotification, formData)}
               </span>
               <FontAwesomeIcon icon={faCaretDown} color="var(--text-body)" />
-              {customNotificationData.dropdown ? (
+            </span>
+            {customNotificationData.dropdown ? (
                 <NotificationDropdown
-                  setDropdown={handleButtonClick}
                   format={formatNotificationOutput}
                   container={dropdownRef}
                   setNotification={setCurrentNotification}
@@ -158,7 +139,6 @@ export function FormNotification({ list, updateArray, uuid }) {
                   list={mappedList()}
                 />
               ) : null}
-            </span>
           </div>
           {customNotificationData.modal
             ? createPortal(

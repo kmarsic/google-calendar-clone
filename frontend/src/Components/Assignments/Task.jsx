@@ -12,18 +12,21 @@ export function Task({ task }) {
     const handleEditModal = () => {
         setEditModal(true);
     }
+    console.log(previewModal)
 
     return (
+        <>
         <div
         onContextMenu={(e) => {e.preventDefault();calcEditPosition(e, setModalPosition, editRef);handleEditModal()}}
-        onClick={(e) => setPreviewModal(!previewModal)}
+        onMouseDown={() => setPreviewModal(!previewModal)}
         className="assignment"
         ref={editRef}
         style={{ backgroundColor: task.color }}
         >
         <p>{task.title}</p>
         {editModal && <AssignmentEdit task={task} modalPosition={modalPosition} setEditModal={setEditModal}/>}
-        {previewModal && <AssignmentModal task={task} container={editRef} setPreviewModal={setPreviewModal}/>}
         </div>
+        {previewModal && <AssignmentModal task={task} container={editRef} setPreviewModal={setPreviewModal}/>}
+        </>
     );
 }

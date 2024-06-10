@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan, faPen, faEnvelope, faEllipsisVertical, faXmark, faCalendar, faCalendarDay, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan, faPen, faEnvelope, faXmark, faCalendarDay } from "@fortawesome/free-solid-svg-icons";
 import { createPortal } from "react-dom";
 import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
@@ -11,11 +11,27 @@ import { inputTimeFormat } from "../../Fncs/Form/timeFormat";
 export function AssignmentModal({ setPreviewModal, container, task }) {
     const dispatch = useDispatch();
     const modalRef = useRef(null);
-    
     const position = container.current.getBoundingClientRect();
 
+    const handleModalLeft = () => {
+      if (window.innerWidth < 1000) {
+        return window.innerWidth - 550
+      } else {
+        if (position.left < 460) {
+          return position.left + container.current.offsetWidth + 10;
+        } else return position.left - 460;
+      }
+    }
+
+    const handleModalTop = () => {
+      const bottom = window.innerHeight - position.top;
+      if (bottom < 140) {
+        return window.innerHeight - 170
+      } else return position.top
+    }
+
     const handleClickOutside = (e) => {
-        if (!modalRef.current.contains(e.target)) {
+        if (!modalRef.current.contains(e.target) && !container.current.contains(e.target)) {
           setPreviewModal(false);
         }
       };
@@ -36,14 +52,14 @@ export function AssignmentModal({ setPreviewModal, container, task }) {
         <motion.div
         ref={modalRef}
         className="assignment-modal"
-        style={{top: position.top, right: position.right}}
+        style={{top: handleModalTop(), left: handleModalLeft()}}
         >
             <div className="assignment-modal-nav">
-                <FontAwesomeIcon color="var(--text-body)" className="btn-round" size="lg" icon={faPen}/>
-                <FontAwesomeIcon color="var(--text-body)" className="btn-round" size="lg" icon={faTrashCan} onClick={() => handleSubmit(task)}/>
-                <FontAwesomeIcon color="var(--text-body)" className="btn-round" size="lg" icon={faEnvelope}/>
+                <FontAwesomeIcon color="var(--text-body)" className="btn-round" icon={faPen}/>
+                <FontAwesomeIcon color="var(--text-body)" className="btn-round" icon={faTrashCan} onClick={() => handleSubmit(task)}/>
+                <FontAwesomeIcon color="var(--text-body)" className="btn-round" icon={faEnvelope}/>
                 <div onClick={() => setPreviewModal(false)}>
-                    <FontAwesomeIcon icon={faXmark} size="xl" className="btn-round"/>
+                    <FontAwesomeIcon icon={faXmark} className="btn-round"/>
                 </div>
             </div>
             <div className="assignment-modal-body">
@@ -52,7 +68,7 @@ export function AssignmentModal({ setPreviewModal, container, task }) {
                     <h2 style={{fontWeight: "normal"}}>{task.title}</h2>
                     <div>{inputTimeFormat(task.startTime)}</div>
                 </div>
-                <FontAwesomeIcon color="var(--text-body)" size="xl" icon={faCalendarDay}/>
+                <FontAwesomeIcon color="var(--text-body)" size="lg" icon={faCalendarDay}/>
                 <div>Kristijan Maršić</div>
             </div>
         </motion.div>, document.body

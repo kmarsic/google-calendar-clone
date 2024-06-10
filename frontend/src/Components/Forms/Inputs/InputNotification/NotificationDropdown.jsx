@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { EventDataContext, NotificationChangeContext, NotificationContext } from '../../formContext';
 import { createPortal } from 'react-dom';
 
-export function NotificationDropdown({ container, setDropdown, format, setNotification, currentNotification, list }) {
+export function NotificationDropdown({ container, format, setNotification, currentNotification, list }) {
     const dispatchReducer = useContext(NotificationChangeContext);
     const formData = useContext(EventDataContext);
+    const dropdownRef = useRef(null);
 
     const position = container.current.getBoundingClientRect();
     const calendarMain = document.querySelector(".calendar-main").getBoundingClientRect();
@@ -14,7 +15,7 @@ export function NotificationDropdown({ container, setDropdown, format, setNotifi
         const bottomDistance = position.bottom - calendarMain.top + 65;
         if (position.top > 500) return null
         else return bottomDistance
-    }
+    } 
 
     const handleDropdownPositionBottom = () => {
         const topDistance = calendarMain.bottom - position.top;
@@ -29,8 +30,23 @@ export function NotificationDropdown({ container, setDropdown, format, setNotifi
             unit: option.unit,
             duration: option.duration,
             time: option.time,
-        }))
+        }));
+        dispatchReducer({ type: "dropdown", payload: false });
     }
+
+    const handleClickOutside = (e) => {
+        if (!container.current.contains(e.target) && !dropdownRef.current.contains(e.target)) {
+          dispatchReducer({ type: "dropdown", payload: false });
+        }
+      };
+    
+      useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+    
+        return () => {
+          document.removeEventListener("mousedown", handleClickOutside);
+        };
+      }, []);
 
 
     function setArrayOrder() {
@@ -53,6 +69,7 @@ export function NotificationDropdown({ container, setDropdown, format, setNotifi
     return createPortal(
         <motion.ul 
         className="dropdown notification-dropdown"
+        ref={dropdownRef}
         style={{originX:0 , originY: position.Y, bottom: handleDropdownPositionBottom(), left: position.left, top: handleDropdownPositionTop()}}
         initial={{opacity: 0, scale: 0.8}}
         animate={{opacity: 1, scale: 1}}
@@ -67,7 +84,6 @@ export function NotificationDropdown({ container, setDropdown, format, setNotifi
                             key={index} 
                             onClick={(e) => {
                                 handleNotificationChange(option);
-                                setDropdown(e); 
                                 option === "Custom..." ? dispatchReducer({type: "modal", payload: true}) : dispatchReducer({type: "modal", payload: false})}} 
                             className={format(currentNotification, formData) === format(option, formData) ? "dropdown-highlight" : null}>
                             {option === "Custom..." ? "Custom..." : format(option, formData)}
