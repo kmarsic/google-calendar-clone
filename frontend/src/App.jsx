@@ -19,6 +19,7 @@ import { Popup } from "./Components/Popup";
 function App() {
     const [burger, setBurgerOpen] = useState(false);
     const [clickedElement, setClickedElement] = useState(null);
+    const [popup, setPopup] = useState(false);
 
     const date = new Date(useSelector(currentDate));
     const correctedDate = Date.parse(new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0));
@@ -69,7 +70,10 @@ function App() {
             {clickedElement &&(<AnimatePresence>
                 <NewTaskForm clickedElement={clickedElement} dragBorder={calendarRef} onClose={() => setClickedElement(null)}/>
             </AnimatePresence>)}
-            <Popup/>
+            <AnimatePresence>
+                {popup && <Popup setVisible={setPopup} notification={clickedElement}/>}
+            </AnimatePresence>
+            <button style={{position: "absolute", bottom: 0, left: 500, width: 300}} onClick={() => setPopup(true)}>Popup</button>
         </>
     );
 }

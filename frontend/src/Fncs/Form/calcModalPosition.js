@@ -19,3 +19,11 @@ export const calcModalPosition = (clickedElement,setPosition) => {
 
     setPosition({ top: adjustedTop, left: adjustedLeft });
 };
+
+export const calcEditPosition = (event, setPosition, ref) => {
+    if (ref.current.contains(event.target)) {
+    const desiredLeft = event.clientX;
+    const desiredTop = event.clientY;
+    setPosition({ top: desiredTop, left: desiredLeft });
+    } else return
+};
