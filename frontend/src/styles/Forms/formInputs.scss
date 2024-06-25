@@ -18,8 +18,9 @@
 
 .text-input-placeholder {
     cursor: pointer;
-    font-size: 14px;
     flex-grow: 1;
+    font-size: 14px;
+    color: var(--text-body);
     padding: 0.75rem 0.5rem;
     border-radius: 0.25rem;
     position: relative;
@@ -30,9 +31,34 @@
     }
 }
 
+.placeholder-container {
+    padding: 0.75rem 0.5rem;
+    border-radius: 0.25rem;
+    align-items: center;
+    gap: 0.25rem;
+    &:hover {
+        background-color: var(--hover-main);
+    }
+    .div-flex {
+        gap: 0.5rem;
+    }
+    div {
+        margin-top: 0.25rem;
+        color: var(--text-body);
+        user-select: none;
+    }
+}
+
+.placeholder-time {
+    cursor: pointer;
+    flex-grow: 1;
+    border-radius: 0.25rem;
+    position: relative;
+    user-select: none;
+}
+
 .placeholder-hover {
     border:none;
-    font-size: 14px;
     position: relative;
 }
 
@@ -54,10 +80,9 @@
 }
 
 .text-input {
-    font-size: 14px;
     width: 100%;
+    font-size: 14px;
     padding: 0.75rem 0.5rem;
-    font-family: 'Roboto';
     border: none;
     border-radius: 0.25rem;
     position: relative;
@@ -66,26 +91,64 @@
     }
     &::placeholder {
         color: var(--text-body);
+        letter-spacing: 0.35px;
     }
 }
 
-.text-input-grow0 {
-    font-size: 14px;
-    padding: 0.75rem 0.5rem;
-    font-family: 'Roboto';
-    border: none;
-    border-radius: 0.25rem;
-    position: relative;
-    &:focus {
-        outline: none;
-    }
-    &::placeholder {
-        color: var(--text-body);
-    }
+.input-time {
+    text-align: center;
 }
 
 .form-username {
     display: flex;
     height: 40px;
     align-items: center;
+}
+
+.rsw-toolbar {
+    font-size: 1.25em;
+}
+
+.attachment-grid {
+    display: grid;
+    grid-template-columns: 130px 130px;
+    grid-template-rows: 1fr;
+    gap: 0.5rem;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    place-content: center;
+    cursor: pointer;
+    width: 124px;
+    height: 41px;
+    color: var(--text-body);
+    border-radius: 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &:hover {
+        background-color: var(--hover-main);
+    }
+}
+
+.attachment {
+    place-content: center;
+    position: relative;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.75);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &:hover {
+        .box-hover {
+            top: 40px;
+            opacity: 1;
+            z-index: 1;
+        }
+    }
 }

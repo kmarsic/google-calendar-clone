@@ -1,12 +1,21 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MiniDay } from "../MonthView/mini/MiniDay";
-import { currentDate, switchView } from "../../../redux/features/dateSlicer";
+import { currentDate, setView, switchView } from "../../../redux/features/dateSlicer";
 import { motion } from "framer-motion";
 import { calendarVariant } from "../../../Fncs/framerVariants";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 export function YearView() {
     const mainDate = new Date(useSelector(currentDate));
     const switches = useSelector(switchView);
+    const dispatch = useDispatch();
+    const location = useLocation();
+
+    useEffect(() => {
+      dispatch(setView(location.pathname.substring(1)))
+    }, [])
+
     const currDate = new Date();
     const currentMonth = currDate.getMonth();
     const currentYear = currDate.getFullYear();
@@ -103,7 +112,7 @@ export function YearView() {
       const dateMonth = date.getMonth();
       const dateYear = date.getFullYear();
         year.push(
-        <div key={"yd" + i} style={{display: "grid"}}>
+        <div key={"yd" + i} className={(date.getMonth() == currDate.getMonth() && date.getFullYear() == currDate.getFullYear())  ? "current-month-year-view" : null} style={{display: "grid"}}>
           <div className={(dateYear < currentYear) || (dateMonth < currentMonth && dateYear == currentYear) ? "year-month prevm" : "year-month"}>{months[i]}</div>
           <div className="mini-calendar-grid-year">
               {showWeekDays()}

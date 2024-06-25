@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 const {MongoClient, ServerApiVersion} = require('mongodb');
+=======
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require("cors");
+const app = express();
+>>>>>>> 53c155d4e8be3a930ebeb33ffa478358cf6b7d02
 
 const uri = "mongodb+srv://test:vQQ4OIU6sNJliXJd@calendar-clone.pgdlqha.mongodb.net/?retryWrites=true&w=majority&appName=calendar-clone";
 

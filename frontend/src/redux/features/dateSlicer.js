@@ -10,49 +10,103 @@ export const dateManager = createSlice({
         switch: "prev"
     },
     reducers: {
-        nextYear(state) {
+        handleViewChange (state, action) {
+            state.switch = action.payload;
             const date = new Date(state.mainDate)
-            const nextYear = date.getFullYear() + 1;
-            const newDate = new Date(nextYear, date.getMonth());
-            state.miniDate = Date.parse(newDate);
-            state.mainDate = Date.parse(newDate);
-        },
-        prevYear(state) {
-            const date = new Date(state.mainDate)
-            const prevYear = date.getFullYear() - 1;
-            const newDate= new Date(prevYear, date.getMonth());
-            state.miniDate = Date.parse(newDate);
-            state.mainDate = Date.parse(newDate);
-        },
-        nextMonth(state) {
-            const date = new Date(state.mainDate)
-            const nextMonth = date.getMonth() + 1;
-            const nextYear = date.getFullYear();
-            const newDate = new Date(nextYear, nextMonth);
-            state.miniDate = Date.parse(newDate);
-            state.mainDate = Date.parse(newDate);
+            if (action.payload == "prev") {
+                switch(state.currentView) {
+                    case "Year":  
+                    {
+                        const prevYear = date.getFullYear() + -1;
+                        const newDate = new Date(prevYear, date.getMonth(), date.getDate());
+                        state.miniDate = Date.parse(newDate);
+                        state.mainDate = Date.parse(newDate);
+                        state.focusDate = Date.parse(newDate);
+                    }
+                      break;
+                    case "Month": 
+                    {
+                        const prevMonth = date.getMonth() - 1;
+                        const prevYear = date.getFullYear();
+                        const newDate= new Date(prevYear, prevMonth, date.getDate());
+                        state.miniDate = Date.parse(newDate);
+                        state.mainDate = Date.parse(newDate);
+                        state.focusDate = Date.parse(newDate);
+                    }
+                      break;
+                    case "Week":
+                      {
+                        const day = date.getDate();
+                        const newDate = new Date(date.getFullYear(), date.getMonth(), day - 7);
+                        state.miniDate = Date.parse(newDate);
+                        state.mainDate = Date.parse(newDate);
+                        state.focusDate = Date.parse(newDate);
+                      }
+                      break;
+                    case "Day":
+                        {
+                            const day = date.getDate();
+                            const newDate = new Date(date.getFullYear(), date.getMonth(), day - 1);
+                            state.miniDate = Date.parse(newDate);
+                            state.mainDate = Date.parse(newDate);
+                            state.focusDate = Date.parse(newDate);
+                        }
+                      break;
+                  } 
+            } else if (action.payload == "next") {
+                switch(state.currentView) {
+                    case "Year":
+                      {
+                        const nextYear = date.getFullYear() + 1;
+                        const newDate = new Date(nextYear, date.getMonth(), date.getDate());
+                        state.miniDate = Date.parse(newDate);
+                        state.mainDate = Date.parse(newDate);
+                        state.focusDate = Date.parse(newDate);
+                      }
+                      break;
+                    case "Month":
+                      {
+                        const nextMonth = date.getMonth() + 1;
+                        const nextYear = date.getFullYear();
+                        const newDate = new Date(nextYear, nextMonth, date.getDate());
+                        state.miniDate = Date.parse(newDate);
+                        state.mainDate = Date.parse(newDate);
+                        state.focusDate = Date.parse(newDate);
+                      }
+                      break;
+                    case "Week":
+                      {
+                        const day = date.getDate();
+                        const newDate = new Date(date.getFullYear(), date.getMonth(), day + 7);
+                        state.miniDate = Date.parse(newDate);
+                        state.mainDate = Date.parse(newDate);
+                        state.focusDate = Date.parse(newDate);
+                      }
+                      break;
+                    case "Day":
+                      {
+                        const day = date.getDate();
+                        const newDate = new Date(date.getFullYear(), date.getMonth(), day + 1);
+                        state.miniDate = Date.parse(newDate);
+                        state.mainDate = Date.parse(newDate);
+                        state.focusDate = Date.parse(newDate);
+                      }
+                      break;
+                  }
+            }
         },
         nextMonthMini(state) {
             const date = new Date(state.miniDate)
             const nextMonth = date.getMonth() + 1;
             const nextYear = date.getFullYear();
-            const newDate = new Date(nextYear, nextMonth);
+            const newDate = new Date(nextYear, nextMonth, date.getDate());
             state.miniDate = Date.parse(newDate);
         },
-        
-        previousMonth(state) {
-            const date = new Date(state.mainDate)
-            const prevMonth = date.getMonth() - 1;
-            const prevYear = date.getFullYear();
-            const newDate= new Date(prevYear, prevMonth);
-            state.miniDate = Date.parse(newDate);
-            state.mainDate = Date.parse(newDate);
-       },
         previousMonthMini(state) {
             const date = new Date(state.miniDate)
             const prevMonth = date.getMonth() - 1;
             const prevYear = date.getFullYear();
-            const newDate= new Date(prevYear, prevMonth);
+            const newDate= new Date(prevYear, prevMonth, date.getDate());
             state.miniDate = Date.parse(newDate)
         },
         setDate(state, action) {
@@ -60,48 +114,21 @@ export const dateManager = createSlice({
             state.mainDate = newDate;
             state.miniDate = newDate;
         },
+        setMiniDate(state,action) {
+            const newDate = action.payload;
+            state.miniDate = newDate;
+        },
         setFocusDate(state, action) {
             const newDate = action.payload;
             state.focusDate = newDate;
         },
-        nextWeek(state) {
-            const date = new Date(state.mainDate)
-            const day = date.getDate();
-            const newDate = new Date(date.getFullYear(), date.getMonth(), day + 7);
-            state.miniDate = Date.parse(newDate);
-            state.mainDate = Date.parse(newDate);
-        },
-        previousWeek(state) {
-            const date = new Date(state.mainDate)
-            const day = date.getDate();
-            const newDate = new Date(date.getFullYear(), date.getMonth(), day - 7);
-            state.miniDate = Date.parse(newDate);
-            state.mainDate = Date.parse(newDate);
-        },
-        nextDay(state) {
-            const date = new Date(state.mainDate)
-            const day = date.getDate();
-            const newDate = new Date(date.getFullYear(), date.getMonth(), day + 1);
-            state.miniDate = Date.parse(newDate);
-            state.mainDate = Date.parse(newDate);
-        },
-        previousDay(state) {
-            const date = new Date(state.mainDate)
-            const day = date.getDate();
-            const newDate = new Date(date.getFullYear(), date.getMonth(), day - 1);
-            state.miniDate = Date.parse(newDate);
-            state.mainDate = Date.parse(newDate);
-        },
         setView (state, action) {
             state.currentView = action.payload;
         },
-        setSwitch (state,action) {
-            state.switch = action.payload
-        }
     }
 })
 
-export const {nextYear, prevYear, nextMonth, previousMonth, previousMonthMini, nextMonthMini, nextWeek, previousWeek, nextDay, previousDay, setDate, setFocusDate, setView, setSwitch} = dateManager.actions;
+export const {previousMonthMini, nextMonthMini, setDate, setMiniDate, setFocusDate, setView, handleViewChange} = dateManager.actions;
 
 export const currentDate = (state) => state.dateList.mainDate;
 export const miniDate = (state) => state.dateList.miniDate;

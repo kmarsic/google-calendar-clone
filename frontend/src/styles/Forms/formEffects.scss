@@ -1,6 +1,5 @@
 .bottom-border-animate {
     position: relative;
-    flex-grow: 1;
 }
 
 .bottom-border-animate::after {
@@ -36,4 +35,10 @@
     height: 2px;
     background: red;
     transition: width .2s;
+}
+
+.all-day {
+    display: flex;
+    padding: 0.5rem;
+    gap: 0.5rem;
 }

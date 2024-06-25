@@ -28,10 +28,10 @@ export function MiniViewEmbed({embed}) {
                      })}
                     </div>
                     <div className='nav-controls-mini'>
-                        <div className="menu-item-mini" onClick={() => dispatch(previousMonthMini())}>
+                        <div className="menu-item-mini btn-effect" onClick={() => dispatch(previousMonthMini())}>
                           <FontAwesomeIcon icon={faAngleLeft} style={{color : "#3c4043"}}></FontAwesomeIcon>
                         </div>
-                        <div className="menu-item-mini" onClick={() => dispatch(nextMonthMini())}>
+                        <div className="menu-item-mini btn-effect" onClick={() => dispatch(nextMonthMini())}>
                           <FontAwesomeIcon icon={faAngleRight} style={{color: "#3c4043"}} ></FontAwesomeIcon>
                         </div>
                     </div>

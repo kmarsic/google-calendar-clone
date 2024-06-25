@@ -1,11 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useContext } from 'react';
-import './../../styles/icons/White_check.svg';
+import { motion } from 'framer-motion';
 import { EventChangeContext, EventDataContext } from './formContext';
+import { createPortal } from 'react-dom';
 
-export function ColorForm () {
+export function ColorForm ({container}) {
     const formData = useContext(EventDataContext);
     const dispatchReducer = useContext(EventChangeContext);
+
+    const position = container.current.getBoundingClientRect();
+
     const handleColorChange = (e) => {
         dispatchReducer({type : "color", payload: e.target.value})
     }
@@ -23,8 +27,11 @@ export function ColorForm () {
         graphite : "#616161",
     }
 
-    return (
-        <div className="color-form">
+    return createPortal(
+        <motion.div 
+        className="color-form"
+        style={{originX:0 , originY: position.Y, left: position.left, top: position.top}}
+        >
             {Object.entries(COLORS).map(([colorName, colorValue]) => (
                 <div key={colorName}>
                     {formData.color == colorValue ? 
@@ -41,6 +48,6 @@ export function ColorForm () {
                     />
                 </div>
             ))}
-        </div>
+        </motion.div>, document.body
     )
 }

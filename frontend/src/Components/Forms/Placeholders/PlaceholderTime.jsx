@@ -1,41 +1,42 @@
 /* eslint-disable react/prop-types */
-import { EventDataContext, TimeContext } from "../formContext";
-import { InputTimeStart, InputTimeEnd } from "./../Inputs/indexInputs";
+import { inputTimeFormat } from "../../../Fncs/Form/timeFormat";
+import { EventChangeContext, EventDataContext } from "../formContext";
+import { InputTime } from "./../Inputs/indexInputs";
 import { useContext } from "react";
 
 export function PlaceholderTime({ handleFormFields, activeFormField}) {
     const formData = useContext(EventDataContext);
-    return (
+    const dispatchReducer = useContext(EventChangeContext);
+
+    const handleTimeChange = (value) => {
+        dispatchReducer({type: "allDay", payload: value})
+    }
+
+    if (activeFormField.time === "input") {
+        return <InputTime/>
+    } else return (
         <div className="input-shell">
-                <div>
+
                     <div className="div-flex">
-                        <TimeContext.Provider value="startTime">
-                            {activeFormField.startTime == "input" ?
-                            <InputTimeStart/>
-                            :
-                            <span className="text-input-placeholder" >
-                                <span style={{width: formData.startTime.length + 1 + "ch"}} className="placeholder-hover" data-name="startTime" onClick={(e) => handleFormFields(e)}>
-                                    {formData.startTime}
+                        <span className="placeholder-container" data-name="time" onClick={(e) => handleFormFields(e)}>
+                        <span className="div-flex">
+                            <span className="placeholder-time" >
+                                <span className="placeholder-hover" data-name="time" onClick={(e) => handleFormFields(e)}>
+                                    {inputTimeFormat(formData.startDate)}
                                 </span>
-                            </span>}
-                        </TimeContext.Provider>
+                            </span>
+                            <span style={{userSelect: "none"}}>&#8212;</span>
 
-                        <span>&#8212;</span>
-
-                        <TimeContext.Provider value="endTime">
-                            {activeFormField.endTime == "input" ?
-                            <InputTimeEnd/>
-                            :
-                            <span className="text-input-placeholder">
-                                <span style={{width: formData.endTime.length + 1 + "ch"}} className="placeholder-hover" data-name="endTime" onClick={(e) => handleFormFields(e)}>
-                                    {formData.endTime}
+                            <span className="placeholder-time">
+                                <span className="placeholder-hover" data-name="time" onClick={(e) => handleFormFields(e)}>
+                                    {inputTimeFormat(formData.endDate)}
                                 </span>
-                            </span>}
-                        </TimeContext.Provider>
-                        <button className="btn" 
-                        onClick={(e) => e.preventDefault()}>Add time</button>
+                            </span>
+                        </span>
+                        <div data-name="time" onClick={(e) => handleFormFields(e)}>Does not repeat</div>
+                        </span>
+                        <button className="btn" data-name="time" onClick={(e) => {handleFormFields(e); e.preventDefault();handleTimeChange(false)}}>Add time</button>
                     </div>
-                </div>
             </div>
     )
 }

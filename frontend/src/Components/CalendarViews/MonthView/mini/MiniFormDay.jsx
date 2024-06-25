@@ -2,8 +2,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { focusDate, setDate, setFocusDate } from "../../../../redux/features/dateSlicer";
 import { useContext } from "react";
-import { EventChangeContext, TimeContext } from "../../../Forms/formContext";
-import { FocusContext } from "../../../Forms/Inputs/InputTime";
+import { EventChangeContext, TimeContext, FocusContext } from "../../../Forms/formContext";
 
 export function MiniFormDay({date, iterator, previous, next, isToday}) {
     const focus = useSelector(focusDate);
@@ -20,12 +19,11 @@ export function MiniFormDay({date, iterator, previous, next, isToday}) {
 
     const parsedDate = Date.parse(date);
     return (
-        <div 
-        id={parsedDate}
+        <div
         name={formTime}
         onClick={() => {handleDateChange(formTime, date); dispatch(setFocusDate(parsedDate)); dispatch(setDate(parsedDate)); resetFocus(false) }}
         className="mini-box">
-            <div className={`${isToday ? "day-index-mini mini-today" : "day-index-mini"} ${parsedDate == focus ? "focused-date" : null} ${previous || next ? "empty" : null}`}><span>{iterator}</span></div>
+            <div className={`${isToday ? "day-index-mini mini-today" : "day-index-mini"} ${parsedDate == focus ? "focused-date" : ""} ${previous || next ? "empty" : ""}`}><span>{iterator}</span></div>
         </div>
     )
 }

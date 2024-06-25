@@ -1,0 +1,16 @@
+.popup {
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    padding: 0.5rem;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-width: 320px;
+    width: fit-content;
+    gap: 0.5rem;
+    background-color: rgb(32, 33, 36);
+    color: var(--background-primary);
+    border-radius: 0.25rem 0.25rem 0 0;
+    justify-content: center;
+}

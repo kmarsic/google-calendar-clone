@@ -22,6 +22,7 @@
     height: 100%;
     width: 100%;
     grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: auto 24px;
     padding-left: 8px;
     padding-right: 8px;
 }
@@ -38,6 +39,18 @@
     top: 16px;
     gap: 0.25rem;
     height: 60px;
+}
+
+.week-column {
+    height: 1152px;
+    position: relative;
+}
+
+
+.canvas {
+    width:100%;
+    height: 100%;
+    border-left: 1px solid var(--border);
 }
 
 .week-today {
@@ -98,19 +111,7 @@
     display:grid;
     grid-template-columns: 8px repeat(7, 1fr);
     padding-right:5px;
-}
-
-.hairline-border {
-    border-top: 1px solid var(--border);
-    height: 48px;
-}
-
-.time-slot {
-    height: 48px;
-    position: relative;
-    border-top: 1px solid var(--border);
-    border-left: 1px solid var(--border);
-    
+    height: 1152px;
 }
 
 .time-frames {
@@ -137,7 +138,7 @@
     -webkit-text-stroke: 0.1px;
     position: absolute;
     font-size: 10px;
-    top: 86px;
+    top: 90px;
     left: -45px;
     background-color: white;
     z-index: 2;
@@ -154,9 +155,4 @@
 
 .wname-today {
     color: var(--main-focus)
-}
-
-.hours {
-    position: relative;
-    height: 25%;
 }

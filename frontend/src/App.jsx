@@ -1,76 +1,81 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 //styles
-import './styles/_index.scss';
+import "./styles/_index.scss";
 // components
-import { Navigation } from './Components/Nav/Navigation';
-import { Sidebar } from './Components/Sidebar/Sidebar';
-import { Helmet } from 'react-helmet'
-import { SiteRouter } from './SiteRouter';
-import { NewTaskForm } from './Components/Forms/NewTaskForm';
+import { Navigation } from "./Components/Nav/Navigation";
+import { Sidebar } from "./Components/Sidebar/Sidebar";
+import { SiteRouter } from "./SiteRouter";
+import { NewTaskForm } from "./Components/Forms/NewTaskForm";
+import { TitleTab } from "./TitleTab";
+import { FloatingForm } from "./Components/Forms/FloatingForm";
 //deps
-import { currentDate, setDate, setFocusDate } from './redux/features/dateSlicer';
-import getData from './redux/features/thunk/getData';
-import { useDispatch, useSelector } from 'react-redux'
-import { useState, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { currentDate, setFocusDate } from "./redux/features/dateSlicer";
+import getData from "./redux/features/thunk/getData";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect, useRef } from "react";
+import { AnimatePresence } from "framer-motion";
+import { Popup } from "./Components/Popup";
 
 function App() {
-  const [burger, setBurgerOpen] = useState(false);
-  const [clickedElement, setClickedElement] = useState(null);
+    const [burger, setBurgerOpen] = useState(false);
+    const [clickedElement, setClickedElement] = useState(null);
+    const [popup, setPopup] = useState(false);
 
-  const dispatch = useDispatch()
+    const date = new Date(useSelector(currentDate));
+    const correctedDate = Date.parse(new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0));
+    const calendarRef = useRef(null);
 
-  const date = new Date(useSelector(currentDate))
-  const today = new Date().getDate();
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getData());
-    }, [dispatch]) 
+    useEffect(() => {
+        dispatch(getData());
+    }, []);
 
-  const faviconHref = (num) => {
-    return `https://calendar.google.com/googlecalendar/images/favicons_2020q4/calendar_${num}.ico`
-  }
+    
 
-  const handleClick = (e) => {
+    const handleClick = (e) => {
+        if (
+            e.target.classList.contains("box") ||
+            e.target.classList.contains("canvas")
+        ) {
+            dispatch(setFocusDate(e.target.id));
+            setClickedElement({
+                id: e.target.id,
+                data: e,
+            });
+            return;
+        } else if (e.target.id === "form-event" || e.target.id === "form-task") {
+            setClickedElement({
+                id: correctedDate,
+                data: e,
+                type: e.target.id
+            })
+        }
+    };
+    useEffect(() => {
+        document.body.addEventListener("click", handleClick);
+    }, []);
 
-    if (e.target.classList.contains('box') || e.target.classList.contains('hours')) {
-      console.log(e.target.id)
-      dispatch(setFocusDate(e.target.id));
-      setClickedElement({
-        id: e.target.id,
-        data: e,
-      })
-      return;
-  }}
-  useEffect(() => {
-    document.body.addEventListener('click', handleClick);
-  }, []);
-
-  return (
-  <>
-    <Helmet>
-      <title>Google Calendar - {date.toLocaleString("default", {month: "long", year: 'numeric' })}</title>
-      <link rel="icon" type="image/x-icon" href={faviconHref(today)}></link>
-    </Helmet>
-    <Navigation burger={burger} setBurger={setBurgerOpen} setElement={setClickedElement}/>
-    <AnimatePresence>
-      <div className='calendar-main'>
-        <AnimatePresence>
-          {clickedElement && (
-            <>
-              <NewTaskForm
-              clickedElement={clickedElement}
-              onClose={() => setClickedElement(null)}/>
-              <div className="overlay" onClick={() => setClickedElement(null)}></div>
-            </>
-          )}
-        </AnimatePresence>
-        <Sidebar burgerOpen={burger}/>
-        <SiteRouter/>
-      </div>
-    </AnimatePresence>
-  </>
-  )
+    return (
+        <>
+            <TitleTab/>
+            <Navigation burger={burger} setBurger={setBurgerOpen}/>
+            <AnimatePresence>
+                <div className="calendar-main" ref={calendarRef}>
+                    <Sidebar burgerOpen={burger} />
+                    <SiteRouter />
+                </div>
+            </AnimatePresence>
+            <FloatingForm handleClick={handleClick} burger={burger} />
+            {clickedElement &&(<AnimatePresence>
+                <NewTaskForm clickedElement={clickedElement} dragBorder={calendarRef} onClose={() => setClickedElement(null)}/>
+            </AnimatePresence>)}
+            <AnimatePresence>
+                {popup && <Popup setVisible={setPopup} notification={clickedElement}/>}
+            </AnimatePresence>
+            <button style={{position: "absolute", bottom: 0, left: 500, width: 300}} onClick={() => setPopup(true)}>Popup</button>
+        </>
+    );
 }
 
-export default App
+export default App;

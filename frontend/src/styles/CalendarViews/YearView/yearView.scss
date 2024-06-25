@@ -2,9 +2,10 @@
     padding-top: 14px;
     padding-bottom: 140px;
     padding-left: 5.125rem;
-    column-gap: 1rem;
+    column-gap: 10vw;
+    row-gap: 30px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 260px);
     font-size: 14px;
     font-family: 'Open Sans';
     flex-grow: 1;
@@ -32,4 +33,9 @@
 
 .prevm {
     color: var(--text-body);
+}
+
+.current-month-year-view {
+    box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.25);
+    border-radius: 0.5rem;
 }

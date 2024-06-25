@@ -63,9 +63,10 @@ export function titleTimeFormat (view, date) {
 
 export function inputTimeFormat(date) {
     const currYear = new Date().getFullYear();
-    if (currYear != date.getFullYear()) {
+    const currDate = new Date(date)
+    if (currYear != currDate.getFullYear()) {
     return (
-        date.toLocaleString("default", {
+        currDate.toLocaleString("default", {
             weekday: "long",
             month: "long",
             day: "numeric",
@@ -74,11 +75,53 @@ export function inputTimeFormat(date) {
     )
     } else {
         return (
-            date.toLocaleString("default", {
+            currDate.toLocaleString("default", {
                 weekday: "long",
                 month: "long",
                 day: "numeric",
             })
         )
     }
+}
+
+export function startDateMatch(startDate, endDate) {
+    const newStartDate = new Date(startDate);
+    const newEndDate = new Date(endDate);
+    if (newStartDate.getFullYear() == newEndDate.getFullYear() && newStartDate.getMonth() > newEndDate.getMonth()) {
+        return newStartDate;
+    } else if (newStartDate.getFullYear() > newEndDate.getFullYear()) {
+        return newStartDate;
+    } else if (newStartDate.getFullYear() == newEndDate.getFullYear()
+    && newStartDate.getMonth() == newEndDate.getMonth() 
+    && newStartDate.getDate() > newEndDate.getDate() ) {
+        return newStartDate;
+    } else return newEndDate;
+}
+
+export function endDateMatch(endDate, startDate) {
+    const newStartDate = new Date(startDate);
+    const newEndDate = new Date(endDate);
+    if (newEndDate.getFullYear() == newStartDate.getFullYear() && newEndDate.getMonth() < newStartDate.getMonth()) {
+        return newEndDate;
+    } else if (newEndDate.getFullYear() < newStartDate.getFullYear()) {
+        return newEndDate;
+    } else if (newStartDate.getFullYear() == newEndDate.getFullYear()
+    && newEndDate.getMonth() == newStartDate.getMonth() 
+    && newEndDate.getDate() < newStartDate.getDate()
+    ) {
+        return newEndDate;
+    } else return newStartDate;
+}
+
+export function hourTimeFormat(x){
+    return x.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})
+}
+
+export function timeMatch(startTime, endTime) {
+    const hour = 60 * 60 * 1000;
+    const start = Date.parse(startTime);
+    if (start > endTime) {
+        return start + hour
+    } else return endTime
+
 }

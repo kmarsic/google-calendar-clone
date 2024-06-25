@@ -14,7 +14,7 @@ export function WeekDays({date,day}) {
         <div className="week-day">
             <div className={isToday ? "week-day-name wname-today" : "week-day-name"}>{day}</div>
             <Link to='/Day'>
-                <div onClick={() => {dispatch(setDate(Date.parse(date))); dispatch(setView("Day"))}} id={Date.parse(date)} className={isToday ? "week-day-index windex-today" : "week-day-index"}>
+                <div onClick={() => {dispatch(setDate(Date.parse(date))); dispatch(setView("Day"))}} className={isToday ? "week-day-index windex-today" : "week-day-index"}>
                     <span>{date.getDate()}</span>
                 </div>
             </Link>

@@ -27,7 +27,6 @@ export function MiniDay({date, iterator, previous, next, isToday}) {
                 break;
             case 'Week':
                 if (newDate.getDate() < weekRangeStart || newDate.getDate() > weekRangeStart + 6) {
-                    console.log("x")
                     dispatch(setDate(date));
                     dispatch(setFocusDate(date));
                 } else dispatch(setFocusDate(date))
@@ -42,10 +41,9 @@ export function MiniDay({date, iterator, previous, next, isToday}) {
     }
     return (
         <div 
-        id={parsedDate}
         onClick={() => handleDateChange(view, parsedDate)}
         className="mini-box">
-            <div className={`${isToday ? "day-index-mini mini-today" : "day-index-mini"} ${parsedDate == focus ? "focused-date" : null} ${previous || next ? "empty" : null}`}><span>{iterator}</span></div>
+            <div className={`${isToday ? "day-index-mini mini-today" : "day-index-mini"} ${parsedDate == focus ? "focused-date" : ""} ${previous || next ? "empty" : ""}`}><span>{iterator}</span></div>
         </div>
     )
 }

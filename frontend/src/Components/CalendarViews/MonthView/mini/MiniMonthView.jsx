@@ -91,10 +91,15 @@ export function MiniMonthView() {
 
   const showWeekDays = () => {
     let weekDays = ["S", "M", "T","W", "T", "F", "S"];
+    let longDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const list = [];
     for (let i = 0; i <=6; i++) {
       list.push(
-        <div key = {`day-${i}`} className='mini-box mwd'><p className={"p" + (i + 1)}>{weekDays[i]}</p></div>
+        <div key = {`day-${i}`} className='mini-box mwd'>
+          <span>{weekDays[i]}</span>
+          <span className='box-hover'>{longDays[i]}</span>
+        </div>
+
       )
     }
 
