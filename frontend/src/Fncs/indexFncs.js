@@ -5,3 +5,4 @@ export { calcModalPosition, calcEditPosition } from "./Form/calcModalPosition";
 export { fileTypeImg } from "./Form/fileTypeImg";
 export { notificationErrorHandler } from "./Form/notificationErrorHandler";
 export { formatNotificationOutput } from "./Form/formatNotificationOutput";
+export { currentDayOccurrence } from "./Form/currentDayOccurrence";

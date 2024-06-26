@@ -1,0 +1,82 @@
+.repeat-modal-container {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left:0;
+    right:0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    background-color: var(--background-primary);
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 14px;
+    width: 370px;
+    height: fit-content;
+}
+
+.repeat-modal-title {
+    letter-spacing: 0.3px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+#repeat-number {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    text-align: center;
+    width: 48px;
+}
+
+#repeat-occurrence {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    text-align: center;
+    width: 48px;
+}
+
+.repeat-every {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.repeat-option {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+    background-color: rgb(241, 243, 244);
+    border-radius: 0.25rem;
+    .padding {
+        padding:0.5rem;
+    }
+    .box-hover {
+        left: -50px;
+        top: 40px;
+        width: 175px;
+    }
+}
+
+.repeat-radio {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-right: 40px;
+    input {
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+    }
+}
+
+.repeat-ends-state {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}

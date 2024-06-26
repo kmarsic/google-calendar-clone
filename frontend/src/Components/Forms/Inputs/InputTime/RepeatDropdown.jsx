@@ -1,34 +1,69 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { EventDataContext } from "../../formContext";
 import { motion } from 'framer-motion';
+import { createPortal } from "react-dom";
+import { currentDayOccurrence } from "../../../../Fncs/indexFncs";
 
 export function RepeatDropdown({ repeat, setRepeat, setDropdown, container }) {
     const formData = useContext(EventDataContext);
+    const dropdownRef = useRef(null);
+    const position = container.current.getBoundingClientRect();
+    const calendarMain = document.querySelector(".calendar-main").getBoundingClientRect();
+
     const weekDay = new Date(formData.startDate).toLocaleDateString(undefined, {weekday: "long"});
-    const dayCount = () => {
-        const dayIndex = new Date(formData.startDate).getDay();
-        const day = new Date(formData.startDate).getDate();
-        const year = new Date(formData.startDate).getFullYear();
-        const month = new Date(formData.startDate).getMonth();
-        const monthDays = new Date(year, month + 1, 0).getDate();
 
-        const orderedNumbers = ["first", "second", "third", "fourth", "fifth"]
-        let count = 0;
+    const [modalPosition, setModalPosition] = useState({
+        top: 0,
+        left: position.left,
+        bottom: 0,
+        originY: "bottom"
+    })
 
-        for (let i = 0; i < monthDays; i++) {
-            const iteration = new Date(year, month, i);
-            if (iteration.getDay() === dayIndex) {
-                count++;
-                if (iteration.getDate() === day) break;
-            }
+    useEffect(() => {
+        handleDropdownPositionTop();
+    }, [])
+
+    const handleDropdownPositionTop = () => {
+        const topDistance = calendarMain.bottom - position.top;
+        if (position.top > 500) {
+            setModalPosition({
+                ...modalPosition,
+                bottom: topDistance,
+                top: null,
+                originY: "bottom"
+            })
         }
-        return orderedNumbers[count - 1];
-    }
-    const repeatOptions = ["Does not repeat", "Daily", `Weekly on ${weekDay}`, `Monthly on the ${dayCount()} ${weekDay}`, `Annually on ${weekDay}`, "Every weekday (Monday to Friday)", "Custom..."]
-    return (
+        else {
+            setModalPosition({
+                ...modalPosition,
+                top: position.bottom,
+                bottom: null,
+                originY: "top"
+            })
+        }
+    } 
+
+    const repeatOptions = ["Does not repeat", "Daily", `Weekly on ${weekDay}`, `Monthly on the ${currentDayOccurrence(formData)} ${weekDay}`, `Annually on ${weekDay}`, "Every weekday (Monday to Friday)", "Custom..."]
+
+    const handleClickOutside = (e) => {
+        if (!container.current.contains(e.target) && !dropdownRef.current.contains(e.target)) {
+            setDropdown(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    return createPortal(
         <motion.ul 
         className="dropdown repeat-dropdown"
-        style={{originX:0 , originY: 0}}
+        ref={dropdownRef}
+        style={{originX: "left", originY: modalPosition.originY , width: 250, top: modalPosition.top, bottom: modalPosition.bottom, left: modalPosition.left}}
         initial={{opacity: 0, scale: 0.8}}
         animate={{opacity: 1, scale: 1}}
         transition={{duration: 0.1}}
@@ -37,6 +72,6 @@ export function RepeatDropdown({ repeat, setRepeat, setDropdown, container }) {
             {repeatOptions.map((option, index) => 
             <li key={index} onClick={(e) => {setRepeat(option);setDropdown(e) }}  className={repeat === option ? "dropdown-highlight" : null}>{option}</li>
             )}
-        </motion.ul>
-    )
+        </motion.ul>, document.body
+    ) 
 }

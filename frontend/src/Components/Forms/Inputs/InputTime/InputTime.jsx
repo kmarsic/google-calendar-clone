@@ -7,40 +7,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { TimeFrame } from "./TimeFrame";
 import { EventChangeContext, EventDataContext } from "../../formContext";
+import { RepeatModal } from "./RepeatModal/RepeatModal";
 
 export const InputTime = () => {
     const [repeat, setRepeat] = useState("Does not repeat");
+    const [repeatModal, setRepeatModal] = useState(true);
     const [dropdown, setDropdown] = useState(false);
+    const dropdownRef = useRef(null);
 
     const dispatchReducer = useContext(EventChangeContext);
     const formData = useContext(EventDataContext);
     const time = formData.allDay;
 
-    const dropdownRef = useRef(null);
 
     const handleTimeChange = (value) => {
         dispatchReducer({type: "allDay", payload: value})
     }
-
-    const handleButtonClick = (e) => {
-        if (e.target.closest(".repeat-dropdown")) {
-            setDropdown(!dropdown);
-        }
-    };
-
-    const handleClickOutside = (e) => {
-        if (!dropdownRef.current.contains(e.target)) {
-            setDropdown(false);
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
 
     useEffect(() => {
         const checkbox = document.getElementById("time-checkbox");
@@ -64,11 +46,14 @@ export const InputTime = () => {
                         <span className="dropdown-container repeat-dropdown-container" ref={dropdownRef} onClick={() => setDropdown(!dropdown)}>
                             <span>{repeat}</span>
                             <FontAwesomeIcon icon={faCaretDown} color="var(--text-body)"/>
-                            {dropdown ? <RepeatDropdown repeat={repeat} setRepeat={setRepeat} setDropdown={handleButtonClick}/> : null}
+                            {dropdown ? <RepeatDropdown repeat={repeat} setRepeat={setRepeat} setDropdown={setDropdown} container={dropdownRef}/> : null}
                         </span>
                     </div>
             </div>
+            {repeatModal ? <RepeatModal/> : null}
         </div>
     )
 }
+
+
 

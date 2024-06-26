@@ -49,6 +49,7 @@ function Task({task}) {
         <motion.div 
         className='week-assignment' 
         ref={editRef}
+        drag
         onContextMenu={(e) => {e.preventDefault();calcEditPosition(e, setModalPosition, editRef);handleEditModal()}}
         onClick={() => setPreviewModal(!previewModal)}
         style={{backgroundColor: task.color, top: pixels, height: height, zIndex: stack}}

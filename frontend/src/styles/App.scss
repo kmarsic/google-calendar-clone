@@ -42,7 +42,7 @@ a {
 .dark {
   background-color: black;
   opacity: 0.5;
-  z-index: 4;
+  z-index: 5;
 }
 
 .btn {
@@ -96,6 +96,31 @@ a {
     background-color: var(--hover-past);
   }
   position: relative;
+}
+
+.btn-small {
+  width: 20px;
+  height: 20px;
+  padding: 12px;
+  border-radius: 100%;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-gray {
+  background-color: var(--hover-main);
+  color: gray
+}
+
+.btn-focus {
+  background-color: var(--hover-main-focus);
+  color: white;
 }
 
 .box-hover {
