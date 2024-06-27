@@ -3,20 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "start-dev": "nodemon ./bin/www",
+    "start": "node ./index.js",
+    "start-dev": "nodemon ./index.js",
     "build": "webpack"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
-    "debug": "~2.6.9",
     "express": "^4.18.2",
-    "http-errors": "~1.6.3",
-    "jade": "^0.29.0",
-    "mongodb": "^6.4.0",
-    "mongoose": "^8.0.0",
-    "morgan": "~1.9.1"
+    "mongodb": "^6.4.0"
   },
   "devDependencies": {
     "dotenv": "^16.4.5",
