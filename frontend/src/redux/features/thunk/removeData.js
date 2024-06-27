@@ -1,14 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-
-const removeData = createAsyncThunk("taskManager/removeData", async (id) => {
+const removeData = createAsyncThunk("taskManager/removeData", async (task) => {
+    console.log(task)
     try {
-        const response = await fetch(`http://localhost:9000/tasks`, {
+        const response = await fetch(`http://localhost:9000/deleteItem`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(id)
+            body: JSON.stringify(task)
         });
 
         if (!response.ok) {

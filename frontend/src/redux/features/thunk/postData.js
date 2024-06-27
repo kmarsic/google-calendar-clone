@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-
 const postData = createAsyncThunk("taskManager/postData", async (updatedData) => {
+    console.log(updatedData)
     try {
-        const response = await fetch(`http://localhost:9000/tasks`, {
+        const response = await fetch(`http://localhost:9000/newItem`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
