@@ -8,11 +8,10 @@ export function SiteRouter() {
     return (
         <Routes>
             <Route path="/" element={<MonthView />} />
-            <Route path="*" element={<MonthView />} />
-            <Route path="/Month" element={<MonthView />} />
-            <Route path="/Year" element={<YearView />} />
-            <Route path="/Week" element={<WeekView />} />
-            <Route path="/Day" element={<DayView />} />
+            <Route path="Month" element={<MonthView />} />
+            <Route path="Year" element={<YearView />} />
+            <Route path="Week" element={<WeekView />} />
+            <Route path="Day" element={<DayView />} />
         </Routes>
     )
 }
