@@ -5,7 +5,7 @@ export const currentDayOccurrence = (formData) => {
     const month = new Date(formData.startDate).getMonth();
     const monthDays = new Date(year, month + 1, 0).getDate();
 
-    const orderedNumbers = ["first", "second", "third", "fourth", "fifth"]
+    const orderedNumbers = ["first", "second", "third", "fourth", "last"]
     let count = 0;
 
     for (let i = 0; i < monthDays; i++) {
