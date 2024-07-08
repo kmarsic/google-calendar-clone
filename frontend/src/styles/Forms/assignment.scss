@@ -64,11 +64,9 @@
 
 .week-assignment {
   position: absolute;
-  left: 4px;
-  width: 90%;
+  min-width: calc(100% - 8px);
   display:flex;
   flex-direction: column;
-  align-items: left;
   font-size: 12px;
   font-weight: 500;
   padding: 0.35rem 0.5rem;
