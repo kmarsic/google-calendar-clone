@@ -29,6 +29,8 @@
     background-color: transparent;
     text-align: center;
     width: 48px;
+    padding-inline: 0;
+    padding-block: 0;
 }
 
 #repeat-occurrence {
@@ -57,9 +59,17 @@
         padding:0.5rem;
     }
     .box-hover {
-        left: -50px;
+        scale: 0.9;
+        left: -40px;
         top: 40px;
-        width: 175px;
+        width: 150px;
+    }
+
+    &:hover {
+        .box-hover {
+            scale: 1;
+            opacity: 1;
+        }
     }
 }
 
