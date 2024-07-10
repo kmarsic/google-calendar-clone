@@ -4,19 +4,19 @@ import { ChangeRepeatDataContext, RepeatDataContext } from "../RepeatModal";
 export function RepeatNumberInput() {
     const dataContext = useContext(RepeatDataContext);
     const setDataContext = useContext(ChangeRepeatDataContext);
-    const value = dataContext.everyUnit;
+    const value = dataContext.repeatInterval;
 
     const [error, setError] = useState(false);
 
     const handleSubmit = (e) => {
-      if (e.target.value > 9999 || e.target.value < 0) return;
+      if (e.target.value > 9999 || e.target.value < 1 && e.target.value !== "") return;
       setError(false);
-      setDataContext({type: "everyUnit", payload: e.target.value})
+      setDataContext({type: "repeatInterval", payload: e.target.value})
       
     }
 
     const handleError = (e) => {
-      if (e.key === "-") {
+      if (e.key === "-" || e.key === "0" || e.key === "." ||e.key === "+") {
         setError(true)
         e.preventDefault();
       } else if(e.key === "+") {
@@ -32,7 +32,7 @@ export function RepeatNumberInput() {
           "bottom-border-animate padding"
         }>
           <input
-            id="repeat-number"
+            className="repeat-number"
             type="number"
             min={0}
             value={value}
@@ -41,7 +41,7 @@ export function RepeatNumberInput() {
           />
         </span>
         {error ? (
-        <span className="box-hover">
+        <span className="box-hover number-input-error">
           Must be greater than one
         </span>
       ) : null}
