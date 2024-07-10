@@ -133,8 +133,19 @@ a {
   background-color: var(--hover-info);
   border-radius: 2px;
   font-size: 11px;
-  top:0;
+  top: 30px;
   z-index: -1;
   opacity: 0;
   transition: 0.3s ease-in-out;
+  scale: 0.9;
+}
+
+.disabled {
+  user-select: none;
+  pointer-events: none;
+  > * {
+    opacity: 0.5;
+    pointer-events: none;
+    user-select: none;
+  }
 }
