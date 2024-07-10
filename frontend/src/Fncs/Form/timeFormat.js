@@ -84,6 +84,17 @@ export function inputTimeFormat(date) {
     }
 }
 
+export function inputTimeFormatShort(date) {
+    const currDate = new Date(date)
+    return (
+        currDate.toLocaleString("default", {
+            month: "short",
+            day: "numeric",
+            year: "numeric"
+        })
+    )
+}
+
 export function startDateMatch(startDate, endDate) {
     const newStartDate = new Date(startDate);
     const newEndDate = new Date(endDate);
