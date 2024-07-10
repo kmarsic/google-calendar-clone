@@ -9,12 +9,21 @@ import { ChangeRepeatDataContext, RepeatDataContext } from "../RepeatModal";
 export function RepeatMonthly() {
     const formData = useContext(EventDataContext);
     const weekDay = new Date(formData.startDate).toLocaleDateString(undefined, {weekday: "long"});
-    const repeatOptions = [`Monthly on day ${new Date(formData.startDate).getDate()}`, `Monthly on the ${currentDayOccurrence(formData)} ${weekDay}`]
+    const repeatOptions = [{
+        type: "index",
+        index: new Date(formData.startDate).getDate(),
+        dateString: `Monthly on day ${new Date(formData.startDate).getDate()}`
+        
+    }, {
+        type: "weekDayOccurence",
+        weekDay: weekDay,
+        dateString: `Monthly on the ${currentDayOccurrence(formData)} ${weekDay}`
+    }]
 
     const [dropdown, setDropdown] = useState(false);
-
     const dropdownRef = useRef(null);
-    const handleClickOutside = (e) => { if(!dropdownRef.current.contains(e.target)) setVisible(false) }
+
+    const handleClickOutside = (e) => { if(!dropdownRef.current.contains(e.target)) setDropdown(false) }
 
     useEffect(() => {
         document.addEventListener("mouseup", handleClickOutside);
@@ -29,19 +38,43 @@ export function RepeatMonthly() {
     const setContext = useContext(ChangeRepeatDataContext);
 
     const handleClick = (option) => {
-        setContext({type: "repeatOn", payload: option});
+        if (option.type === "index") {
+            setContext({type: "updateRepeatOnDayIndex", payload: option.index});
+            setContext({type: "updateRepeatOnWeekDayOccurence", payload: ""});
+        } else if (option.type === "weekDayOccurence") {
+            setContext({type: "updateRepeatOnWeekDayOccurence", payload: option.weekDay});
+            setContext({type: "updateRepeatOnDayIndex", payload: ""});
+        }
         setDropdown(false);
     }
 
+    useEffect(() => {
+        setContext({type: "updateRepeatOnDayIndex", payload: new Date(formData.startDate).getDate()})
+    }, [])
+
+    useEffect(() => {
+        return () => {
+            setContext({type: "updateRepeatOnDayIndex", payload: ""});
+            setContext({type: "updateRepeatOnWeekDayOccurence", payload: ""});
+        }
+    }, [])
+
+    const dropdownContent = () => {
+        if (dataContext.repeatOnDayIndex === "") {
+            return `Monthly on the ${currentDayOccurrence(formData)} ${weekDay}`
+        } else if (dataContext.repeatOnWeekDayOccurence === "") {
+            return `Monthly on day ${dataContext.repeatOnDayIndex}`
+        }
+    }
+
     return (
-        <div className="div-flex" style={{marginBottom: 20}}>
+        <div className="div-flex" style={{marginBottom: 20}} ref={dropdownRef}>
         <div
         className="repeat-option"
         onClick={() => setDropdown(!dropdown)}
-        ref={dropdownRef}
         >
             <div className="div-flex padding" style={{gap: "1rem"}}>
-                <span>{dataContext.repeatOn}</span>
+                <span>{dropdownContent()}</span>
                 {dropdown ? 
                     <FontAwesomeIcon icon={faCaretDown}/> :
                     <FontAwesomeIcon icon={faCaretUp}/>}
@@ -57,7 +90,7 @@ export function RepeatMonthly() {
                 exit={{opacity: 0}}
                 >
                     {repeatOptions.map((option, index) => 
-                        <li key={index} onClick={() => {handleClick(option)}} >{option}</li>
+                        <li key={index} onClick={() => {handleClick(option)}} >{option.dateString}</li>
                     )}
             </motion.ul>
         : null}
