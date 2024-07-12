@@ -37,12 +37,12 @@ export function FormNotification({ list, updateArray, uuid }) {
 
   //Array of dropdown options for when allDay isn't checked
   const options = [
-    { unit: "minutes", duration: "5" },
-    { unit: "minutes", duration: "10" },
-    { unit: "minutes", duration: "15" },
-    { unit: "minutes", duration: "30" },
-    { unit: "hours", duration: "1" },
-    { unit: "days", duration: "1" },
+    { unit: "minutes", duration: 5 },
+    { unit: "minutes", duration: 10 },
+    { unit: "minutes", duration: 15 },
+    { unit: "minutes", duration: 30 },
+    { unit: "hours", duration: 1 },
+    { unit: "days", duration: 1 },
     {
       unit: customNotificationData.unit,
       duration: customNotificationData.duration,
@@ -54,10 +54,10 @@ export function FormNotification({ list, updateArray, uuid }) {
 
   //Options when allDay is checked
   const allDayOptions = [
-    { unit: "days", duration: "0", time: formData.startDate + 60000 * 60 * 9 },
-    { unit: "days", duration: "1", time: formData.startDate + 60000 * 60 * 9 },
-    { unit: "days", duration: "2", time: formData.startDate + 60000 * 60 * 9 },
-    { unit: "weeks", duration: "1", time: formData.startDate + 60000 * 60 * 9 },
+    { unit: "days", duration: 0, time: formData.startDate + 60000 * 60 * 9 },
+    { unit: "days", duration: 1, time: formData.startDate + 60000 * 60 * 9 },
+    { unit: "days", duration: 2, time: formData.startDate + 60000 * 60 * 9 },
+    { unit: "weeks", duration: 1, time: formData.startDate + 60000 * 60 * 9 },
     {
       unit: customNotificationData.unit,
       duration: customNotificationData.duration,
