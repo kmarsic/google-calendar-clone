@@ -1,7 +1,7 @@
 import { useContext } from "react"
-import { RepeatDataContext } from "../RepeatModal"
 import { RepeatWeekly } from "./RepeatWeekly";
 import { RepeatMonthly } from "./RepeatMonthly";
+import { RepeatDataContext } from "../InputRepeat";
 
 export function RepeatOn() {
     const dataContext = useContext(RepeatDataContext);

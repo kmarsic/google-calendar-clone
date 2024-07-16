@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { ChangeRepeatDataContext, RepeatDataContext } from "../RepeatModal";
 import { EventDataContext } from "../../../../formContext";
+import { ChangeRepeatDataContext } from "../InputRepeat";
 
 export function RepeatWeekly() {
-  const dataContext = useContext(RepeatDataContext);
   const setContext = useContext(ChangeRepeatDataContext);
   const formData = useContext(EventDataContext);
 
@@ -18,7 +17,7 @@ export function RepeatWeekly() {
     "Saturday",
   ];
   const [selectedDays, setSelectedDays] = useState(
-    dataContext.repeatOnWeekDays
+    [new Date(formData.startDate).getDay()],
   );
   const weekDay = new Date(formData.startDate).getDay();
 

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { ChangeRepeatDataContext, RepeatDataContext } from "../RepeatModal";
+import { ChangeRepeatDataContext, RepeatDataContext } from "../InputRepeat";
 
 export function RepeatNumberInput() {
     const dataContext = useContext(RepeatDataContext);

@@ -1,7 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { EventDataContext, TimeContext } from "../../../../formContext";
 import { MiniCalendarForm } from "../../../../../CalendarViews/MonthView/mini/MiniCalendarForm";
-import { inputTimeFormat } from "../../../../../../Fncs/indexFncs";
 import { inputTimeFormatShort } from "../../../../../../Fncs/Form/timeFormat";
 
 export function RepeatEndsOn({active}) {

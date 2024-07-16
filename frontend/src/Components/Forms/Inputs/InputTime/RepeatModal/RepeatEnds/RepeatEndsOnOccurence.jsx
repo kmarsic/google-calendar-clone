@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { ChangeRepeatDataContext, RepeatDataContext } from "../RepeatModal";
+import { ChangeRepeatDataContext, RepeatDataContext } from "../InputRepeat";
 
 export function RepeatEndsOnOccurence({active}) {
     const dataContext = useContext(RepeatDataContext);

@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
-import { ChangeRepeatDataContext, RepeatDataContext } from "../RepeatModal";
+import { ChangeRepeatDataContext, RepeatDataContext } from "../InputRepeat";
 
 export function RepeatUnit({}) {
     const [visible, setVisible] = useState(false);

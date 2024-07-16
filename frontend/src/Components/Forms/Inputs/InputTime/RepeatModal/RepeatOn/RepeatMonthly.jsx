@@ -4,7 +4,7 @@ import { EventDataContext } from "../../../../formContext";
 import { useContext, useEffect, useRef, useState } from "react";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { motion } from 'framer-motion';
-import { ChangeRepeatDataContext, RepeatDataContext } from "../RepeatModal";
+import { ChangeRepeatDataContext, RepeatDataContext } from "../InputRepeat";
 
 export function RepeatMonthly() {
     const formData = useContext(EventDataContext);
@@ -16,7 +16,7 @@ export function RepeatMonthly() {
         
     }, {
         type: "weekDayOccurence",
-        weekDay: weekDay,
+        weekDay: new Date(formData.startDate).getDay(),
         dateString: `Monthly on the ${currentDayOccurrence(formData)} ${weekDay}`
     }]
 
