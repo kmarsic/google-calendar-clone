@@ -1,24 +1,17 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { MiniDay } from "../MonthView/mini/MiniDay";
-import { currentDate, setView, switchView } from "../../../redux/features/dateSlicer";
+import { currentDate, switchView } from "../../../redux/features/dateSlicer";
 import { motion } from "framer-motion";
 import { calendarVariant } from "../../../Fncs/framerVariants";
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
 
 export function YearView() {
     const mainDate = new Date(useSelector(currentDate));
     const switches = useSelector(switchView);
-    const dispatch = useDispatch();
-    const location = useLocation();
-
-    useEffect(() => {
-      dispatch(setView(location.pathname.substring(1)))
-    }, [])
 
     const currDate = new Date();
     const currentMonth = currDate.getMonth();
     const currentYear = currDate.getFullYear();
+
     const findMonthDays = (y, m) => {
     return new Date(y, m + 1, 0).getDate();
     };

@@ -1,33 +1,26 @@
 /* eslint-disable react/prop-types */
-import { useDispatch, useSelector } from "react-redux";
-import { currentDate, setView, switchView } from "../../../redux/features/dateSlicer";
+import { useSelector } from "react-redux";
+import { currentDate, switchView } from "../../../redux/features/dateSlicer";
 import { MonthDay } from "./MonthDay";
 import { motion } from "framer-motion";
 import { calendarVariant } from "../../../Fncs/framerVariants";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 
 export function MonthView() {
     const mainDate = new Date(useSelector(currentDate));
     const switches = useSelector(switchView);
-    const dispatch = useDispatch();
-    const location = useLocation();
 
     const [key, setKey] = useState(mainDate.getMonth());
 
     const handleKeyChange = () => {
         if (mainDate.getMonth() != key) {
             setKey(mainDate.getMonth());
-        }
+        } 
     };
 
     useEffect(() => {
         handleKeyChange();
     }, [mainDate]);
-
-    useEffect(() => {
-        dispatch(setView(location.pathname.substring(1)))
-    }, [])
 
     const findMonthDays = (y, m) => {
         return new Date(y, m + 1, 0).getDate();

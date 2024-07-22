@@ -1,24 +1,18 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 import { currentDate, setView, switchView } from "../../../redux/features/dateSlicer";
 import { WeekDays } from "./WeekDays";
 import { DaytimeGrid } from "../DaytimeGrid";
 import { motion } from "framer-motion";
 import { calendarVariant } from "../../../Fncs/framerVariants";
-import { useLocation } from "react-router-dom";
 import { TimeLegend} from "../TimeLegend";
 
 export function WeekView() {
     const mainDate = new Date(useSelector(currentDate));
     const switches = useSelector(switchView);
-    const dispatch = useDispatch();
-    const location = useLocation();
+
 
     const [navBorder, setNavBorder] = useState(false);
-
-    useEffect(() => {
-        dispatch(setView(location.pathname.substring(1)))
-    }, []);
 
     const showWeekGrid = () => {
         const grid = [];
