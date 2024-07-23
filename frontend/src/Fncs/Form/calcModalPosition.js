@@ -1,20 +1,33 @@
 export const calcModalPosition = (clickedElement,setPosition) => {
+    const container = clickedElement.data.target.getBoundingClientRect();
+    console.log(container)
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
     const modalWidth = 448;
-    const modalHeight = 462;
-    const desiredLeft = clickedElement.data.clientX;
-    const desiredTop = clickedElement.data.clientY;
+    const initialHeight = 481;
+    const maxModalHeight = 610;
+    let adjustedLeft;
+    let adjustedTop;
 
-    let adjustedLeft = desiredLeft;
-    let adjustedTop = desiredTop;
-
-    if (desiredLeft + modalWidth > viewportWidth) {
-        adjustedLeft = viewportWidth - modalWidth;
-    }
-
-    if (desiredTop + modalHeight > viewportHeight) {
-        adjustedTop = viewportHeight - modalHeight;
+    if (viewportWidth >= 1200 && viewportHeight > 900) {
+        //adjust X position based on container
+        if (container.left > 470) {
+            adjustedLeft = container.left - modalWidth - 40;
+        } else {
+            adjustedLeft = container.left + container.width + 8;
+        }
+        //adjust Y position based on viewport and the container
+        if (container.top > 650) {
+            adjustedTop = container.top - initialHeight + 27
+        } else if (container.top < 100) {
+            adjustedTop = 90 + 27
+        } else {
+            adjustedTop = 180;
+        }
+    // spawn around the center if viewport is smaller
+    } else if (viewportWidth < 1200 && viewportWidth >= 600) {
+        adjustedLeft = viewportWidth / 5 + 100;
+        adjustedTop = 270;
     }
 
     setPosition({ top: adjustedTop, left: adjustedLeft });
