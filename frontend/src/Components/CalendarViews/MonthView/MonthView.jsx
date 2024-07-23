@@ -14,6 +14,7 @@ export function MonthView() {
     const [key, setKey] = useState(mainDate.getMonth());
     const [animationOver, setAnimationOver] = useState(false);
     const scrollTimeoutRef = useRef(null);
+    const listenerRef = useRef(null);
 
     const handleKeyChange = () => {
         if (mainDate.getMonth() != key) {
@@ -42,10 +43,10 @@ export function MonthView() {
     };
 
     useEffect(() => {
-        window.addEventListener("wheel", handleViewChangeOnScroll);
+        listenerRef.current.addEventListener("wheel", handleViewChangeOnScroll);
 
         return () => {
-            window.removeEventListener("wheel", handleViewChangeOnScroll);
+            listenerRef.current.removeEventListener("wheel", handleViewChangeOnScroll);
         }
     },[mainDate])
 
@@ -171,6 +172,7 @@ export function MonthView() {
         <motion.div
             className="calendar-grid"
             key={key}
+            ref={listenerRef}
             variants={calendarVariant}
             initial={switches == "prev" ? "hidden" : "hiddenNext"}
             animate={"visible"}
