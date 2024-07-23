@@ -20,6 +20,8 @@ export function MonthView() {
             setKey(mainDate.getMonth());
         } 
     };
+
+    //Throttle the view change on consecutive scroll inputs
     const handleViewChangeOnScroll = (e) => {
         if (scrollTimeoutRef.current !== null) {
             clearTimeout(scrollTimeoutRef.current);
