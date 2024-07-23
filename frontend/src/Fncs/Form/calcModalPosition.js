@@ -1,6 +1,5 @@
 export const calcModalPosition = (clickedElement,setPosition) => {
     const container = clickedElement.data.target.getBoundingClientRect();
-    console.log(container)
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
     const modalWidth = 448;
