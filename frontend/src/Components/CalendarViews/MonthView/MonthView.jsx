@@ -1,22 +1,51 @@
 /* eslint-disable react/prop-types */
-import { useSelector } from "react-redux";
-import { currentDate, switchView } from "../../../redux/features/dateSlicer";
+import { useDispatch, useSelector } from "react-redux";
+import { currentDate, focusDate, setDate, setFocusDate, switchView } from "../../../redux/features/dateSlicer";
 import { MonthDay } from "./MonthDay";
 import { motion } from "framer-motion";
 import { calendarVariant } from "../../../Fncs/framerVariants";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function MonthView() {
     const mainDate = new Date(useSelector(currentDate));
     const switches = useSelector(switchView);
+    const dispatch = useDispatch();
 
     const [key, setKey] = useState(mainDate.getMonth());
+    const [animationOver, setAnimationOver] = useState(false);
+    const scrollTimeoutRef = useRef(null);
 
     const handleKeyChange = () => {
         if (mainDate.getMonth() != key) {
             setKey(mainDate.getMonth());
         } 
     };
+    const handleViewChangeOnScroll = (e) => {
+        if (scrollTimeoutRef.current !== null) {
+            clearTimeout(scrollTimeoutRef.current);
+        }
+
+        scrollTimeoutRef.current = setTimeout(() => {
+            if (animationOver) {
+                const newDate = new Date(mainDate);
+                if (e.deltaY > 0) {
+                    newDate.setMonth(newDate.getMonth() + 1);
+                } else if (e.deltaY < 0) {
+                    newDate.setMonth(newDate.getMonth() - 1);
+                }
+                dispatch(setDate(Date.parse(newDate)));
+                dispatch(setFocusDate(Date.parse(newDate)));
+            }
+        }, 10);
+    };
+
+    useEffect(() => {
+        window.addEventListener("wheel", handleViewChangeOnScroll);
+
+        return () => {
+            window.removeEventListener("wheel", handleViewChangeOnScroll);
+        }
+    },[mainDate])
 
     useEffect(() => {
         handleKeyChange();
@@ -143,6 +172,9 @@ export function MonthView() {
             variants={calendarVariant}
             initial={switches == "prev" ? "hidden" : "hiddenNext"}
             animate={"visible"}
+            onAnimationStart={() => setAnimationOver(false)}
+            onAnimationComplete={() => setAnimationOver(true)}
+            onAnimationEnd={() => console.log("end")}
             exit={"exit"}
         >
             <div className="weekDay-container">{showWeekDays()}</div>
