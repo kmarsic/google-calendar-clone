@@ -44,10 +44,6 @@ export function MonthView() {
 
     useEffect(() => {
         listenerRef.current.addEventListener("wheel", handleViewChangeOnScroll);
-
-        return () => {
-            listenerRef.current.removeEventListener("wheel", handleViewChangeOnScroll);
-        }
     },[mainDate])
 
     useEffect(() => {
