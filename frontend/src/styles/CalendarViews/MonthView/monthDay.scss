@@ -19,9 +19,7 @@
     background-color: var(--main-focus);
     border-radius: 50%;
     display: inline-block;
-    width: 4ch!important;
-    height: 4ch;
-    line-height: 1.1rem;
+    width: 3ch!important;
     &:hover {
       background-color: var(--hover-main-focus)!important;
     }
