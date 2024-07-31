@@ -3,6 +3,8 @@ import { EventChangeContext, EventDataContext } from "../../formContext";
 import { TimeFrameDropdown } from "./TimeFrameDropdown";
 import { quarterRound } from "../../../../Fncs/Form/quarterRound";
 import { hourTimeFormat } from "../../../../Fncs/Form/timeFormat";
+import { useDispatch, useSelector } from "react-redux";
+import { formData, handleFormInputs } from "../../../../redux/features/formSlicer";
 
 export function TimeFrame() {
     return (
@@ -14,13 +16,18 @@ export function TimeFrame() {
 }
 
 export function StartTimeFrame() {
-    const formData = useContext(EventDataContext);
-    const dispatchReducer = useContext(EventChangeContext);
+    const form = useSelector(formData)
+    const dispatch = useDispatch();
+
+    const handleChange = (type, payload) => {
+        dispatch(handleFormInputs([type,payload]))
+    }
+
     const [visible, setVisible] = useState(false);
     const dropdownRef = useRef(null);
 
-    const time = new Date(formData.startTime);
-    const date = new Date(formData.startDate)
+    const time = new Date(form.startTime);
+    const date = new Date(form.startDate)
     
     const times = [];
     for (let i = 0; i < 24; i++) {
@@ -43,19 +50,24 @@ export function StartTimeFrame() {
     return (
         <span className="bottom-border-animate">
             <input style={{width: "10ch", textAlign: "center"}} className="text-input" onClick={() => setVisible(true)} value={hourTimeFormat(time)}/>
-            <span ref={dropdownRef}>{visible ? <TimeFrameDropdown time="startTime" setVisible={setVisible} times={times} reducer={dispatchReducer}/> : null}</span>
+            <span ref={dropdownRef}>{visible ? <TimeFrameDropdown time="startTime" setVisible={setVisible} times={times} reducer={handleChange}/> : null}</span>
         </span>
     )
 }
 
 export function EndTimeFrame() {
-    const formData = useContext(EventDataContext);
-    const dispatchReducer = useContext(EventChangeContext);
+    const form = useSelector(formData)
+    const dispatch = useDispatch();
+
+    const handleChange = (type, payload) => {
+        dispatch(handleFormInputs([type,payload]))
+    }
+
     const [visible, setVisible] = useState(false);
     const dropdownRef = useRef(null);
-
-    const startTime = new Date(formData.startTime);
-    const endTime = new Date(formData.endTime);
+    console.log()
+    const startTime = new Date(form.startTime);
+    const endTime = new Date(form.endTime);
     const roundedMinutes = quarterRound(startTime.getMinutes());
 
     const times = [];
@@ -82,7 +94,7 @@ export function EndTimeFrame() {
         <span>&#8212;</span>
         <span className="bottom-border-animate">
         <input style={{width: "10ch", textAlign: "center"}} className="text-input" onClick={() => setVisible(true)} value={hourTimeFormat(endTime)}/>
-            <span ref={dropdownRef}>{visible ? <TimeFrameDropdown time="endTime" setVisible={setVisible} times={times} reducer={dispatchReducer}/> : null}</span>
+            <span ref={dropdownRef}>{visible ? <TimeFrameDropdown time="endTime" setVisible={setVisible} times={times} reducer={handleChange}/> : null}</span>
         </span>
         </>
     )

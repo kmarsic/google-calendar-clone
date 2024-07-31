@@ -2,15 +2,16 @@ import { motion, useInView } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faPen, faEnvelope, faXmark, faCalendarDay } from "@fortawesome/free-solid-svg-icons";
 import { createPortal } from "react-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { removeTask } from "../../redux/features/taskSlicer";
 import removeData from "../../redux/features/thunk/removeData";
 import { inputTimeFormat } from "../../Fncs/Form/timeFormat";
 
-export function AssignmentModal({ setPreviewModal, container, task }) {
+export function AssignmentModal({ setPreviewModal, container, task, setEditPage }) {
     const dispatch = useDispatch();
     const modalRef = useRef(null);
+
     const position = container.current.getBoundingClientRect();
 
     const handleModalLeft = () => {
@@ -49,13 +50,14 @@ export function AssignmentModal({ setPreviewModal, container, task }) {
         };
       }, []);
     return createPortal(
-        <motion.div
+        <>
+          <motion.div
         ref={modalRef}
         className="assignment-modal"
         style={{top: handleModalTop(), left: handleModalLeft()}}
         >
             <div className="assignment-modal-nav">
-                <FontAwesomeIcon color="var(--text-body)" className="btn-round" icon={faPen}/>
+                <FontAwesomeIcon color="var(--text-body)" className="btn-round" icon={faPen} onClick={() => setEditPage(true)}/>
                 <FontAwesomeIcon color="var(--text-body)" className="btn-round" icon={faTrashCan} onClick={() => handleSubmit(task)}/>
                 <FontAwesomeIcon color="var(--text-body)" className="btn-round" icon={faEnvelope}/>
                 <div onClick={() => setPreviewModal(false)}>
@@ -71,6 +73,7 @@ export function AssignmentModal({ setPreviewModal, container, task }) {
                 <FontAwesomeIcon color="var(--text-body)" size="lg" icon={faCalendarDay}/>
                 <div>Kristijan Maršić</div>
             </div>
-        </motion.div>, document.body
+        </motion.div>
+        </>, document.body
     )
 }

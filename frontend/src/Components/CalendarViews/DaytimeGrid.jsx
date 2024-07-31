@@ -1,18 +1,24 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { WeekAssignment } from "../Assignments/WeekAssignment";
+import { useDroppable } from "@dnd-kit/core";
 
 /* eslint-disable react/prop-types */
 export function DaytimeGrid({ date }) {
     const parsedDate = Date.parse(date);
-    const columnRef = useRef(null);
+    
+    const {isOver, setNodeRef} = useDroppable({
+        id: parsedDate
+    })
+
+    const style = {
+        backgroundColor: isOver ? 'rgba(174, 203, 250,0.2)' : undefined
+    }
     
     return (
-        <>
-        <div className="week-column" ref={columnRef}>
+        <div ref={setNodeRef} className="week-column" style={style}>
             <DrawGrid parsedDate={parsedDate}/>
             <WeekAssignment date={parsedDate}/>
         </div>
-        </>
     );
 }
 

@@ -6,15 +6,16 @@ import { MiniMonthViewForm } from "./MiniMonthViewForm";
 import { useDispatch, useSelector } from "react-redux";
 import { miniDate, nextMonthMini, previousMonthMini, setMiniDate } from "../../../../redux/features/dateSlicer";
 import { useContext, useEffect, useRef } from "react";
-import { EventDataContext, TimeContext } from "../../../Forms/formContext";
+import { TimeContext } from "../../../Forms/formContext";
+import { formData } from "../../../../redux/features/formSlicer";
 
 export function MiniCalendarForm() {
   const dispatch = useDispatch();
-  const formData = useContext(EventDataContext);
+  const form = useSelector(formData)
   const time = useContext(TimeContext);
 
   useEffect(() => {
-    dispatch(setMiniDate(formData[time]))
+    dispatch(setMiniDate(form[time]))
   }, []);
 
   const date = new Date(useSelector(miniDate));

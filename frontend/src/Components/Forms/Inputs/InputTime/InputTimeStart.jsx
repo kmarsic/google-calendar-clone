@@ -1,12 +1,16 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MiniCalendarForm } from "../../../CalendarViews/MonthView/mini/MiniCalendarForm";
-import { EventDataContext, TimeContext, FocusContext } from "../../formContext";
+import { TimeContext, FocusContext } from "../../formContext";
 import { inputTimeFormat } from "../../../../Fncs/Form/timeFormat";
+import { useSelector } from "react-redux";
+import { formData } from "../../../../redux/features/formSlicer";
 
 export function InputTimeStart() {
     const ref = useRef(null);
-    const formData = useContext(EventDataContext);
+    const form = useSelector(formData);
+
     const [calendarVisible, setCalendarvisible] = useState(false);
+
     const handleClickOutside = (e) => {
         if (!ref.current.contains(e.target)) {
             setCalendarvisible(false);
@@ -25,9 +29,9 @@ export function InputTimeStart() {
             <input
                 className="text-input input-time"
                 readOnly
-                style={{ width: inputTimeFormat(formData.startDate).length + 1 + "ch"}}
+                style={{ width: inputTimeFormat(form.startDate).length + 1 + "ch"}}
                 data-type="time"
-                value={inputTimeFormat(formData.startDate)}
+                value={inputTimeFormat(form.startDate)}
                 name="startDate"
                 data-name="startDate"
                 onFocus={() => setCalendarvisible(true)}/>

@@ -1,19 +1,19 @@
 /* eslint-disable react/prop-types */
 import { InputTimeStart } from "./InputTimeStart";
 import { InputTimeEnd } from "./InputTimeEnd";
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
 import { TimeFrame } from "./TimeFrame";
-import { EventChangeContext, EventDataContext } from "../../formContext";
 import { InputRepeat } from "./RepeatModal/InputRepeat";
+import { formData, handleFormInputs } from "../../../../redux/features/formSlicer";
+import { useDispatch, useSelector } from "react-redux";
 
 export const InputTime = () => {
-  const dispatchReducer = useContext(EventChangeContext);
-  const formData = useContext(EventDataContext);
-
-  const time = formData.allDay;
+  const dispatch = useDispatch();
+  const form = useSelector(formData);
+  const time = form.allDay;
 
   const handleTimeChange = (value) => {
-    dispatchReducer({ type: "allDay", payload: value });
+    dispatch(handleFormInputs(["allDay", value]));
   };
 
   useEffect(() => {

@@ -15,7 +15,6 @@ export const taskManager = createSlice({
         },
         
         removeTask(state,action) {
-            console.log(state.data)
             state.data = state.data.filter(task => task.uuid !== action.payload)
        },
        setTaskColor(state, action) {
@@ -27,7 +26,31 @@ export const taskManager = createSlice({
             }
         })
        },
-
+       changeTaskOnDrag(state,action) {
+        const uuid = action.payload[0];
+        const newDate = action.payload[1];
+        console.log(newDate)
+        state.data.map(task => {
+            if(task.uuid === uuid) {
+                const duration = task.endTime - task.startTime;
+                task.startDate = newDate;
+                task.endDate = newDate;
+                task.startTime = newDate;
+                task.endTime = newDate + duration;
+            }
+        })
+       },
+       updateTaskTimeOnDrag(state,action) {
+        const uuid = action.payload[0];
+        const newTime = action.payload[1];
+        state.data.map(task => {
+            if(task.uuid === uuid) {
+                const duration = task.endTime - task.startTime;
+                task.startTime = newTime;
+                task.endTime = newTime + duration;
+            }
+        })
+       },
         clearCompletedTasks(state) { 
             state.allTasks = state.allTasks.filter(task => task.completed === false)
             state.activeTasks = state.allTasks.filter(task => task.completed === false)
@@ -40,19 +63,14 @@ export const taskManager = createSlice({
             state.activeTasks = state.allTasks.filter(task => task.completed === false)
             state.completedTasks = state.allTasks.filter(task => task.completed === true)
         },
-        modifyTasks(state, action) {
-            const {activeTab, reorderedTodos} = action.payload;
-            switch (activeTab) {
-                case ("active"):
-                    state.activeTasks = reorderedTodos
-                    break;
-                case ("all"):
-                    state.allTasks = reorderedTodos
-                    break;
-                case ("completed"):
-                    state.completedTasks = reorderedTodos
-                    break;
-            }
+        modifyTask(state, action) {
+            const [type, taskData, payload] = action.payload;
+            state.data.map(task => {
+                if(task.uuid === taskData.uuid) {
+                    console.log(task[type])
+                    task[type] = payload;
+                }
+            })
             
         }
     },
@@ -74,7 +92,7 @@ export const taskManager = createSlice({
         }
     },
 })
-export const {addTask, removeTask, clearCompletedTasks, toggleCompletedTasks, modifyTasks, setTaskColor} = taskManager.actions;
+export const {addTask, removeTask, clearCompletedTasks, toggleCompletedTasks, modifyTask, setTaskColor, changeTaskOnDrag, updateTaskTimeOnDrag} = taskManager.actions;
 
 export const allTasks = (state) => state.taskList.data;
 

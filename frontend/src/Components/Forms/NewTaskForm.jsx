@@ -15,15 +15,27 @@ import { calcModalPosition, startDateMatch, endDateMatch, timeMatch } from "../.
 import { InputTitle } from "./Inputs/InputTitle";
 import { FormFooter, EventType, FormDock } from "./FormModules/indexFormModules"
 import { currentView } from "../../redux/features/dateSlicer";
+import { formData, handleFormInputs } from "../../redux/features/formSlicer";
 
 
 export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
     const dispatch = useDispatch();
+    const form = useSelector(formData)
     const view = useSelector(currentView);
     const dragControls = useDragControls();
+    console.log(form)
 
     const [modalPosition, setModalPosition] = useState({top: 0, left: 0});
     const [bottomBorder, setBottomBorder] = useState(false);
+
+    useEffect(() => {
+        dispatch(handleFormInputs(["type", clickedElement.type ? clickedElement.type : "form-event"]))
+        dispatch(handleFormInputs(["startTime", parseInt(clickedElement.id)]))
+        dispatch(handleFormInputs(["endTime", parseInt(clickedElement.id) + 3600000]))
+        dispatch(handleFormInputs(["allDay", view === "Month" ? true : false]))
+        dispatch(handleFormInputs(["startDate", parseInt(clickedElement.id)]))
+        dispatch(handleFormInputs(["endDate", parseInt(clickedElement.id)]))
+    }, [])
 
     const [eventData, dispatchReducer] = useReducer(reducer, {
         uuid: 'id' + new Date().getTime(),

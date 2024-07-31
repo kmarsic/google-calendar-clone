@@ -6,11 +6,11 @@ import { DaytimeGrid } from "../DaytimeGrid";
 import { motion } from "framer-motion";
 import { calendarVariant } from "../../../Fncs/framerVariants";
 import { TimeLegend} from "../TimeLegend";
+import { DndContext } from "@dnd-kit/core";
 
 export function WeekView() {
     const mainDate = new Date(useSelector(currentDate));
     const switches = useSelector(switchView);
-
 
     const [navBorder, setNavBorder] = useState(false);
 
@@ -61,29 +61,31 @@ export function WeekView() {
     }
 
     return (
-        <motion.div
+        <DndContext>
+            <motion.div
             className="week-view"
             key={mainDate}
             variants={calendarVariant}
             initial={switches == "prev" ? "hidden" : "hiddenNext"}
             animate={"visible"}
             exit={"exit"}
-        >
-            <div className={navBorder ? "week-nav-border" : "week-nav"}>
-                <div></div>
-                <div className="nav-grid">
-                    <div className="gmt">GMT+01</div>
-                    {showWeekDays()}
-                    {navBorderDiv()}
+            >
+                <div className={navBorder ? "week-nav-border" : "week-nav"}>
+                    <div></div>
+                    <div className="nav-grid">
+                        <div className="gmt">GMT+01</div>
+                        {showWeekDays()}
+                        {navBorderDiv()}
+                    </div>
                 </div>
-            </div>
-            <motion.div className="week-cal-body" onScroll={(e) => handleScroll(e)}>
-                <div className="time-frames"><TimeLegend/></div>
-                <div className="week-cal-grid">
-                    <div className="hairline"></div>
-                    {showWeekGrid()}
-                </div>
+                <motion.div className="week-cal-body" onScroll={(e) => handleScroll(e)}>
+                    <div className="time-frames"><TimeLegend/></div>
+                    <div className="week-cal-grid">
+                        <div className="hairline"></div>
+                        {showWeekGrid()}
+                    </div>
+                </motion.div>
             </motion.div>
-        </motion.div>
+        </DndContext>
     );
 }
