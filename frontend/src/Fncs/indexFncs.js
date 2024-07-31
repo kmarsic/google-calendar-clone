@@ -6,3 +6,5 @@ export { fileTypeImg } from "./Form/fileTypeImg";
 export { notificationErrorHandler } from "./Form/notificationErrorHandler";
 export { formatNotificationOutput } from "./Form/formatNotificationOutput";
 export { currentDayOccurrence } from "./Form/currentDayOccurrence";
+export { findMonthDays } from "./findMonthDays";
+export { findFirstDay } from "./findFirstDay";
