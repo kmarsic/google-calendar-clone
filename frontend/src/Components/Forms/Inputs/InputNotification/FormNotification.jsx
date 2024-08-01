@@ -108,7 +108,6 @@ export function FormNotification({ list, updateArray, uuid }) {
       )
     );
   }, [customNotificationData]);
-  console.log(customNotificationData.dropdown)
 
   return (
     <NotificationContext.Provider value={customNotificationData}>
