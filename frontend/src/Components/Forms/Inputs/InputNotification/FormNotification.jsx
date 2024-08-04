@@ -1,25 +1,27 @@
-import { useEffect, useRef, useReducer, useContext, useState } from "react";
+import { useEffect, useRef, useReducer, useState } from "react";
 import { createPortal } from "react-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { NotificationDropdown } from "./NotificationDropdown";
 import { NotificationModal } from "./NotificationModal/NotificationModal";
 import {
-  EventDataContext,
   NotificationChangeContext,
   NotificationContext,
 } from "../../formContext";
 import { formatNotificationOutput } from "../../../../Fncs/indexFncs";
+import { useSelector } from "react-redux";
+import { formData } from "../../../../redux/features/formSlicer";
 
 export function FormNotification({ list, updateArray, uuid }) {
-  const formData = useContext(EventDataContext);
+  const form = useSelector(formData);
+  
   const dropdownRef = useRef(null);
 
   const [currentNotification, setCurrentNotification] = useState({
     type: "Notification",
     duration: "",
     unit: "days",
-    time: formData.startDate + 60000 * 60 * 9,
+    time: form.startDate + 60000 * 60 * 9,
   });
 
   const [customNotificationData, dispatchReducer] = useReducer(reducer, {
@@ -30,7 +32,7 @@ export function FormNotification({ list, updateArray, uuid }) {
     type: "Notification",
     duration: "1",
     unit: "days",
-    time: formData.startDate + 60000 * 60 * 9,
+    time: form.startDate + 60000 * 60 * 9,
     visible: false,
     error: false,
   });
@@ -54,10 +56,10 @@ export function FormNotification({ list, updateArray, uuid }) {
 
   //Options when allDay is checked
   const allDayOptions = [
-    { unit: "days", duration: 0, time: formData.startDate + 60000 * 60 * 9 },
-    { unit: "days", duration: 1, time: formData.startDate + 60000 * 60 * 9 },
-    { unit: "days", duration: 2, time: formData.startDate + 60000 * 60 * 9 },
-    { unit: "weeks", duration: 1, time: formData.startDate + 60000 * 60 * 9 },
+    { unit: "days", duration: 0, time: form.startDate + 60000 * 60 * 9 },
+    { unit: "days", duration: 1, time: form.startDate + 60000 * 60 * 9 },
+    { unit: "days", duration: 2, time: form.startDate + 60000 * 60 * 9 },
+    { unit: "weeks", duration: 1, time: form.startDate + 60000 * 60 * 9 },
     {
       unit: customNotificationData.unit,
       duration: customNotificationData.duration,
@@ -69,7 +71,7 @@ export function FormNotification({ list, updateArray, uuid }) {
   ];
 
   function mappedList() {
-    if (formData.allDay) {
+    if (form.allDay) {
       return allDayOptions;
     } else return options;
   }
@@ -125,7 +127,7 @@ export function FormNotification({ list, updateArray, uuid }) {
               }
             >
               <span>
-                {formatNotificationOutput(currentNotification, formData)}
+                {formatNotificationOutput(currentNotification, form)}
               </span>
               <FontAwesomeIcon icon={faCaretDown} color="var(--text-body)" />
             </span>

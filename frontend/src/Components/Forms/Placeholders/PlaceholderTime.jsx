@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
+import { useDispatch, useSelector } from "react-redux";
 import { inputTimeFormat } from "../../../Fncs/Form/timeFormat";
-import { EventChangeContext, EventDataContext } from "../formContext";
 import { InputTime } from "./../Inputs/indexInputs";
-import { useContext } from "react";
+import { formData, handleFormInputs } from "../../../redux/features/formSlicer";
 
 export function PlaceholderTime({ handleFormFields, activeFormField}) {
-    const formData = useContext(EventDataContext);
-    const dispatchReducer = useContext(EventChangeContext);
+    const form = useSelector(formData);
+    const dispatch = useDispatch();
 
     const handleTimeChange = (value) => {
-        dispatchReducer({type: "allDay", payload: value})
+        dispatch(handleFormInputs({type: "allDay", payload: value}))
     }
 
     if (activeFormField.time === "input") {
@@ -22,14 +22,14 @@ export function PlaceholderTime({ handleFormFields, activeFormField}) {
                         <span className="div-flex">
                             <span className="placeholder-time" >
                                 <span className="placeholder-hover" data-name="time" onClick={(e) => handleFormFields(e)}>
-                                    {inputTimeFormat(formData.startDate)}
+                                    {inputTimeFormat(form.startDate)}
                                 </span>
                             </span>
                             <span style={{userSelect: "none"}}>&#8212;</span>
 
                             <span className="placeholder-time">
                                 <span className="placeholder-hover" data-name="time" onClick={(e) => handleFormFields(e)}>
-                                    {inputTimeFormat(formData.endDate)}
+                                    {inputTimeFormat(form.endDate)}
                                 </span>
                             </span>
                         </span>

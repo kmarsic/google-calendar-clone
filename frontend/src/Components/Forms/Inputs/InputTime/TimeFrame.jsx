@@ -1,5 +1,4 @@
-import { useContext, useRef, useState, useEffect } from "react"
-import { EventChangeContext, EventDataContext } from "../../formContext";
+import { useRef, useState, useEffect } from "react"
 import { TimeFrameDropdown } from "./TimeFrameDropdown";
 import { quarterRound } from "../../../../Fncs/Form/quarterRound";
 import { hourTimeFormat } from "../../../../Fncs/Form/timeFormat";
@@ -20,7 +19,7 @@ export function StartTimeFrame() {
     const dispatch = useDispatch();
 
     const handleChange = (type, payload) => {
-        dispatch(handleFormInputs([type,payload]))
+        dispatch(handleFormInputs({type: type, payload: payload}))
     }
 
     const [visible, setVisible] = useState(false);
@@ -60,12 +59,11 @@ export function EndTimeFrame() {
     const dispatch = useDispatch();
 
     const handleChange = (type, payload) => {
-        dispatch(handleFormInputs([type,payload]))
+        dispatch(handleFormInputs({type: type, payload: payload}))
     }
 
     const [visible, setVisible] = useState(false);
     const dropdownRef = useRef(null);
-    console.log()
     const startTime = new Date(form.startTime);
     const endTime = new Date(form.endTime);
     const roundedMinutes = quarterRound(startTime.getMinutes());

@@ -13,7 +13,7 @@ export const InputTime = () => {
   const time = form.allDay;
 
   const handleTimeChange = (value) => {
-    dispatch(handleFormInputs(["allDay", value]));
+    dispatch(handleFormInputs({type: "allDay",payload: value}));
   };
 
   useEffect(() => {

@@ -1,19 +1,20 @@
-import { useContext, useReducer, useRef, useState } from "react";
+import { useReducer, useRef, useState } from "react";
 import { createContext } from "react";
 import { RepeatDropdown } from "./RepeatDropdown";
-import { EventDataContext } from "../../../formContext";
 import { currentDayOccurrence } from "../../../../../Fncs/indexFncs";
 import { inputTimeFormatShort } from "../../../../../Fncs/Form/timeFormat";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { RepeatModal } from "./RepeatModal";
+import { useSelector } from "react-redux";
+import { formData } from "../../../../../redux/features/formSlicer";
 
 export const RepeatDataContext = createContext(null);
 export const ChangeRepeatDataContext = createContext(null);
 
 export function InputRepeat() {
-    const formData = useContext(EventDataContext);
-    const currDate = new Date(formData.startDate);
+    const form = useSelector(formData);
+    const currDate = new Date(form.startDate);
     const nextMonth = new Date(currDate.getFullYear, currDate.getMonth() + 1);
     const weekDay = currDate.toLocaleDateString(undefined, {weekday: "long"});
 
@@ -44,7 +45,7 @@ export function InputRepeat() {
     "Does not repeat", 
     "Daily", 
     `Weekly on ${weekDay}`, 
-    `Monthly on the ${currentDayOccurrence(formData)} ${weekDay}`, 
+    `Monthly on the ${currentDayOccurrence(form)} ${weekDay}`, 
     `Annually on ${weekDay}`, "Every weekday (Monday to Friday)", 
     "Custom..."
   ];

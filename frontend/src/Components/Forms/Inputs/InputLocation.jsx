@@ -1,12 +1,12 @@
-import { useContext } from "react"
-import { EventChangeContext, EventDataContext } from "../formContext"
+import { useDispatch, useSelector } from "react-redux";
+import { formData, handleFormInputs } from "../../../redux/features/formSlicer";
 
 /* eslint-disable react/prop-types */
 export function InputLocation() {
-    const formData = useContext(EventDataContext);
-    const dispatchReducer = useContext(EventChangeContext);
+    const form = useSelector(formData);
+    const dispatch = useDispatch();
     const handleInputChange = (e) => {
-        dispatchReducer({type: "location", payload: e.target.value})
+        dispatch(handleFormInputs({type:'location', payload: e.target.value}))
     }
     return (
         <div className="input-shell">
@@ -16,7 +16,7 @@ export function InputLocation() {
                         autoFocus
                         type="text"
                         name="location"
-                        value={formData.location}
+                        value={form.location}
                         placeholder="Location"
                         autoComplete="off"
                         onChange={(e) => handleInputChange(e)}

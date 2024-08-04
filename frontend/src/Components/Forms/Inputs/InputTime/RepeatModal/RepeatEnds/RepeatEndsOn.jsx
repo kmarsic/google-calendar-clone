@@ -1,11 +1,13 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { EventDataContext, TimeContext } from "../../../../formContext";
+import { useEffect, useRef, useState } from "react";
+import { TimeContext } from "../../../../formContext";
 import { MiniCalendarForm } from "../../../../../CalendarViews/MonthView/mini/MiniCalendarForm";
 import { inputTimeFormatShort } from "../../../../../../Fncs/Form/timeFormat";
+import { useSelector } from "react-redux";
+import { formData } from "../../../../../../redux/features/formSlicer";
 
 export function RepeatEndsOn({active}) {
     const ref = useRef(null);
-    const formData = useContext(EventDataContext);
+    const form = useSelector(formData);
     const [calendarVisible, setCalendarvisible] = useState(false);
     const handleClickOutside = (e) => {
         if (!ref.current.contains(e.target)) {
@@ -33,9 +35,9 @@ export function RepeatEndsOn({active}) {
             <input
                 className="repeat-number padding"
                 readOnly
-                style={{ width: inputTimeFormatShort(formData.startDate).length - 1 + "ch", backgroundColor: "inherit"}}
+                style={{ width: inputTimeFormatShort(form.startDate).length - 1 + "ch", backgroundColor: "inherit"}}
                 data-type="time"
-                value={inputTimeFormatShort(formData.startDate)}
+                value={inputTimeFormatShort(form.startDate)}
                 name="startDate"
                 data-name="startDate"/>
             <TimeContext.Provider value="startDate">

@@ -1,13 +1,15 @@
-import { useContext, useEffect, useRef, useState } from "react"
-import { EventChangeContext, EventDataContext } from "../formContext"
+import { useEffect, useRef, useState } from "react"
 import { BtnBold, BtnItalic, BtnClearFormatting, BtnLink, BtnNumberedList, BtnBulletList, BtnUnderline, Editor, EditorProvider, Toolbar, Separator} from 'react-simple-wysiwyg';
+import { useDispatch, useSelector } from "react-redux";
+import { formData, handleFormInputs } from "../../../redux/features/formSlicer";
 
 /* eslint-disable react/prop-types */
 export function InputDescription() {
-    const formData = useContext(EventDataContext);
-    const dispatchReducer = useContext(EventChangeContext);
+    const form = useSelector(formData);
+    const dispatch = useDispatch();
+
     const handleDescriptionChange = (e) => {
-        dispatchReducer({type: "description", payload: e.target.value})
+        dispatch(handleFormInputs({type: "description", payload: e.target.value}));
     }
     const [width, setWidth] = useState(0);
     const ref = useRef(null);
@@ -22,7 +24,7 @@ export function InputDescription() {
                     <EditorProvider>
                         <Editor
                         className="text-input" 
-                        value={formData.description} 
+                        value={form.description} 
                         onChange={handleDescriptionChange}
                         containerProps={{style: { minHeight: '70px', maxWidth: width}}}>
                             <Toolbar>

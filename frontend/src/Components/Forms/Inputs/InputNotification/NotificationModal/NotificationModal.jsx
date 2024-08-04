@@ -1,20 +1,22 @@
 import { useContext, useReducer } from "react";
-import { EventDataContext, NotificationChangeContext, NotificationContext } from "../../../formContext";
+import { NotificationChangeContext } from "../../../formContext";
 import { NotificationTypeSelect } from "./NotificationTypeSelect";
 import { NumberInput } from "./NotificationNumberInput";
 import { NotificationUnitSelect } from "./NotificationUnitSelect";
 import { NotificationTimeSelect } from "./NotificationTimeSelect";
 import { NotificationFooter } from "./NotificationFooter";
 import { notificationErrorHandler } from "../../../../../Fncs/indexFncs";
+import { useSelector } from "react-redux";
+import { formData } from "../../../../../redux/features/formSlicer";
 
 export function NotificationModal({ onClose, setCurrentNotification }) {
-  const formData = useContext(EventDataContext);
+  const form = useSelector(formData);
   const dispatchReducer = useContext(NotificationChangeContext);
   const [modalState, setModalState] = useReducer(reducer,{
     type: "Notification",
     duration: "1",
     unit: "days",
-    time: formData.startDate + 60000 * 60 * 9,
+    time: form.startDate + 60000 * 60 * 9,
     error: false
   })
 
@@ -45,7 +47,7 @@ export function NotificationModal({ onClose, setCurrentNotification }) {
           <NotificationTypeSelect setState={setModalState} state={modalState} />
           <NumberInput setState={setModalState} state={modalState} />
           <NotificationUnitSelect setState={setModalState} state={modalState} />
-          {formData.allDay === true ? <NotificationTimeSelect state={modalState} dispatchReducer={setModalState} /> : null}
+          {form.allDay === true ? <NotificationTimeSelect state={modalState} dispatchReducer={setModalState} /> : null}
         </div>
         <NotificationFooter onClose={() => onClose(false)} handleSubmit={handleSubmit} />
       </div>
@@ -54,6 +56,7 @@ export function NotificationModal({ onClose, setCurrentNotification }) {
 }
 
 function reducer(state, action) {
+  console.log(action.payload)
   switch (action.type) {
     case "type":
       return { ...state, type: action.payload };

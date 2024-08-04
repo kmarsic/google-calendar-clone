@@ -6,6 +6,7 @@ import { PlaceholderLocation, PlaceholderTime, InputUsername } from "../Inputs/i
 import { PlaceholderDescription } from "../Placeholders/PlaceholderDescription";
 import { PlaceholderGuest } from "../Placeholders/PlaceholderGuest";
 import { InputNotification } from "../Inputs/InputNotification/InputNotification";
+import { handleFormInputs } from "../../../redux/features/formSlicer";
 
 export function EventForm() {
     
@@ -54,7 +55,7 @@ export function EventForm() {
             <div className="icons">
                 <FontAwesomeIcon icon={faBell} color="var(--text-body" size="xl"/>
             </div>
-            <InputNotification/>
+            <InputNotification reducer={handleFormInputs}/>
         </>
     )
 }

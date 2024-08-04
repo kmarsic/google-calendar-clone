@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { EventDataContext } from "../../../../formContext";
 import { ChangeRepeatDataContext } from "../InputRepeat";
+import { useSelector } from "react-redux";
+import { formData } from "../../../../../../redux/features/formSlicer";
 
 export function RepeatWeekly() {
   const setContext = useContext(ChangeRepeatDataContext);
-  const formData = useContext(EventDataContext);
+  const form = useSelector(formData);
 
   const dayNames = ["S", "M", "T", "W", "T", "F", "S"];
   const longDayNames = [
@@ -17,9 +18,9 @@ export function RepeatWeekly() {
     "Saturday",
   ];
   const [selectedDays, setSelectedDays] = useState(
-    [new Date(formData.startDate).getDay()],
+    [new Date(form.startDate).getDay()],
   );
-  const weekDay = new Date(formData.startDate).getDay();
+  const weekDay = new Date(form.startDate).getDay();
 
   const handeClick = (index) => {
     if (index === weekDay && selectedDays.length === 1 && selectedDays.includes(index)) {

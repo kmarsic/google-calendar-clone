@@ -2,10 +2,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons"
 import { ColorForm } from "../ColorForm"
-import { useContext, useRef, useState, useEffect } from "react"
-import { EventDataContext } from "../formContext"
+import { useRef, useState, useEffect } from "react"
+import { useSelector } from "react-redux"
+import { formData } from "../../../redux/features/formSlicer"
 
 export function InputUsername() {
+    const form = useSelector(formData);
     const [isColorVisible, setIsColorVisible] = useState(false);
     const dropdownRef = useRef(null)
 
@@ -26,8 +28,6 @@ export function InputUsername() {
         };
     }, []);
 
-
-    const formData = useContext(EventDataContext);
     return(
         <div className="form-username">
                 <span className="text-input-grow0" >Username</span>
@@ -39,7 +39,7 @@ export function InputUsername() {
                 >
                         <div
                             className="color-switch"
-                            style={{ backgroundColor: formData.color }}
+                            style={{ backgroundColor: form.color }}
                         >
                             {isColorVisible ? (
                                 <ColorForm

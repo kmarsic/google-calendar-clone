@@ -1,23 +1,24 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { currentDayOccurrence } from "../../../../../../Fncs/indexFncs";
-import { EventDataContext } from "../../../../formContext";
 import { useContext, useEffect, useRef, useState } from "react";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { motion } from 'framer-motion';
 import { ChangeRepeatDataContext, RepeatDataContext } from "../InputRepeat";
+import { useSelector } from "react-redux";
+import { formData } from "../../../../../../redux/features/formSlicer";
 
 export function RepeatMonthly() {
-    const formData = useContext(EventDataContext);
-    const weekDay = new Date(formData.startDate).toLocaleDateString(undefined, {weekday: "long"});
+    const form = useSelector(formData)
+    const weekDay = new Date(form.startDate).toLocaleDateString(undefined, {weekday: "long"});
     const repeatOptions = [{
         type: "index",
-        index: new Date(formData.startDate).getDate(),
-        dateString: `Monthly on day ${new Date(formData.startDate).getDate()}`
+        index: new Date(form.startDate).getDate(),
+        dateString: `Monthly on day ${new Date(form.startDate).getDate()}`
         
     }, {
         type: "weekDayOccurence",
-        weekDay: new Date(formData.startDate).getDay(),
-        dateString: `Monthly on the ${currentDayOccurrence(formData)} ${weekDay}`
+        weekDay: new Date(form.startDate).getDay(),
+        dateString: `Monthly on the ${currentDayOccurrence(form)} ${weekDay}`
     }]
 
     const [dropdown, setDropdown] = useState(false);
@@ -49,7 +50,7 @@ export function RepeatMonthly() {
     }
 
     useEffect(() => {
-        setContext({type: "updateRepeatOnDayIndex", payload: new Date(formData.startDate).getDate()})
+        setContext({type: "updateRepeatOnDayIndex", payload: new Date(form.startDate).getDate()})
     }, [])
 
     useEffect(() => {
@@ -61,7 +62,7 @@ export function RepeatMonthly() {
 
     const dropdownContent = () => {
         if (dataContext.repeatOnDayIndex === "") {
-            return `Monthly on the ${currentDayOccurrence(formData)} ${weekDay}`
+            return `Monthly on the ${currentDayOccurrence(form)} ${weekDay}`
         } else if (dataContext.repeatOnWeekDayOccurence === "") {
             return `Monthly on day ${dataContext.repeatOnDayIndex}`
         }

@@ -1,19 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPaperclip, faXmark } from "@fortawesome/free-solid-svg-icons"
-import { useState } from "react"
+import { useContext } from "react"
 import { fileTypeImg } from "../../../Fncs/indexFncs";
+import { AttachmentChangeContext, AttachmentContext } from "../formContext";
 
 export function InputAttachment () {
-    const [uploadedFiles, setUploadedFiles] = useState([]);
+    const attachments = useContext(AttachmentContext);
+    const setAttachments = useContext(AttachmentChangeContext);
 
     function handleMultipleFiles(e) {
         const filesArray = Array.from(e.target.files)
-        setUploadedFiles(prevFiles => [...prevFiles, ...filesArray])
+        setAttachments(prevFiles => [...prevFiles, ...filesArray])
     }
     function handleFileRemove(file) {
-        const newList = uploadedFiles.filter((uploaded) => uploaded.name != file.name)
-        setUploadedFiles(newList)
+        const newList = attachments.filter((uploaded) => uploaded.name != file.name)
+        setAttachments(newList)
     }
 
     return (
@@ -23,7 +25,7 @@ export function InputAttachment () {
             </div>
             <div className="input-shell">
                 <div className="attachment-grid">
-                    {uploadedFiles.map((file, index) => {
+                    {attachments.map((file, index) => {
                         return (
                             <div key={index} className="attachment">
                                 <img src={fileTypeImg(file.type)} width="14px"/>

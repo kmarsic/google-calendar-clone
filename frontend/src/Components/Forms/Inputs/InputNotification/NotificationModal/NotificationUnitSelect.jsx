@@ -1,12 +1,13 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { EventDataContext } from "../../../formContext";
+import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { TypeDropdown } from "./TypeDropdown";
+import { useSelector } from "react-redux";
+import { formData } from "../../../../../redux/features/formSlicer";
 
 export function NotificationUnitSelect({setState, state}) {
     const [visible, setVisible] = useState(false);
-    const formData = useContext(EventDataContext);
+    const form = useSelector(formData);
     const notificationUnit = state.unit;
 
     const dropdownRef = useRef(null);
@@ -22,7 +23,7 @@ export function NotificationUnitSelect({setState, state}) {
     }, []);
 
     const list = () => {
-        const duration = formData.allDay;
+        const duration = form.allDay;
         if (duration) {
             return ["days", "weeks"];
         } else {

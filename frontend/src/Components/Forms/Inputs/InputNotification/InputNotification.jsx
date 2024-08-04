@@ -1,12 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FormNotification } from "./FormNotification";
-import { EventChangeContext } from "../../formContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
 
-export function InputNotification() {
+export function InputNotification({reducer}) {
   const [notifications, setNotifications] = useState([]);
   const [notificationArray, setNotificationArray] = useState([]);
+  const dispatch = useDispatch();
 
   const handleRemoveNotification = (rmnotification) => {
     const id = rmnotification.props.uuid
@@ -21,10 +22,8 @@ export function InputNotification() {
     setNotificationArray(newNotificationArray);
   };
 
-  const dispatchReducer = useContext(EventChangeContext);
-
   useEffect(() => {
-    dispatchReducer({ type: "notifications", payload: notificationArray });
+    dispatch(reducer({type: "notifications", payload: notificationArray}));
   }, [notificationArray]);
 
   function getNotificationPermission() {

@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
-import { useContext, useEffect, useRef, useState } from 'react';
-import { EventDataContext, NotificationChangeContext, NotificationContext } from '../../formContext';
+import { useContext, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { useSelector } from 'react-redux';
+import { formData } from '../../../../redux/features/formSlicer';
+import { NotificationChangeContext } from '../../formContext';
 
 export function NotificationDropdown({ container, format, setNotification, currentNotification, list }) {
+    const form = useSelector(formData);
     const dispatchReducer = useContext(NotificationChangeContext);
-    const formData = useContext(EventDataContext);
     const dropdownRef = useRef(null);
 
     const position = container.current.getBoundingClientRect();
@@ -31,12 +33,11 @@ export function NotificationDropdown({ container, format, setNotification, curre
             duration: option.duration,
             time: option.time,
         }));
-        dispatchReducer({ type: "dropdown", payload: false });
     }
 
     const handleClickOutside = (e) => {
         if (!container.current.contains(e.target) && !dropdownRef.current.contains(e.target)) {
-          dispatchReducer({ type: "dropdown", payload: false });
+            dispatchReducer({ type: "dropdown", payload: false });
         }
       };
     
@@ -84,9 +85,11 @@ export function NotificationDropdown({ container, format, setNotification, curre
                             key={index} 
                             onClick={(e) => {
                                 handleNotificationChange(option);
-                                option === "Custom..." ? dispatchReducer({type: "modal", payload: true}) : dispatchReducer({type: "modal", payload: false})}} 
-                            className={format(currentNotification, formData) === format(option, formData) ? "dropdown-highlight" : null}>
-                            {option === "Custom..." ? "Custom..." : format(option, formData)}
+                                option === "Custom..." ? dispatchReducer({type: "modal", payload: true}) : dispatchReducer({type: "modal", payload: false});
+                                dispatchReducer({ type: "dropdown", payload: false });
+                            }} 
+                            className={format(currentNotification, form) === format(option, form) ? "dropdown-highlight" : null}>
+                            {option === "Custom..." ? "Custom..." : format(option, form)}
                     </li>
                 )
             }

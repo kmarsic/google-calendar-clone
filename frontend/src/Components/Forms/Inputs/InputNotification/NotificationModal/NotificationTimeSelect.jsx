@@ -1,17 +1,22 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { EventDataContext, NotificationContext } from "../../../formContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { hourTimeFormat } from "../../../../../Fncs/Form/timeFormat";
 import { TimeFrameDropdown } from "../../InputTime/TimeFrameDropdown";
+import { useSelector } from "react-redux";
+import { formData } from "../../../../../redux/features/formSlicer";
 
 export function NotificationTimeSelect({dispatchReducer, state}) {
     const [visible, setVisible] = useState(false);
 
-    const formData = useContext(EventDataContext);
+    const form = useSelector(formData);
 
-    const date = new Date(formData.startDate);
+    const date = new Date(form.startDate);
     const time = new Date(state.time)
+
+    const handleTimeFrame = (type, payload) => {
+        dispatchReducer({type: type, payload: payload})
+    }
 
     const dropdownRef = useRef(null);
 
@@ -41,7 +46,7 @@ export function NotificationTimeSelect({dispatchReducer, state}) {
                 <div>{hourTimeFormat(time)}</div>
                 {visible ? <FontAwesomeIcon icon={faCaretUp} color="var(--text-body)"/> : <FontAwesomeIcon icon={faCaretDown} color="var(--text-body)"/>}
             </div>
-            <span>{visible ? <TimeFrameDropdown times={times} setVisible={setVisible} time={"time"} reducer={dispatchReducer}/> : null}</span>
+            <span>{visible ? <TimeFrameDropdown times={times} setVisible={setVisible} time={"time"} reducer={handleTimeFrame}/> : null}</span>
         </div>
         </>
     )

@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
-import { useContext } from "react";
 import { EventForm } from "./EventForm";
 import { TaskForm } from "./TaskForm";
-import { EventChangeContext, EventDataContext } from "../formContext";
+import { useDispatch, useSelector } from "react-redux";
+import { formData, handleFormInputs } from "../../../redux/features/formSlicer";
 
 export function EventType() {
-    const formData = useContext(EventDataContext);
-    const dispatchReducer = useContext(EventChangeContext);
-    const handleEventTypeChange = (typ) => {
-        dispatchReducer({type: "type", payload: typ})
+    const form = useSelector(formData)
+    const dispatch = useDispatch();
+    const handleEventTypeChange = (type) => {
+        dispatch(handleFormInputs({type: "type", payload: type}))
     }
 
     return (
@@ -22,7 +22,7 @@ export function EventType() {
             </button>            
             <button style={{ display: "none" }}></button>
         </div>
-        {formData.type === "form-task" ? <TaskForm/> : <EventForm/>}
+        {form.type === "form-task" ? <TaskForm/> : <EventForm/>}
     </>
         
 

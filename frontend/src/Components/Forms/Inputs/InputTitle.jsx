@@ -1,12 +1,12 @@
-import { useContext } from "react"
-import { EventChangeContext, EventDataContext } from "../formContext"
+import { useDispatch, useSelector } from "react-redux";
+import { formData, handleFormInputs } from "../../../redux/features/formSlicer";
 
 /* eslint-disable react/prop-types */
 export function InputTitle () {
-    const formData = useContext(EventDataContext);
-    const dispatchReducer = useContext(EventChangeContext);
+    const form = useSelector(formData);
+    const dispatch = useDispatch();
     const handleInputChange = (e) => {
-        dispatchReducer({type:'title', payload: e.target.value})
+        dispatch(handleFormInputs({type:'title', payload: e.target.value}))
     }
     return (
         <span className="bottom-border-animate form-title">
@@ -16,7 +16,7 @@ export function InputTitle () {
                 autoFocus
                 required
                 placeholder="Add title and time"
-                value={formData.title}
+                value={form.title}
                 autoComplete="off"
                 onChange={(e) => handleInputChange(e)}
             />
