@@ -18,14 +18,13 @@ export const taskManager = createSlice({
             state.data = state.data.filter(task => task.uuid !== action.payload)
        },
        setTaskColor(state, action) {
-        const uuid = action.payload[0].uuid;
-        const taskColor = action.payload[1];
-        state.data.map(task => {
+        const { uuid, color } = action.payload;
+        state.data.forEach(task => {
             if (task.uuid === uuid) {
-                task.color = taskColor
+                task.color = color;
             }
-        })
-       },
+        });
+    },
        changeTaskOnDrag(state,action) {
         const uuid = action.payload[0];
         const newDate = action.payload[1];
@@ -51,27 +50,25 @@ export const taskManager = createSlice({
             }
         })
        },
-        clearCompletedTasks(state) { 
-            state.allTasks = state.allTasks.filter(task => task.completed === false)
-            state.activeTasks = state.allTasks.filter(task => task.completed === false)
-            state.completedTasks = state.allTasks.filter(task => task.completed === true)
-        },
+       clearCompletedTasks(state) {
+        state.data = state.data.filter(task => !task.completed);
+    },
 
-        toggleCompletedTasks(state, action) { 
+        toggleCompletedTasks(state, action) {
             const { id, completed } = action.payload;
-            state.allTasks = state.allTasks.map(task => task.id === id ? {...task, completed} : task)
-            state.activeTasks = state.allTasks.filter(task => task.completed === false)
-            state.completedTasks = state.allTasks.filter(task => task.completed === true)
+            state.data.forEach(task => {
+                if (task.id === id) {
+                    task.completed = completed;
+                }
+            });
         },
         modifyTask(state, action) {
-            const [type, taskData, payload] = action.payload;
-            state.data.map(task => {
-                if(task.uuid === taskData.uuid) {
-                    console.log(task[type])
+            const { type, uuid, payload } = action.payload;
+            state.data.forEach(task => {
+                if (task.uuid === uuid) {
                     task[type] = payload;
                 }
-            })
-            
+            });
         }
     },
     extraReducers:{
