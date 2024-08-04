@@ -9,7 +9,6 @@ import { BoxOverflow } from "./BoxOverflow";
 
 export function Assignment({date}) {
     const assignments = useSelector(allTasks);
-
     const [overflowVisible, setOverflowVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
 
