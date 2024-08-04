@@ -14,7 +14,7 @@ export function MiniFormDay({date, iterator, previous, next, isToday}) {
     const parsedDate = Date.parse(date);
 
     const handleDateChange = (time, date) => {
-        dispatch(handleFormInputs([time, date]))
+        dispatch(handleFormInputs({type: time, payload: date}))
     }
 
     return (
