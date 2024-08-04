@@ -99,29 +99,29 @@ export function startDateMatch(startDate, endDate) {
     const newStartDate = new Date(startDate);
     const newEndDate = new Date(endDate);
     if (newStartDate.getFullYear() == newEndDate.getFullYear() && newStartDate.getMonth() > newEndDate.getMonth()) {
-        return newStartDate;
+        return startDate;
     } else if (newStartDate.getFullYear() > newEndDate.getFullYear()) {
-        return newStartDate;
+        return startDate;
     } else if (newStartDate.getFullYear() == newEndDate.getFullYear()
     && newStartDate.getMonth() == newEndDate.getMonth() 
     && newStartDate.getDate() > newEndDate.getDate() ) {
-        return newStartDate;
-    } else return newEndDate;
+        return startDate;
+    } else return endDate;
 }
 
 export function endDateMatch(endDate, startDate) {
     const newStartDate = new Date(startDate);
     const newEndDate = new Date(endDate);
     if (newEndDate.getFullYear() == newStartDate.getFullYear() && newEndDate.getMonth() < newStartDate.getMonth()) {
-        return newEndDate;
+        return endDate;
     } else if (newEndDate.getFullYear() < newStartDate.getFullYear()) {
-        return newEndDate;
+        return endDate;
     } else if (newStartDate.getFullYear() == newEndDate.getFullYear()
     && newEndDate.getMonth() == newStartDate.getMonth() 
     && newEndDate.getDate() < newStartDate.getDate()
     ) {
-        return newEndDate;
-    } else return newStartDate;
+        return endDate;
+    } else return startDate;
 }
 
 export function hourTimeFormat(x){
@@ -130,9 +130,8 @@ export function hourTimeFormat(x){
 
 export function timeMatch(startTime, endTime) {
     const hour = 60 * 60 * 1000;
-    const start = Date.parse(startTime);
-    if (start > endTime) {
-        return start + hour
+    if (startTime > endTime) {
+        return startTime + hour
     } else return endTime
 
 }
