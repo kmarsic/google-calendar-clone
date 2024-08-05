@@ -4,7 +4,7 @@ import { ChangeRepeatDataContext, RepeatDataContext } from "../InputRepeat";
 export function RepeatEndsOnOccurence({active}) {
     const dataContext = useContext(RepeatDataContext);
     const setDataContext = useContext(ChangeRepeatDataContext);
-    const value = dataContext.endAfterOccurences;
+    const value = dataContext.repeatEnds.after;
 
     const inputRef = useRef(null);
 

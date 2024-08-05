@@ -1,13 +1,17 @@
-import { useEffect, useRef, useState } from "react";
-import { TimeContext } from "../../../../formContext";
-import { MiniCalendarForm } from "../../../../../CalendarViews/MonthView/mini/MiniCalendarForm";
+import { useContext, useEffect, useRef, useState } from "react";
 import { inputTimeFormatShort } from "../../../../../../Fncs/Form/timeFormat";
 import { useSelector } from "react-redux";
 import { formData } from "../../../../../../redux/features/formSlicer";
+import { MiniCalendarInd } from "../../../../../CalendarViews/MonthView/mini/Independent/MiniCalendarInd";
+import { ChangeRepeatDataContext, RepeatDataContext } from "../InputRepeat";
 
 export function RepeatEndsOn({active}) {
     const ref = useRef(null);
     const form = useSelector(formData);
+
+    const dataContext = useContext(RepeatDataContext);
+    const setDataContext = useContext(ChangeRepeatDataContext);
+
     const [calendarVisible, setCalendarvisible] = useState(false);
     const handleClickOutside = (e) => {
         if (!ref.current.contains(e.target)) {
@@ -19,13 +23,16 @@ export function RepeatEndsOn({active}) {
         active === "On" ? setCalendarvisible(true) : null
     }
 
+    const handleDateChange = (date) => {
+        setDataContext({type: "date", payload: date})
+    }
+
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside)
         return () => {
             document.removeEventListener("mousedown",handleClickOutside)
         }
     }, [])
-
     return (
         <div 
         className={active === "On" ? "repeat-option" : "repeat-option disabled"}
@@ -35,14 +42,12 @@ export function RepeatEndsOn({active}) {
             <input
                 className="repeat-number padding"
                 readOnly
-                style={{ width: inputTimeFormatShort(form.startDate).length - 1 + "ch", backgroundColor: "inherit"}}
+                style={{ width: inputTimeFormatShort(dataContext.repeatEnds.date).length + "ch", backgroundColor: "inherit"}}
                 data-type="time"
-                value={inputTimeFormatShort(form.startDate)}
+                value={inputTimeFormatShort(dataContext.repeatEnds.date)}
                 name="startDate"
                 data-name="startDate"/>
-            <TimeContext.Provider value="startDate">
-                {calendarVisible ? <MiniCalendarForm/> : null}
-            </TimeContext.Provider>
+            {calendarVisible ? <MiniCalendarInd date={form.startDate} reducer={handleDateChange}/> : null}
         </span>
         </div>
     )

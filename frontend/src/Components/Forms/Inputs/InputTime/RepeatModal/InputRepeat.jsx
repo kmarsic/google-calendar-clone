@@ -15,7 +15,7 @@ export const ChangeRepeatDataContext = createContext(null);
 export function InputRepeat() {
     const form = useSelector(formData);
     const currDate = new Date(form.startDate);
-    const nextMonth = new Date(currDate.getFullYear, currDate.getMonth() + 1);
+    const nextMonth = new Date(currDate.getFullYear(), currDate.getMonth() + 1, currDate.getDay());
     const weekDay = currDate.toLocaleDateString(undefined, {weekday: "long"});
 
     const [customModal, setCustomModal] = useState(false);
@@ -37,7 +37,7 @@ export function InputRepeat() {
         repeatEnds: {
             state: "Never",
             date: inputTimeFormatShort(nextMonth),
-            after: 12
+            after: 30
         }
     }
   )
@@ -116,6 +116,14 @@ function reducer(state, action) {
         return {
           ...state,
           endAfterOccurences: action.payload,
+        };
+        case "date":
+          console.log(state)
+        return {
+          ...state,
+          repeatEnds: {
+            date: action.payload
+          }
         };
       default:
         return state;
