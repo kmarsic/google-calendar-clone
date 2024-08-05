@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
-import { MiniMonthView } from "./MiniMonthView";
 import { useDispatch, useSelector } from "react-redux";
-import { miniDate, nextMonthMini, previousMonthMini } from "../../../../redux/features/dateSlicer";
+import { MiniMonthView } from "./MiniMonthView";
 import { useRef } from "react";
 import { motion } from "framer-motion";
+import { miniDate, nextMonthMini, previousMonthMini } from "../../../../redux/features/dateSlicer";
 
 export function MiniViewEmbed({embed}) {
     const date = new Date(useSelector(miniDate));
