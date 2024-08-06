@@ -48,7 +48,7 @@ export function StartTimeFrame() {
 
     return (
         <span className="bottom-border-animate">
-            <input style={{width: "10ch", textAlign: "center"}} className="text-input" onClick={() => setVisible(true)} value={hourTimeFormat(time)}/>
+            <input readOnly style={{width: "10ch", textAlign: "center"}} className="text-input" onClick={() => setVisible(true)} value={hourTimeFormat(time)}/>
             <span ref={dropdownRef}>{visible ? <TimeFrameDropdown time="startTime" setVisible={setVisible} times={times} reducer={handleChange}/> : null}</span>
         </span>
     )
@@ -91,7 +91,7 @@ export function EndTimeFrame() {
         <>
         <span>&#8212;</span>
         <span className="bottom-border-animate">
-        <input style={{width: "10ch", textAlign: "center"}} className="text-input" onClick={() => setVisible(true)} value={hourTimeFormat(endTime)}/>
+        <input readOnly style={{width: "10ch", textAlign: "center"}} className="text-input" onClick={() => setVisible(true)} value={hourTimeFormat(endTime)}/>
             <span ref={dropdownRef}>{visible ? <TimeFrameDropdown time="endTime" setVisible={setVisible} times={times} reducer={handleChange}/> : null}</span>
         </span>
         </>
