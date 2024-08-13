@@ -49,7 +49,7 @@ export function TitleTab() {
     return (
         <Helmet>
                 <title>
-                    Google Calendar -{" "} {determineTitle()}
+                    {`Google Calendar - ${determineTitle()}`}
                 </title>
                 <link
                     rel="icon"
