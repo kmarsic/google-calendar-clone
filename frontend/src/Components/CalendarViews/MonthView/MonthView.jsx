@@ -73,12 +73,11 @@ export function MonthView() {
             initial={switches == "prev" ? "hidden" : "hiddenNext"}
             animate={"visible"}
             onAnimationStart={() => setAnimationOver(false)}
-            onAnimationComplete={() => setAnimationOver(true)}
-            onAnimationEnd={() => console.log("end")}
+            onAnimationComplete={() => console.log("end")}
             exit={"exit"}
         >
             <div className="weekDay-container">{showWeekDays()}</div>
-            <ShowCalendarMonth date={mainDate}/>
+            <ShowCalendarMonth/>
         </motion.div>
     );
 }
