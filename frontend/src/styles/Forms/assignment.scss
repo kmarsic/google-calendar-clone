@@ -1,85 +1,123 @@
 .assignment {
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    font-size: 12px;
-    font-weight: 500;
-    margin-bottom: 0.25rem;
-    background-color: var(--highlightHoliday);
-    padding: 0.125rem 0.5rem;
-    border: 1px solid var(--background-primary);
-    border-radius: 4px;
-    color: white;
-    text-align: left;
-    cursor: pointer;
-    &:hover {
-      opacity: 0.9;
-    }
-    button {
-      background-color: inherit;
-      border: none;
-      cursor: pointer;
-      &:hover {
-        scale: 1.05;
-        transition: all 1500 ease-in-out;
-      }
-    }
-  }
-  
-  .assignment-overflow {
-    font-size: 12px;
-    font-weight: 500;
-    margin-bottom: 0.25rem;
-    padding: 0.125rem 0.5rem;
-    border-radius: 4px;
-    text-align: left;
-    cursor: pointer;
-    &:hover {
-      background-color: var(--hover-main);
-    }
-  }
-  
-  .assignment-overflow-modal {
-    z-index: 3;
-    position: absolute;
-    background-color: white;
-    width: 240px;
-    box-shadow: 0px 2px 2px 2px rgba(0,0,0,0.25);
-    border-radius: 0.25rem;
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  
-  .assignment-overflow-modal-overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top:0;
-    left: 0;
-    z-index: 2;
-  }
-
-.week-assignment {
-  position: absolute;
-  min-width: calc(100% - 8px);
-  display:flex;
-  flex-direction: column;
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 4px;
   font-size: 12px;
   font-weight: 500;
-  padding: 0.35rem 0.5rem;
+  margin-bottom: 0.25rem;
+  background-color: var(--highlightHoliday);
+  padding: 0.125rem 0.5rem;
   border: 1px solid var(--background-primary);
   border-radius: 4px;
   color: white;
   text-align: left;
   cursor: pointer;
+
   &:hover {
-    opacity: 0.9;
-   }
+    &::after {
+      opacity: 0.1;
+    }
+  }
+
+  button {
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      scale: 1.05;
+      transition: all 1500 ease-in-out;
+    }
+  }
 }
 
+.assignment-allDay {
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+}
+
+.assignment::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  left: -1px;
+  bottom: 1px;
+  border-radius: 4px;
+  background-color: black;
+  transition: 0.2s;
+}
+
+.week-assignment::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  left: -1px;
+  bottom: 1px;
+  border-radius: 4px;
+  background-color: black;
+  transition: 0.2s;
+}
+
+.week-assignment {
+  position: absolute;
+  min-width: calc(100% - 8px);
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0.35rem 0.5rem;
+  border-radius: 4px;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    &::after {
+      opacity: 0.1;
+    }
+  }
+}
+
+.assignment-overflow {
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 4px;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--hover-main);
+  }
+}
+
+.assignment-overflow-modal {
+  z-index: 3;
+  position: absolute;
+  background-color: white;
+  width: 240px;
+  box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.assignment-overflow-modal-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
 
 .assignment-temp {
   font-size: 12px;
@@ -91,6 +129,7 @@
   color: white;
   text-align: left;
   cursor: pointer;
+
   &:hover {
     opacity: 0.9;
   }
@@ -98,19 +137,22 @@
 
 .assignment-edit {
   background-color: white;
-  box-shadow: 0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
+  box-shadow: 0 1px 3px 0 rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15);
   position: absolute;
   border-radius: 0.25rem;
-  width:200px;
+  width: 200px;
   z-index: 4;
+
   .delete {
     padding: 0.5rem;
     cursor: pointer;
     font-family: 'Roboto';
     font-size: 14px;
+
     &:hover {
       background-color: var(--hover-main);
     }
+
     span {
       margin-left: 1rem;
     }
@@ -135,6 +177,7 @@
   display: flex;
   justify-content: right;
   gap: 0.5rem;
+
   div {
     margin-left: 1rem;
   }
