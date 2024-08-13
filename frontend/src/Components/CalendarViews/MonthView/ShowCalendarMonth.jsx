@@ -2,10 +2,13 @@ import { MonthDay } from "./MonthDay";
 import { findFirstDay } from "../../../Fncs/findFirstDay";
 import { findMonthDays } from "../../../Fncs/findMonthDays";
 import { gridRule } from "../../../Fncs/gridRule";
+import { useSelector } from "react-redux";
+import { currentDate } from "../../../redux/features/dateSlicer";
 
-export const ShowCalendarMonth = ({date}) => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
+export const ShowCalendarMonth = () => {
+    const mainDate = new Date(useSelector(currentDate));
+    const year = mainDate.getFullYear();
+    const month = mainDate.getMonth();
     const monthDays = findMonthDays(year, month);
     const firstDay = findFirstDay(year, month);
     const allDays = [];
@@ -52,7 +55,7 @@ export const ShowCalendarMonth = ({date}) => {
                     className="month-container"
                     style={{
                         gridTemplateRows: `repeat(${
-                            gridRule(date) ? 6 : 5
+                            gridRule(mainDate) ? 6 : 5
                         },1fr)`,
                     }}
                 >
@@ -70,7 +73,7 @@ export const ShowCalendarMonth = ({date}) => {
         <div
             className="month-container"
             style={{
-                gridTemplateRows: `repeat(${gridRule() ? 6 : 5},1fr)`,
+                gridTemplateRows: `repeat(${gridRule(mainDate) ? 6 : 5},1fr)`,
             }}
         >
             {allDays.map((key) => key)}
