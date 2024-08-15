@@ -1,27 +1,11 @@
 /* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faComment, faList } from "@fortawesome/free-solid-svg-icons";
-import { PlaceholderTime } from "../Placeholders/PlaceholderTime";
-import { useState } from "react";
-import { PlaceholderDescription } from "../Placeholders/PlaceholderDescription";
 import { PlaceholderList } from "../Placeholders/PlaceholderList";
+import { InputDescription } from "../Inputs/InputDescription";
+import { InputTime } from "../Inputs/indexInputs";
 
 export function TaskForm() {
-    const [activeFormField, setActiveFormField] = useState({
-        timeStart: "placeholder",
-        timeEnd: "placeholder",
-        guest: "placeholder",
-        location: "placeholder",
-        description: "placeholder",
-        user: "placeholder"
-    })
-
-    function handleFormFields(e) {
-        setActiveFormField({
-            ...activeFormField,
-            [e.target.dataset.name] : "input"
-        })
-    }
     return (
         <>
             <div className="icons">
@@ -31,8 +15,7 @@ export function TaskForm() {
                     size="xl"
                 />
             </div>
-
-            <PlaceholderTime activeFormField={activeFormField} handleFormFields={handleFormFields}/>
+            <InputTime/>
 
             <div className="icons">
                 <FontAwesomeIcon
@@ -41,8 +24,7 @@ export function TaskForm() {
                     size="xl"
                 />
             </div>
-
-            <PlaceholderDescription activeFormField={activeFormField} handleFormFields={handleFormFields}/>
+            <InputDescription/>
 
             <div className="icons">
                 <FontAwesomeIcon
@@ -51,7 +33,6 @@ export function TaskForm() {
                     size="xl"
                 />
             </div>
-
             <PlaceholderList/>
         </>
     );
