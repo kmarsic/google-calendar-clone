@@ -4,7 +4,7 @@ import { inputTimeFormat } from "../../../Fncs/Form/timeFormat";
 import { InputTime } from "./../Inputs/indexInputs";
 import { formData, handleFormInputs } from "../../../redux/features/formSlicer";
 
-export function PlaceholderTime({ handleFormFields, activeFormField}) {
+export function PlaceholderTime({ handleFormFields, activeFormField, task}) {
     const form = useSelector(formData);
     const dispatch = useDispatch();
 
@@ -13,7 +13,7 @@ export function PlaceholderTime({ handleFormFields, activeFormField}) {
     }
 
     if (activeFormField.time === "input") {
-        return <InputTime/>
+        return <InputTime task={task}/>
     } else return (
         <div className="input-shell">
 
@@ -25,13 +25,16 @@ export function PlaceholderTime({ handleFormFields, activeFormField}) {
                                     {inputTimeFormat(form.startDate)}
                                 </span>
                             </span>
-                            <span style={{userSelect: "none"}}>&#8212;</span>
 
+                            {task ? null : 
+                            <>
+                            <span style={{userSelect: "none"}}>&#8212;</span>
                             <span className="placeholder-time">
-                                <span className="placeholder-hover" data-name="time" onClick={(e) => handleFormFields(e)}>
-                                    {inputTimeFormat(form.endDate)}
-                                </span>
+                            <span className="placeholder-hover" data-name="time" onClick={(e) => handleFormFields(e)}>
+                                {inputTimeFormat(form.endDate)}
                             </span>
+                            </span>
+                            </>}
                         </span>
                         <div data-name="time" onClick={(e) => handleFormFields(e)}>Does not repeat</div>
                         </span>
