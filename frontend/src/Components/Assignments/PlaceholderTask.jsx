@@ -9,7 +9,6 @@ export function PlaceholderTask({task}) {
     }
 
     const time = new Date(task.startTime);
-    console.log("im alive")
     return (
         <>
         <div
