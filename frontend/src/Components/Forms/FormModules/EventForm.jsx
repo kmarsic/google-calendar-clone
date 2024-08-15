@@ -1,51 +1,32 @@
 /* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faLocationDot, faComment, faCalendarDay, faBell, faUsers} from "@fortawesome/free-solid-svg-icons";
-import { useState} from "react";
-import { PlaceholderLocation, PlaceholderTime, InputUsername } from "../Inputs/indexInputs";
-import { PlaceholderDescription } from "../Placeholders/PlaceholderDescription";
-import { PlaceholderGuest } from "../Placeholders/PlaceholderGuest";
+import { InputUsername, InputTime, InputGuests, InputLocation, InputDescription } from "../Inputs/indexInputs";
 import { InputNotification } from "../Inputs/InputNotification/InputNotification";
 import { handleFormInputs } from "../../../redux/features/formSlicer";
 
 export function EventForm() {
-    
-    const [activeFormField, setActiveFormField] = useState({
-        time: "placeholder",
-        guest: "placeholder",
-        location: "placeholder",
-        description: "placeholder",
-        user: "placeholder"
-    })
-
-    function handleFormFields(e) {
-        setActiveFormField({
-            ...activeFormField,
-            [e.target.dataset.name] : "input"
-        })
-    }
-
     return (
         <>
             <div className="icons">
                 <FontAwesomeIcon icon={faClock} color="var(--text-body)" size="xl"/>
             </div>
-            <PlaceholderTime handleFormFields={handleFormFields} activeFormField={activeFormField} />
+            <InputTime/>
 
             <div className="icons">
                 <FontAwesomeIcon icon={faUsers} color="var(--text-body)" size="xl"/>
             </div>
-            <PlaceholderGuest handleFormFields={handleFormFields} activeFormField={activeFormField}/>
+            <InputGuests/>
 
             <div className="icons">
                 <FontAwesomeIcon icon={faLocationDot} color="var(--text-body)" size="xl"/>
             </div>
-            <PlaceholderLocation  handleFormFields={handleFormFields} activeFormField={activeFormField} />
+            <InputLocation/>
 
             <div className="icons">
                 <FontAwesomeIcon icon={faComment} color="var(--text-body)" size="xl"/>
             </div>
-            <PlaceholderDescription activeFormField={activeFormField} handleFormFields={handleFormFields}/>
+            <InputDescription/>
             
             <div className="icons">
                 <FontAwesomeIcon icon={faCalendarDay} color="var(--text-body)" size="xl"/>
