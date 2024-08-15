@@ -45,7 +45,6 @@ export function RepeatDropdown({container, setDropdown, list, setCustomModal, cu
         if (option === "Custom...") {
             setCustomModal(true);
         }
-        console.log(option)
         setCurrentOption(option);
         setDropdown(e);
     }
