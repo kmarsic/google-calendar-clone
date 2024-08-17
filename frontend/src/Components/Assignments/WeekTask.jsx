@@ -1,24 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-import { allTasks, updateTaskTimeOnDrag } from "../../redux/features/taskSlicer";
-import { calcEditPosition, hourTimeFormat } from "../../Fncs/indexFncs";
-import { useRef, useState } from "react";
-import { AssignmentContextMenu } from "./AssignmentContextMenu.jsx";
-import { AssignmentModal } from "./AssignmentModal";
+import { useDispatch } from "react-redux";
+import { updateTaskTimeOnDrag } from "../../redux/features/taskSlicer.js";
+import { calcEditPosition, hourTimeFormat } from "../../Fncs/indexFncs.js";
+import { useState } from "react";
+import { AssignmentContextMenu } from "./AssignmentContextMenu.jsx.jsx";
+import { AssignmentModal } from "./AssignmentModal.jsx";
 import { useDraggable } from "@dnd-kit/core";
+import checkmark from "./../../styles/icons/checkmark.png"
 
-export function WeekAssignment({date}) {
-    const assignments = useSelector(allTasks);
 
-    function mapAssignments(list) {
-        return list
-            .filter(task => task.startDate === date)
-            .map((task, index) => <Task key={index} task={task} />);
-    }
-
-    return ( <> {mapAssignments(assignments)} </> )
-}
-
-function Task({task}) {
+export function WeekTask({task}) {
     const dispatch = useDispatch();
 
     const [editModalPosition, setEditModalPosition] = useState({top: 0, left: 0});
@@ -29,11 +19,12 @@ function Task({task}) {
     const [height, setHeight] = useState(determineHeight( task.startTime, task.endTime));
 
     const {node, attributes, listeners, setNodeRef, transform} = useDraggable({
-        id: task.startDate,
-        data:{}
+        id: task.uuid,
+        data:task
     })
     const defaultStyle = {
         backgroundColor: task.color,
+        color: "white",
         top: timePosition(task.startTime) ,
         left: 4, 
         height: height
@@ -54,7 +45,7 @@ function Task({task}) {
     return (
         <>
         <div 
-        className='week-assignment' 
+        className="week-assignment" 
         id={task.uuid}
         ref={setNodeRef}
         onContextMenu={(e) => {e.preventDefault();calcEditPosition(e, setEditModalPosition, node);handleEditModal()}}
@@ -66,8 +57,11 @@ function Task({task}) {
         {...listeners}
         {...attributes}
         >
+                {task.type === "form-event" ? null : <img src={checkmark} style={{width: "12px"}}/>}
                 <span>{task.title}</span>
-                <span>{hourTimeFormat(new Date(task.startTime))} - {hourTimeFormat(new Date(task.endTime))}</span>
+                {task.type === "form-event" ? 
+                <span>{hourTimeFormat(new Date(task.startTime))} - {hourTimeFormat(new Date(task.endTime))}</span> : 
+                <span>{hourTimeFormat(new Date(task.startTime))}</span>}
         </div>
         {editModal && <AssignmentContextMenu task={task} modalPosition={editModalPosition} setEditModal={setEditModal}/>}
         {previewModal && <AssignmentModal task={task} container={node} setPreviewModal={setPreviewModal}/>}

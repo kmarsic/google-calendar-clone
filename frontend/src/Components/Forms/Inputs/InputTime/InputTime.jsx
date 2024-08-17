@@ -7,7 +7,7 @@ import { InputRepeat } from "./RepeatModal/InputRepeat";
 import { formData, handleFormInputs } from "../../../../redux/features/formSlicer";
 import { useDispatch, useSelector } from "react-redux";
 
-export const InputTime = () => {
+export const InputTime = ({task}) => {
   const dispatch = useDispatch();
   const form = useSelector(formData);
   const time = form.allDay;
@@ -28,7 +28,7 @@ export const InputTime = () => {
       <div>
         <div className="div-flex">
           <InputTimeStart />
-          {time ? <InputTimeEnd /> : <TimeFrame />}
+          {task ? (time ? null : <TimeFrame/>) : (time ? <InputTimeEnd /> : <TimeFrame />)}
         </div>
         <div>
           <div className="all-day">

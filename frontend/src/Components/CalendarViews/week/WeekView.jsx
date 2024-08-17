@@ -1,18 +1,25 @@
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRef, useState } from "react";
 import { currentDate, setView, switchView } from "../../../redux/features/dateSlicer";
 import { WeekDays } from "./WeekDays";
 import { DaytimeGrid } from "../DaytimeGrid";
 import { motion } from "framer-motion";
 import { calendarVariant } from "../../../Fncs/framerVariants";
 import { TimeLegend} from "../TimeLegend";
-import { DndContext } from "@dnd-kit/core";
+import { DndContext, DragOverlay, MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { modifyTask } from "../../../redux/features/taskSlicer";
+import { WeekTask } from "../../Assignments/WeekTask";
+import {createSnapModifier, restrictToFirstScrollableAncestor, restrictToParentElement, restrictToVerticalAxis, restrictToWindowEdges} from "@dnd-kit/modifiers"
 
 export function WeekView() {
     const mainDate = new Date(useSelector(currentDate));
     const switches = useSelector(switchView);
+    const dispatch = useDispatch();
 
     const [navBorder, setNavBorder] = useState(false);
+    const [activeDrag, setActiveDrag] = useState(null);
+
+    const gridRef = useRef(null);
 
     const showWeekGrid = () => {
         const grid = [];
@@ -60,8 +67,30 @@ export function WeekView() {
         } else setNavBorder(true);
     }
 
+    function handleDragEnd(event) {
+        const {active, over} = event;
+        console.log(active,over, event)
+        dispatch(modifyTask({
+            type: "startDate",
+            uuid: active.id,
+            payload: over.id
+        }))
+        setActiveDrag(null);
+    }
+
+    function handleDragStart(event) {
+        console.log(event)
+        setActiveDrag(event.active.data.current)
+    }
+
+    const gridSize = 15;
+    const snapToGridModifier = createSnapModifier(gridSize)
+
     return (
-        <DndContext>
+        <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart} modifiers={[restrictToVerticalAxis, snapToGridModifier]} >
+            <DragOverlay adjustScale={false} dropAnimation={null}>
+                <WeekTask task={activeDrag}/>
+            </DragOverlay>
             <motion.div
             className="week-view"
             key={mainDate}
@@ -80,7 +109,7 @@ export function WeekView() {
                 </div>
                 <motion.div className="week-cal-body" onScroll={(e) => handleScroll(e)}>
                     <div className="time-frames"><TimeLegend/></div>
-                    <div className="week-cal-grid">
+                    <div className="week-cal-grid" ref={gridRef}>
                         <div className="hairline"></div>
                         {showWeekGrid()}
                     </div>

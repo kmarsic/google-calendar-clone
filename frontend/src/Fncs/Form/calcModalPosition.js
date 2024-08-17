@@ -7,7 +7,6 @@ export const calcModalPosition = (clickedElement,setPosition, view) => {
     const maxModalHeight = 610;
     let adjustedLeft;
     let adjustedTop;
-    console.log(view)
     if (view === "Day") {
         adjustedLeft = container.width / 2;
         adjustedTop = 270;

@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import { allTasks } from "../../redux/features/taskSlicer";
 import { useEffect, useState } from "react";
 import { OverflowModal } from "./OverflowModal";
-import { Task } from "./Task";
 import { BoxOverflow } from "./BoxOverflow";
+import { MonthTask } from "./MonthTask";
 
 export function Assignment({date}) {
     const assignments = useSelector(allTasks);
@@ -19,7 +19,7 @@ export function Assignment({date}) {
             )
         })
         const mapped = filtered.map((task, index) => {
-            return <Task key={index} task={task}/>
+            return <MonthTask key={index} task={task}/>
         })
         return mapped
     }

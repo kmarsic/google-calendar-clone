@@ -67,7 +67,10 @@ export function NewTaskForm({ clickedElement, onClose, dragBorder }) {
         e.preventDefault();
         if (!form.title) return;
         dispatch(postData(form));
-        dispatch(addTask(form));
+        dispatch(handleFormInputs({type: "startTime", payload: ""}));
+        dispatch(handleFormInputs({type: "endTime", payload: ""}));
+        dispatch(handleFormInputs({type: "startDate", payload: ""}));
+        dispatch(handleFormInputs({type: "endDate", payload: ""}));
         onClose();
     }
 

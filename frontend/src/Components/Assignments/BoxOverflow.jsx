@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { Task } from "./Task"
 import { allTasks } from "../../redux/features/taskSlicer";
+import { MonthTask } from "./MonthTask";
 
 export function BoxOverflow({date, setModalVisible}) {
     const list = useSelector(allTasks);
@@ -10,7 +10,7 @@ export function BoxOverflow({date, setModalVisible}) {
     const mappedList = filtered.map((task,index) => {
         if (index >= 3) {
             return
-        } else return <Task key={index} task={task}/>
+        } else return <MonthTask key={index} task={task}/>
     })
     return (
         <>

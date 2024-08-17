@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Task } from "./Task";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { allTasks } from "../../redux/features/taskSlicer";
 import { setDate } from "../../redux/features/dateSlicer";
+import { MonthTask } from "./MonthTask";
 
 export function OverflowModal({ setModalVisible, date }) {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export function OverflowModal({ setModalVisible, date }) {
     return task.startDate == date;
   });
   const mapped = filtered.map((task, index) => {
-    return <Task key={index} task={task} />;
+    return <MonthTask key={index} task={task} />;
   });
   return (
     <>
